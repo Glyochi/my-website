@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer {
+
+    .videoContainer {
+
+        @apply w-3/4 aspect-video bg-blue-600;
+    }
+
+
+}

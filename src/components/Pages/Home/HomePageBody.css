@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+
+    .homePageContentContainer {
+        @apply flex flex-col justify-start items-center h-screen w-screen;
+    }
+
+    .homePageContent {
+        @apply flex flex-col justify-evenly items-center h-3/4 w-screen;
+    }
+
+
+    /*--------------------------------------- About Me css ---------------------------------------*/
+    
+    .aboutMe {
+        @apply flex flex-row justify-evenly items-center h-3/5 w-3/4 bg-gray-500 rounded-3xl
+            bg-opacity-80
+        ;
+    }
+
+
+  
+    .pfpBorder {
+        @apply overflow-hidden h-72 w-72 rounded-full
+        shadow-none
+        transition-all duration-300 
+        /* hover:shadow-[15px_30px_60px_-15px_rgba(0,0,0,1)]
+        hover:mb-8 hover:mr-8
+        hover:duration-200 */
+        ;
+
+    }
+
+    .pfp {
+        @apply scale-[2.1] ml-[-20px] mt-[70px]
+        transition-all duration-300
+        /* hover:scale-[3] 
+        hover:translate-x-[-30px]
+        hover:translate-y-[90px]
+        hover:duration-200 */
+        ;
+    }
+
+
+    .descriptionBorder{
+        @apply flex flex-col justify-evenly items-center  w-3/5 h-4/5;
+    }
+
+    .description{
+        @apply flex flex-col justify-evenly items-center
+        
+        px-2
+        py-4
+        rounded-3xl
+        shadow-none
+        transition-all duration-300
+        /* hover:shadow-[15px_30px_60px_-15px_rgba(0,0,0,1)]
+        hover:mb-4 hover:mr-4
+        hover:duration-100 */
+        ;
+    }
+}

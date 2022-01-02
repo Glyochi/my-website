@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+    --baseDelay: 60ms;
+    --transitionDuration: 100ms;
+    --transitionGap: 60ms
+}
+
+.drop-down-animation-0-enter{
+    opacity: 0;
+}
+.drop-down-animation-0-enter-active{
+    opacity: 1;
+    transition:opacity var(--transitionDuration) calc(var(--baseDelay) + var(--transitionGap) * 0) ease-in;
+}
+
+.drop-down-animation-0-exit{
+    opacity: 1;
+}
+.drop-down-animation-0-exit-active{
+    opacity: 0;
+    transition:opacity var(--transitionDuration) calc(var(--baseDelay) + var(--transitionGap) * 0) ease-in;
+}
+
+.drop-down-animation-1-enter{
+    opacity: 0;
+}
+.drop-down-animation-1-enter-active{
+    opacity: 1;
+    transition:opacity var(--transitionDuration) calc(var(--baseDelay) + var(--transitionGap) * 1) ease-in;
+}
+.drop-down-animation-1-exit{
+    opacity: 1;
+}
+.drop-down-animation-1-exit-active{
+    opacity: 0;
+    transition:opacity var(--transitionDuration) calc(var(--baseDelay) + var(--transitionGap) * 1) ease-in;
+}
+
+.drop-down-animation-2-enter{
+    opacity: 0;
+}
+.drop-down-animation-2-enter-active{
+    opacity: 1;
+    transition:opacity var(--transitionDuration) calc(var(--baseDelay) + var(--transitionGap) * 2) ease-in;
+}
+.drop-down-animation-2-exit{
+    opacity: 1;
+}
+.drop-down-animation-2-exit-active{
+    opacity: 0;
+    transition:opacity var(--transitionDuration) calc(var(--baseDelay) + var(--transitionGap) * 2) ease-in;
+}
+
+
+@layer components{
+    
+    .NavBarLeftBtnContainer {
+        @apply  relative flex flex-row items-start justify-center
+        h-fit w-fit my-auto mx-auto
+
+    }
+
+    .NavBarLeftBtn {
+        @apply  relative flex 
+        h-fit w-fit my-auto mx-auto text-xl text-white
+
+        py-[0.25rem]
+        px-[0.8rem]
+        rounded-3xl
+
+        transition-all duration-200 ease-linear
+       hover:text-emerald-400
+
+    }
+
+        
+
+    .DropDownOptionContainer {
+        @apply flex flex-col justify-evenly items-start
+        absolute 
+        w-[200%]
+        pt-2
+        translate-y-9
+        translate-x-[24%]
+        ;
+    }
+
+    .DropDownOption {
+        @apply relative flex justify-center items-center bg-emerald-400 rounded-3xl w-fit mt-2
+        
+        
+        transition-all duration-[600ms] ease-linear
+        hover:bg-emerald-600
+        
+        hover:duration-100
+        hover:text-white
+
+        hover:translate-x-[-3px]
+        hover:translate-y-[-4px]
+       
+      
+    }
+
+    .DropDownContent{
+        @apply  px-5
+        py-0.5
+        ;
+    }
+
+    .NavBarRightBtn {
+        @apply relative flex items-center justify-center 
+        h-12 w-24 my-auto mx-auto bg-white rounded-3xl 
+        text-xl font-semibold text-green-800
+
+        transition-all duration-200 ease-linear
+        hover:font-bold hover:text-2xl
+        hover:w-32 hover:h-14
+        hover:text-teal-50 hover:bg-green-700
+
+        ;
+    }
+  
+}
+
