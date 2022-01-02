@@ -8,17 +8,13 @@ function VideoPlayer() {
     const frameRate = 24;
     const frameTime = 1000 / frameRate;
 
-    const [videoStream, setVideoStream] = useState(null);
-
+   
 
     const [serverData, setServerData] = useState(null);
 
-    /**This is a workaround for some reasons setState doesnt work very well when you 
-     * dont initialize the videoSOcket to be a socket object
-    */
-    var temp = io(SERVER);
-    const [socketio, setSocketIO] = useState(temp);
-    const [videoSocket, setVideoSocket] = useState(temp.connect());
+    var videoStream = useRef(null);
+    var socketio = useRef(null);
+    var videoSocket = useRef(null);
 
     const getVideo = () => {
         navigator.mediaDevices.getUserMedia({
@@ -26,28 +22,30 @@ function VideoPlayer() {
                 width: 1920,
                 height: 1090,
                 frameRate: frameRate,
-            }
+            
+            },
+            audio: false,
+            
         })
             .then(stream => {
+                
+                videoStream.current = stream;
+
+
                 let video = videoRef.current;
                 video.srcObject = stream;
                 video.play();
 
-                
-
-                //Recoder object allows us to access raw binary data stream from the camera
-
                 const recorder = new MediaRecorder(stream);
                 recorder.ondataavailable = (event) => {
-                    // console.log(event.data);
-
-                    videoSocket.emit('message', { message: "reeee" });
+                    console.log(event.data);
+                    console.log("reee");
+                    videoSocket.current.emit('message', { message: "reeee" });
                 }
 
                 //Recoder object starts after every new frame is received
                 recorder.start(frameTime);
                 
-                // setVideoStream(stream);
             })
             .catch(err => {
                 console.error(err);
@@ -56,17 +54,12 @@ function VideoPlayer() {
 
 
     useEffect(() => {
-
-        //io(SERVER).connect to return a socket object
-        var tempSocketIO = io(SERVER);
-        setSocketIO(tempSocketIO);
-        var tempSocket = tempSocketIO.connect();
-        setVideoSocket(tempSocket);
-        // videoSocket.emit('message', { message: "reeee" });
+        
+        socketio.current = io(SERVER);
+        videoSocket.current = socketio.current.connect();
 
         return () => {
-            // socketio.disconnect();
-            // videoStream.getTracks.forEach((track) => track.stop());
+            videoStream.current.getTracks().forEach((track) => track.stop());
         }
 
     }, [])
@@ -77,47 +70,11 @@ function VideoPlayer() {
 
         getVideo();
 
-
-        return {
+        return () => {
         }
     }, [videoRef])
 
-    // useEffect(() => {
-
-    //     return () => {
-    //         socketio.disconnect();
-    //     }
-    // }, [])
-
-    // //For websocket initialization
-    // useEffect(() => {
-
-    //     var socket = new socketClient(SERVER);
-
-    //     console.log("reeeee");
-
-    //     websocket.onopen = () => {
-    //         console.log("connected");
-    //     }
-
-    //     websocket.onmessage = evt => {
-
-    //         const message = JSON.parse(evt.data);
-    //         setServerData(message);
-    //         console.log("REEEEEEEEEEEE" );
-    //         console.log(message);
-
-    //     }
-
-    //     websocket.onclose = () => {
-    //         console.log('disconnected');
-    //     }
-
-
-    //     setWS(websocket);
-
-
-    // }, [])
+   
 
 
     return (
