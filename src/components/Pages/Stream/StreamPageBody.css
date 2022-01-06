@@ -6,8 +6,8 @@
 @layer {
 
     .videoContainer {
-
-        @apply w-3/4 aspect-video bg-blue-600;
+        /* aspect-ratio */
+        @apply w-3/4 bg-blue-600;
     }
 
 
