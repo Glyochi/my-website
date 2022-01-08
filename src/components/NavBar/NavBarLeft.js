@@ -73,6 +73,7 @@ function NavBarLeftBtn(props) {
     useEffect(() => {
         function handleClickOutside(event) {
             if (clicked && btnRef.current && !btnRef.current.contains(event.target)) {
+                console.log("Reeee")
                 setClicked(false)
             }
         }

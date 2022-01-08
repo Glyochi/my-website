@@ -1,5 +1,5 @@
-import VideoStreamingComponent from "./VideoStreamingComponent"
-import VideoPlayer from "./VideoPlayer"
+
+import DemoTimeStep from "./DemoTimeStep"
 
 
 function StreamPageBody() {
@@ -8,7 +8,7 @@ function StreamPageBody() {
             <div className=" flex flex-col justify-center items-center w-3/4 bg-purple-600">
                 <div>Toggles + Explaination</div>
                 {/* <div className="videoContainer  w-3/4  bg-blue-600"> */}
-                    <VideoPlayer></VideoPlayer>
+                    <DemoTimeStep></DemoTimeStep>
 
                 {/* </div> */}
                 <div>Stats + other stuffs</div>

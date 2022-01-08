@@ -4,9 +4,10 @@ import { io } from "socket.io-client"
 
 class VideoSocketService_NewTrick {
 
-    constructor(url, drawOnCanvasFunction) {
+    constructor(url, drawOnCanvasFunction, displayRef) {
 
         this.drawOnCanvas = drawOnCanvasFunction
+        this.displayRef = displayRef
 
         this.socketio = io(url)
         this.videoSocket = null
@@ -105,6 +106,7 @@ class VideoSocketService_NewTrick {
                     // console.log("ACTUAL DELAY " + actualDelay)
 
                     console.log("Delay: " + delayThen.toFixed(2) + " ms")
+                    this.displayRef.current.innerText = delayThen.toFixed(2) + " ms"
 
                     for (let i = 0; i < frameID - vss.latestDrawnFrameID; i++){
                         vss.frameSentTime.shift()
@@ -129,6 +131,7 @@ class VideoSocketService_NewTrick {
                 // console.log("ACTUAL DELAY " + actualDelay)
 
                 console.log("Delay: " + actualDelay.toFixed(2) + " ms")
+                this.displayRef.current.innerText = actualDelay.toFixed(2) + " ms"
                 
                 
                 for (let i = 0; i < frameID - this.latestDrawnFrameID; i++){
