@@ -7,6 +7,8 @@
 @import "./components/Pages/Resume/ResumePageBody.css";
 @import "./components/Pages/Stream/StreamPageBody.css";
 
+
+
 @layer components {
     .Page {
         @apply absolute overflow-auto bg-gradient-to-b to-emerald-800 from-gray-800

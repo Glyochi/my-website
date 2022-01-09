@@ -1,5 +1,5 @@
 
-import DemoTimeStep from "./DemoTimeStep"
+import DemoTimeStep from "./Demos/DemoTimeStep"
 
 
 function StreamPageBody() {

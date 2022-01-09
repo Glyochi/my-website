@@ -1,13 +1,15 @@
 import { bgcolor, height } from "@mui/system";
 import React, { useRef, useState, useEffect, useCallback } from "react";
+import { CSSTransition } from "react-transition-group";
 import Webcam from "react-webcam";
-import VideoSocketService from "./Socket/VideoSocketService_OldTrick";
 
 import { io } from "socket.io-client"
-import VideoSocketService2 from "./Socket/VideoSocketService_NoTrick";
-import VideoSocketService_OldTrick from "./Socket/VideoSocketService_OldTrick";
-import VideoSocketService_NewTrick from "./Socket/VideoSocketService_NewTrick";
-import VideoSocketService_NoTrick from "./Socket/VideoSocketService_NoTrick";
+
+// Importing CSS file
+import "./DemoTimeStep.css"
+
+import VideoSocketService_NewTrick from "../Socket/VideoSocketService_NewTrick";
+import VideoSocketService_NoTrick from "../Socket/VideoSocketService_NoTrick";
 
 function VideoPlayer() {
     const SERVER = "http://127.0.0.1:5000/";
@@ -22,8 +24,8 @@ function VideoPlayer() {
     const rightCanvasContainerRef = useRef(null);
     const [leftCanvasContainerWidth, setLeftCanvasContainerWidth] = useState('45%');
     const [rightCanvasContainerWidth, setRightCanvasContainerWidth] = useState('45%');
-    const leftCanvasDelayDisplayer = useRef(null);
-    const rightCanvasDelayDisplayer  = useRef(null);
+    const leftDisplayer = useRef(null);
+    const rightDisplayer = useRef(null);
 
 
 
@@ -57,8 +59,8 @@ function VideoPlayer() {
 
 
 
-    var videoSocketService_NoTrick = useRef(null);
-    var videoSocketService_NewTrick = useRef(null);
+    var videoSocketService_LeftCanvas = useRef(null);
+    var videoSocketService_RightCanvas = useRef(null);
 
 
 
@@ -112,8 +114,8 @@ function VideoPlayer() {
 
     useEffect(() => {
 
-        videoSocketService_NoTrick.current = new VideoSocketService_NoTrick(SERVER, drawOnLeftCanvasFunction, leftCanvasDelayDisplayer);
-        videoSocketService_NewTrick.current = new VideoSocketService_NewTrick(SERVER, drawOnRightCanvasFunction, rightCanvasDelayDisplayer)
+        videoSocketService_LeftCanvas.current = new VideoSocketService_NoTrick(SERVER, drawOnLeftCanvasFunction, leftDisplayer);
+        videoSocketService_RightCanvas.current = new VideoSocketService_NewTrick(SERVER, drawOnRightCanvasFunction, rightDisplayer)
 
 
         return () => {
@@ -152,8 +154,8 @@ function VideoPlayer() {
 
         if (base64_image != null) {
             //Sending the image to the server
-            videoSocketService_NoTrick.current.sendNextBase64Frame(base64_image);
-            videoSocketService_NewTrick.current.sendNextBase64Frame(base64_image);
+            videoSocketService_LeftCanvas.current.sendNextBase64Frame(base64_image);
+            videoSocketService_RightCanvas.current.sendNextBase64Frame(base64_image);
         }
 
 
@@ -163,8 +165,8 @@ function VideoPlayer() {
 
         if (!recording.current) {
 
-            videoSocketService_NoTrick.current.connect(frameRate);
-            videoSocketService_NewTrick.current.connect(frameRate);
+            videoSocketService_LeftCanvas.current.connect(frameRate);
+            videoSocketService_RightCanvas.current.connect(frameRate);
 
             updateCanvasInterval.current = setInterval(() => {
                 capture();
@@ -172,8 +174,8 @@ function VideoPlayer() {
 
         } else {
             clearInterval(updateCanvasInterval.current);
-            videoSocketService_NoTrick.current.disconnect();
-            videoSocketService_NewTrick.current.disconnect();
+            videoSocketService_LeftCanvas.current.disconnect();
+            videoSocketService_RightCanvas.current.disconnect();
         }
 
         recording.current = !recording.current;
@@ -188,7 +190,7 @@ function VideoPlayer() {
     const focusRightCanvasState = 1;
 
     function handleClickOutside(event) {
-        if ((focusState == 1 || focusState == -1)
+        if ((focusState === 1 || focusState === -1)
             && (leftCanvasRef.current && rightCanvasRef.current)
             && (!leftCanvasRef.current.contains(event.target) && !rightCanvasRef.current.contains(event.target))) {
             console.log("reee")
@@ -205,7 +207,7 @@ function VideoPlayer() {
     const [focusState, setFocusState] = useState(focusNeutralState);
     useEffect(() => {
 
-        if (focusState != focusNeutralState)
+        if (focusState !== focusNeutralState)
             document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
@@ -266,14 +268,8 @@ function VideoPlayer() {
                 "
                     ref={leftCanvasContainerRef}
 
-                    // style={{
-                    //     width: leftCanvasContainerWidth,
-                    //     transitionProperty: 'all',
-                    //     transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-                    //     transitionDuration: '500ms'
-                    // }}
 
-                    style={(focusState == focusNeutralState) ?
+                    style={(focusState === focusNeutralState) ?
                         {
                             width: leftCanvasContainerWidth,
                             // transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -294,10 +290,12 @@ function VideoPlayer() {
                 >
                     <div className="leftCanvasWrapper w-[100%] aspect-video transition-transform: duration-500 ease-in-out"
 
-                        style={(focusState == focusRightCanvasState) ?
+                        style={(focusState === focusRightCanvasState) ?
                             {
                                 transitionDuration: '500ms',
-                                transform: 'translate(0, 17.75vh)',
+                                transform: 'translate(0, 13vh)',
+                                // transform: 'translate(0, 17.75vh)',
+                                // transform: 'translate(0, 80%)',
                                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
                             }
                             :
@@ -313,28 +311,40 @@ function VideoPlayer() {
                         }
 
                     >
-                        {
-                            (focusState == focusRightCanvasState) ?
-                                <div  ref={rightCanvasDelayDisplayer} className="absolute translate-y-[-6vh] bg-yellow-600">RIGHT STAT CHART</div>
-                                :
-                                <></>
-                        }
+                        <CSSTransition
+                            in={focusState == focusRightCanvasState}
+                            timeout={{
+                                enter: 500,
+                                exit: 500,
+                            }}
+                            classNames="leftDisplayerTransition"
+                            unmountOnExit
+                        >
+                            <div ref={leftDisplayer} className="leftDisplayer-leftSide">RIGHT STAT CHART</div>
+                        </CSSTransition>
 
-                        {
-                            (focusState != focusLeftCanvasState) ?
-                                <div  ref={leftCanvasDelayDisplayer} className="absolute translate-y-[-3vh] bg-yellow-600">LEFT STAT CHART</div>
-                                :
-                                <></>
-                        }
 
-                        <canvas width={leftCanvasWidth} height={leftCanvasHeight} className="w-[100%] aspect-video transition-all: duration-500 " ref={leftCanvasRef}
+                        <CSSTransition
+                            in={focusState !== focusLeftCanvasState}
+                            timeout={{
+                                enter: 500,
+                                exit: 500,
+                            }}
+                            classNames="leftDisplayerTransition"
+                            unmountOnExit
+                        >
+                            <div ref={rightDisplayer} className="rightDisplayer-leftSide">LEFT STAT CHART</div>
 
-                            style={focusState == focusNeutralState ?
+                        </CSSTransition>
+                       
+                        <canvas width={leftCanvasWidth} height={leftCanvasHeight} className="w-[100%] aspect-video transition-all: duration-500 bg-yellow-800 " ref={leftCanvasRef}
+
+                            style={focusState === focusNeutralState ?
                                 {
                                     borderRadius: '3rem',
                                 }
                                 :
-                                ((focusState == focusLeftCanvasState) ?
+                                ((focusState === focusLeftCanvasState) ?
                                     {
                                         borderRadius: '2rem',
                                     }
@@ -362,7 +372,7 @@ function VideoPlayer() {
                     ref={rightCanvasContainerRef}
 
 
-                    style={(focusState == focusNeutralState) ?
+                    style={(focusState === focusNeutralState) ?
                         {
                             width: rightCanvasContainerWidth,
                             // transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -383,10 +393,12 @@ function VideoPlayer() {
                 >
                     <div className="rightCanvasWrapper w-[100%] aspect-video transition-transform: duration-500 ease-in-out"
 
-                        style={(focusState == focusLeftCanvasState) ?
+                        style={(focusState === focusLeftCanvasState) ?
                             {
                                 transitionDuration: '500ms',
-                                transform: 'translate(0, 17.75vh)',
+                                transform: 'translate(0, 13vh)',
+                                // transform: 'translate(0, 17.75vh)',
+                                // transform: 'translate(0, 80%)',
                                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
                             }
                             :
@@ -404,27 +416,42 @@ function VideoPlayer() {
 
                     >
 
-                        {
-                            (focusState == focusLeftCanvasState) ?
-                                <div ref={leftCanvasDelayDisplayer} className="absolute translate-y-[-6vh] bg-yellow-600">LEFT STAT CHART</div>
-                                :
-                                <></>
-                        }
 
-                        {
-                            (focusState != focusRightCanvasState) ?
-                                <div ref={rightCanvasDelayDisplayer} className="absolute translate-y-[-3vh] bg-yellow-600">RIGHT STAT CHART</div>
-                                :
-                                <></>
-                        }
 
-                        <canvas width={rightCanvasWidth} height={rightCanvasHeight} className="w-[100%] aspect-video  transition-all: duration-500"
-                            style={focusState == focusNeutralState ?
+                        <CSSTransition
+                            in={focusState == focusLeftCanvasState}
+                            timeout={{
+                                enter: 500,
+                                exit: 500,
+                            }}
+                            classNames="rightDisplayerTransition"
+                            unmountOnExit
+                        >
+                            <div ref={leftDisplayer} className="leftDisplayer-rightSide">LEFT STAT CHART</div>
+                        </CSSTransition>
+
+
+                        <CSSTransition
+                            in={focusState !== focusRightCanvasState}
+                            timeout={{
+                                enter: 500,
+                                exit: 500,
+                            }}
+                            classNames="rightDisplayerTransition"
+                            unmountOnExit
+                        >
+                            <div ref={rightDisplayer} className="rightDisplayer-rightSide">RIGHT STAT CHART</div>
+
+                        </CSSTransition>
+
+
+                        <canvas width={rightCanvasWidth} height={rightCanvasHeight} className="w-[100%] aspect-video transition-all: duration-500 bg-yellow-800"
+                            style={focusState === focusNeutralState ?
                                 {
                                     borderRadius: '3rem',
                                 }
                                 :
-                                ((focusState == focusLeftCanvasState) ?
+                                ((focusState === focusLeftCanvasState) ?
                                     {
                                         borderRadius: '4rem',
                                     }

@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 
-@layer {
+@layer utilities,components{
+
+
+
 
     .videoContainer {
         /* aspect-ratio */
