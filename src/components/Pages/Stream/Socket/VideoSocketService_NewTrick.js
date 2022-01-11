@@ -4,9 +4,9 @@ import { io } from "socket.io-client"
 
 class VideoSocketService_NewTrick {
 
-    constructor(url, drawOnCanvasFunction, displayRef) {
+    constructor(url, canvasArtist, displayRef) {
 
-        this.drawOnCanvas = drawOnCanvasFunction
+        this.artist = canvasArtist
         this.displayRef = displayRef
 
         this.socketio = io(url)
@@ -97,16 +97,13 @@ class VideoSocketService_NewTrick {
                     if(frameID <= vss.latestDrawnFrameID)
                         return
 
-                    vss.drawOnCanvas(base64_responseFrame)
+                    // Draw the frame on canvas
+                    vss.artist.draw(base64_responseFrame);
                     
-                    // console.log("FRAMEID " + frameID + "------------------------------------------")
-                    // console.log("LAST DELAY " + vss.delay)
-                    // console.log("FRAMES AHEAD " + (frameID - vss.latestDrawnFrameID))
-                    // console.log("DESIRED DELAY " + desiredDelay)
-                    // console.log("ACTUAL DELAY " + actualDelay)
-
-                    console.log("Delay: " + delayThen.toFixed(2) + " ms")
-                    this.displayRef.current.innerText = delayThen.toFixed(2) + " ms"
+                  
+                    // Update the stats on the statDisplayer
+                    this.displayRef.addDelay(delayThen);
+                    this.displayRef.drawOnDisplayer();
 
                     for (let i = 0; i < frameID - vss.latestDrawnFrameID; i++){
                         vss.frameSentTime.shift()
@@ -122,16 +119,15 @@ class VideoSocketService_NewTrick {
             } else {
 
                 // If the delay increases (actualDelay > lastDelay) or the amount of delay decrease (lastDelay - actualDelay) is not as large as DELAY_REDUCING_OFFSET then
-                this.drawOnCanvas(base64_responseFrame)
+                // Draw the frame on canvas
+                this.artist.draw(base64_responseFrame);
                 
-                // console.log("FRAMEID " + frameID + "-----------------------------------------")
-                // console.log("LAST DELAY " + this.delay)
-                // console.log("FRAMES AHEAD " + (frameID - this.latestDrawnFrameID))
-                // console.log("DESIRED DELAY " + desiredDelay)
-                // console.log("ACTUAL DELAY " + actualDelay)
 
-                console.log("Delay: " + actualDelay.toFixed(2) + " ms")
-                this.displayRef.current.innerText = actualDelay.toFixed(2) + " ms"
+
+
+                // Update the stats on the statDisplayer
+                this.displayRef.addDelay(actualDelay);
+                this.displayRef.drawOnDisplayer();
                 
                 
                 for (let i = 0; i < frameID - this.latestDrawnFrameID; i++){
@@ -148,7 +144,10 @@ class VideoSocketService_NewTrick {
 
     disconnect = () => {
         this.playing = false
-        this.videoSocket.disconnect(this.client_id)
+        if(this.videoSocket != null){
+            this.videoSocket.emit('cleanup', this.client_id)
+            this.videoSocket.disconnect()
+        }
     }
 
     // This function send the next frame to the server

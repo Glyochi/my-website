@@ -1,0 +1,704 @@
+import { bgcolor, height } from "@mui/system";
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import { CSSTransition } from "react-transition-group";
+import Webcam from "react-webcam";
+
+import { io } from "socket.io-client"
+
+// Importing CSS file
+import "./DemoTimeStep.css"
+
+
+import VideoSocketService_NewTrick from "../../Socket/VideoSocketService_NewTrick";
+import VideoSocketService_NoTrick from "../../Socket/VideoSocketService_NoTrick";
+
+import StatDisplayer from "../StatDisplayer/StatDisplayer";
+import StatManager from "../StatDisplayer/StatManager";
+import CanvasArtist from "../CanvasArtists/CanvasArtist";
+
+function VideoPlayer() {
+    const SERVER = "http://127.0.0.1:5000/";
+
+    const videoRef = useRef(null);
+
+
+    const leftCanvasRef = useRef(null);
+    const rightCanvasRef = useRef(null);
+    const leftCanvasContainerRef = useRef(null);
+    const rightCanvasContainerRef = useRef(null);
+
+    const [leftCanvasContainerWidth, setLeftCanvasContainerWidth] = useState('45%');
+    const [rightCanvasContainerWidth, setRightCanvasContainerWidth] = useState('45%');
+
+
+
+    const leftSide_leftDisplayer = useRef(null);
+    const leftSide_rightDisplayer = useRef(null);
+    const rightSide_leftDisplayer = useRef(null);
+    const rightSide_rightDisplayer = useRef(null);
+
+
+
+
+
+
+
+
+
+    const frameRate = 24;
+    const frameTime = 1000 / frameRate;
+
+    const videoResHeight = 720;
+    const videoResWidth = 1280;
+    // const videoResHeight = 1080;
+    // const videoResWidth = 1920;
+    const facialDetectionVideoResHeight = 400;
+    const facialDetectionVideoResWidth = facialDetectionVideoResHeight * 1280 / 720
+
+
+    const [leftCanvasWidth, setLeftCanvasWidth] = useState(0);
+    const [leftCanvasHeight, setLeftCanvasHeight] = useState(0);
+    const [rightCanvasWidth, setRightCanvasWidth] = useState(0);
+    const [rightCanvasHeight, setRightCanvasHeight] = useState(0);
+
+
+
+    var recording = useRef(false);
+    var updateCanvasInterval = useRef();
+
+
+
+
+    var videoSocketService_LeftCanvas = useRef(null);
+    var videoSocketService_RightCanvas = useRef(null);
+
+
+
+
+
+
+
+
+
+
+
+    useEffect(() => {
+
+
+        let leftCanvasHelperFunctions = { setCanvasHeight: setLeftCanvasHeight, setCanvasWidth: setLeftCanvasWidth };
+        let rightCanvasHelperFunctions = { setCanvasHeight: setRightCanvasHeight, setCanvasWidth: setRightCanvasWidth };
+
+        videoSocketService_LeftCanvas.current = new VideoSocketService_NoTrick(SERVER,
+            new CanvasArtist(leftCanvasRef, leftCanvasContainerRef, leftCanvasHelperFunctions),
+            new StatManager(leftSide_leftDisplayer, rightSide_leftDisplayer));
+
+        videoSocketService_RightCanvas.current = new VideoSocketService_NewTrick(SERVER,
+            new CanvasArtist(rightCanvasRef, rightCanvasContainerRef, rightCanvasHelperFunctions),
+            new StatManager(leftSide_rightDisplayer, rightSide_rightDisplayer))
+
+
+        return () => {
+        }
+
+    }, [])
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // SCRIPTS FOR TOGGLING RECORD AND NOT RECORDING MODE //
+    ////////////////////////////////////////////////////////
+
+
+    const toggleButton = useRef(null);
+    const [toggleButtonPressed, setToggleButtonPressed] = useState(false);
+
+    //Clearing the interval when going to other pages
+    useEffect(() => {
+
+        return () => {
+            clearInterval(updateCanvasInterval.current);
+
+            if (videoSocketService_LeftCanvas.current != null)
+                videoSocketService_LeftCanvas.current.disconnect();
+            if (videoSocketService_RightCanvas.current != null)
+                videoSocketService_RightCanvas.current.disconnect();
+
+
+        }
+    }, [videoRef])
+
+
+
+
+
+
+
+    // Capture the image from the webcam and send that to the server
+    const capture = () => {
+        var base64_image = videoRef.current.getScreenshot({
+            width: facialDetectionVideoResWidth,
+            height: facialDetectionVideoResHeight
+        });
+
+        if (base64_image != null) {
+            //Sending the image to the server
+            videoSocketService_LeftCanvas.current.sendNextBase64Frame(base64_image);
+            videoSocketService_RightCanvas.current.sendNextBase64Frame(base64_image);
+        }
+
+
+    }
+
+    const toggle = () => {
+
+        if (!recording.current) {
+
+            videoSocketService_LeftCanvas.current.connect(frameRate);
+            videoSocketService_RightCanvas.current.connect(frameRate);
+
+            updateCanvasInterval.current = setInterval(() => {
+                capture();
+            }, frameTime);
+
+
+            toggleButton.current.innerText = "Stop";
+
+        } else {
+            clearInterval(updateCanvasInterval.current);
+            videoSocketService_LeftCanvas.current.disconnect();
+            videoSocketService_RightCanvas.current.disconnect();
+
+
+            toggleButton.current.innerText = "Start";
+        }
+
+        recording.current = !recording.current;
+    }
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // SCRIPTS FOR RESIZING CANVAS WHEN USER CLICK ON THEM //
+    /////////////////////////////////////////////////////////
+    const focusLeftCanvasState = -1;
+    const focusNeutralState = 0;
+    const focusRightCanvasState = 1;
+    const leftSide_leftDisplayerWrapper = useRef(null);
+    const leftSide_rightDisplayerWrapper = useRef(null);
+    const rightSide_leftDisplayerWrapper = useRef(null);
+    const rightSide_rightDisplayerWrapper = useRef(null);
+
+    function handleClickOutside(event) {
+        if ((focusState === 1 || focusState === -1)
+            && (leftCanvasRef.current && rightCanvasRef.current)
+            && !leftCanvasRef.current.contains(event.target) && !rightCanvasRef.current.contains(event.target)
+            && !toggleButton.current.contains(event.target)
+            && !(leftSide_leftDisplayerWrapper.current != null && leftSide_leftDisplayerWrapper.current.contains(event.target))
+            && !(leftSide_rightDisplayerWrapper.current != null && leftSide_rightDisplayerWrapper.current.contains(event.target))
+            && !(rightSide_leftDisplayerWrapper.current != null && rightSide_leftDisplayerWrapper.current.contains(event.target))
+            && !(rightSide_rightDisplayerWrapper.current != null && rightSide_rightDisplayerWrapper.current.contains(event.target))
+        ) {
+            setFocusState(focusNeutralState);
+
+            setLeftCanvasContainerWidth('45%')
+            setRightCanvasContainerWidth('45%')
+
+
+        }
+    }
+
+    // -1 for focusing leftCanvas, 1 for focusing rightCanvas, 0 for none
+    const [focusState, setFocusState] = useState(focusNeutralState);
+    useEffect(() => {
+        if (focusState !== focusNeutralState)
+            document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    }, [focusState])
+
+
+    const focusOnLeftCanvas = () => {
+        setLeftCanvasContainerWidth('65%')
+        setRightCanvasContainerWidth('25%')
+    }
+
+    const focusOnRightCanvas = () => {
+        setLeftCanvasContainerWidth('25%')
+        setRightCanvasContainerWidth('65%')
+    }
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // SCRIPTS FOR CHANGE CANVAS STYLES WHEN MOUSE HOVERING OVER IT //
+    //////////////////////////////////////////////////////////////////
+    const [leftCanvasHovered, setLeftCanvasHovered] = useState(false);
+    const [rightCanvasHovered, setRightCanvasHovered] = useState(false);
+
+
+
+    return (
+        <div className="demoTimeStepBody" >
+
+            <div className="toggleButtonWrapper">
+                <button
+                    ref={toggleButton}
+                    className=" toggleButton "
+                    style={
+                        !toggleButtonPressed ?
+                            {
+                                transform: 'translate(4px, -4px)',
+                                boxShadow: '-4px 6px 10px rgba(1, 0, 0,0.5)',
+                                transitionDuration: '30ms',
+                                transitionTimingFunction: 'linear',
+                            }
+                            :
+                            {
+                                transitionDuration: '30ms',
+                                transitionTimingFunction: 'linear',
+                            }
+
+                    }
+
+
+                    onClick={(e) => {
+                        toggle();
+                    }}
+
+                    onMouseDown={() => {
+                        setToggleButtonPressed(true);
+                    }}
+
+                    onMouseUp={() => {
+                        setToggleButtonPressed(false);
+                    }}
+
+                    onMouseLeave={() => {
+                        setToggleButtonPressed(false);
+                    }}
+                >
+                    Start
+                </button>
+            </div>
+
+
+
+            {/* Invisible react-webcam component to get feed from the webcam */}
+            <Webcam
+                audio={false}
+                height={videoResHeight}
+                width={videoResWidth}
+                screenshotFormat="image/jpeg"
+                ref={videoRef}
+                forceScreenshotSourceSize
+                videoConstraints={{
+                    height: videoResHeight,
+                    width: videoResWidth,
+                    facingMode: "user",
+                    frameRate: frameRate
+
+                }}
+                className="absolute invisible"
+            >
+
+            </Webcam>
+
+
+
+
+            <div className="canvasContainer h-[64vh] items-center">
+
+                <div className="leftCanvasContainer transition-all: duration-500 ease-in-out
+                "
+                    ref={leftCanvasContainerRef}
+
+
+                    style={(focusState === focusNeutralState) ?
+                        {
+                            width: leftCanvasContainerWidth,
+                            marginLeft: '2.5vw'
+                        }
+                        :
+                        {
+                            width: leftCanvasContainerWidth,
+                            marginLeft: '3vw'
+                        }
+                    }
+
+
+
+                >
+                    {/* statDisplayerPositioner contains statDisplayers, and they have absolute position to statDisplayerPositioner. 
+                    By doing this, the animations of the statDisplayers stay untouched while the statDisplayerPositioner can move the statDisplayers around freely 
+                    And because everything in statDisplayerPositioner use absolute positioning, statDisplayerPositioner has no width nor height => invisible
+                    */}
+                    <div className="statDisplayerPositioner bg-black w-fit mb-2 "
+
+                        style={(focusState === focusRightCanvasState) ?
+                            {
+                                transitionDuration: '500ms',
+                                transform: 'translate(0, 13vh)',
+                                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                            }
+                            :
+                            (focusState === focusNeutralState) ?
+                            {
+                                marginTop: '10vh',
+                                transitionDuration: '500ms',
+                                transform: 'translate(7.5vw, 0)',
+                                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                            }
+                            :
+                            {
+                                transitionDuration: '500ms',
+                                transform: 'translate(7.5vw, 0)',
+                                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                            }
+
+                        }>
+                        <CSSTransition
+                            in={focusState === focusRightCanvasState}
+                            timeout={{
+                                enter: 500,
+                                exit: 500,
+                            }}
+                            classNames="leftDisplayerTransition"
+                            unmountOnExit
+                        >
+                            <div ref={leftSide_rightDisplayerWrapper} className="rightDisplayer-leftSide"
+                            >
+                                <StatDisplayer ref={leftSide_rightDisplayer} isLeftDisplayer={false} ></StatDisplayer>
+                            </div>
+                        </CSSTransition>
+
+
+                        <CSSTransition
+                            in={focusState !== focusLeftCanvasState}
+                            timeout={{
+                                enter: 500,
+                                exit: 500,
+                            }}
+                            classNames="leftDisplayerTransition"
+                            unmountOnExit
+                        >
+                            <div ref={leftSide_leftDisplayerWrapper} className="leftDisplayer-leftSide">
+                                <StatDisplayer ref={leftSide_leftDisplayer} isLeftDisplayer={true} ></StatDisplayer>
+                            </div>
+
+                        </CSSTransition>
+                        {/* </div> */}
+                    </div>
+                    <div className="leftCanvasWrapper "
+
+
+                        style={(focusState === focusRightCanvasState) ?
+                            {
+                                transitionDuration: '500ms',
+                                transform: 'translate(0, 13vh)',
+                                // transform: 'translate(0, 17.75vh)',
+                                // transform: 'translate(0, 80%)',
+                                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                            }
+                            :
+                            {}
+
+                        }
+
+                        onMouseUp={
+                            () => {
+                                setFocusState(focusLeftCanvasState)
+                                focusOnLeftCanvas()
+                            }
+                        }
+
+                        onMouseEnter={
+                            () => {
+                                setLeftCanvasHovered(true);
+                            }
+                        }
+
+                        onMouseLeave={
+                            () => {
+                                setLeftCanvasHovered(false);
+                            }
+                        }
+
+                    >
+
+
+                        <canvas width={leftCanvasWidth} height={leftCanvasHeight} className="leftCanvas" ref={leftCanvasRef}
+
+                            style={leftCanvasHovered ?
+                                (
+                                    (focusState === focusNeutralState) ?
+                                        {
+                                            // Neutral
+                                            borderRadius: '3rem',
+                                            transform: 'translate(10px, -12px)',
+                                            boxShadow: '-10px 14px 30px rgba(1, 0, 0, 0.8)',
+                                            transitionDuration: '60ms',
+                                            transitionTimingFunction: 'linear',
+                                        }
+                                        :
+                                        (
+                                            (focusState === focusLeftCanvasState) ?
+                                                {
+                                                    // Biggest
+                                                    borderRadius: '2rem',
+                                                    transform: 'translate(10px, -12px)',
+                                                    boxShadow: '-10px 14px 30px rgba(1, 0, 0, 0.8)',
+                                                    transitionDuration: '60ms',
+                                                    transitionTimingFunction: 'linear',
+                                                }
+                                                :
+                                                {
+                                                    // Smallest
+                                                    borderRadius: '4rem',
+                                                    transform: 'translate(10px, -12px)',
+                                                    boxShadow: '-10px 14px 30px rgba(1, 0, 0, 0.8)',
+                                                    transitionDuration: '60ms',
+                                                    transitionTimingFunction: 'linear',
+                                                }
+                                        )
+
+
+                                )
+                                :
+                                (
+                                    (focusState === focusNeutralState) ?
+                                        {
+                                            // Neutral
+                                            borderRadius: '3rem',
+                                            transitionDuration: '60ms',
+                                            transitionTimingFunction: 'linear',
+                                        }
+                                        :
+                                        (
+                                            (focusState === focusLeftCanvasState) ?
+                                                {
+                                                    // Biggest
+                                                    borderRadius: '2rem',
+                                                    transform: 'translate(10px, -12px)',
+                                                    boxShadow: '-10px 14px 30px rgba(1, 0, 0,0.8)',
+                                                    transitionDuration: '60ms',
+                                                    transitionTimingFunction: 'linear',
+                                                }
+                                                :
+                                                {
+                                                    // Smallest
+                                                    borderRadius: '4rem',
+                                                    transitionDuration: '60ms',
+                                                    transitionTimingFunction: 'linear',
+                                                }
+                                        )
+
+                                )
+                            }
+
+                        >
+                        </canvas>
+                    </div>
+                </div>
+
+                <div className="rightCanvasContainer"
+                    ref={rightCanvasContainerRef}
+
+
+                    style={(focusState === focusNeutralState) ?
+                        {
+                            width: rightCanvasContainerWidth,
+                            marginRight: '2.5vw'
+                        }
+                        :
+                        {
+                            width: rightCanvasContainerWidth,
+                            marginRight: '3vw'
+
+                        }
+                    }
+
+
+                >
+
+
+
+
+                    <div className=" bg-black w-fit mb-2"
+                        style={(focusState === focusLeftCanvasState) ?
+                            {
+                                transitionDuration: '500ms',
+                                transform: 'translate(0, 13vh)',
+                                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                            }
+                            :
+                            (focusState === focusNeutralState) ?
+                                {
+                                    marginTop: '10vh',
+                                    transitionDuration: '500ms',
+                                    transform: 'translate(7.5vw, 0)',
+                                    transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                                }
+                                :
+
+                                {
+                                    transitionDuration: '500ms',
+                                    transform: 'translate(7.5vw, 0)',
+                                    transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                                }
+
+                        }
+
+
+                    >
+                        <CSSTransition
+                            in={focusState == focusLeftCanvasState}
+                            timeout={{
+                                enter: 500,
+                                exit: 500,
+                            }}
+                            classNames="rightDisplayerTransition"
+                            unmountOnExit
+                        >
+                            <div ref={rightSide_leftDisplayerWrapper} className="leftDisplayer-rightSide">
+                                <StatDisplayer ref={rightSide_leftDisplayer} isLeftDisplayer={true} ></StatDisplayer>
+                            </div>
+                        </CSSTransition>
+
+
+                        <CSSTransition
+                            in={focusState !== focusRightCanvasState}
+                            timeout={{
+                                enter: 500,
+                                exit: 500,
+                            }}
+                            classNames="rightDisplayerTransition"
+                            unmountOnExit
+                        >
+                            <div ref={rightSide_rightDisplayerWrapper} className="rightDisplayer-rightSide"
+
+                            >
+                                <StatDisplayer ref={rightSide_rightDisplayer} isLeftDisplayer={false} ></StatDisplayer>
+                            </div>
+
+                        </CSSTransition>
+
+                    </div>
+
+                    <div className="rightCanvasWrapper "
+
+                        style={(focusState === focusLeftCanvasState) ?
+                            {
+                                transitionDuration: '500ms',
+                                transform: 'translate(0, 13vh)',
+                                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                            }
+                            :
+                            {}
+
+                        }
+
+
+                        onMouseDown={
+                            () => {
+                                setFocusState(focusRightCanvasState)
+                                focusOnRightCanvas()
+                            }
+                        }
+
+                        onMouseEnter={
+                            () => {
+                                setRightCanvasHovered(true);
+                            }
+                        }
+
+                        onMouseLeave={
+                            () => {
+                                setRightCanvasHovered(false);
+                            }
+                        }
+
+
+                    >
+
+
+
+
+                        <canvas width={rightCanvasWidth} height={rightCanvasHeight} className="rightCanvas"
+                            style={rightCanvasHovered ?
+                                (
+                                    (focusState === focusNeutralState) ?
+                                        {
+                                            // Neutral
+                                            borderRadius: '3rem',
+                                            transform: 'translate(10px, -12px)',
+                                            boxShadow: '-10px 14px 30px rgba(1, 0, 0, 0.8)',
+                                            transitionDuration: '60ms',
+                                            transitionTimingFunction: 'linear',
+                                        }
+                                        :
+                                        (
+                                            (focusState === focusRightCanvasState) ?
+                                                {
+                                                    // Biggest
+                                                    borderRadius: '2rem',
+                                                    transform: 'translate(10px, -12px)',
+                                                    boxShadow: '-10px 14px 30px rgba(1, 0, 0, 0.8)',
+                                                    transitionDuration: '60ms',
+                                                    transitionTimingFunction: 'linear',
+                                                }
+                                                :
+                                                {
+                                                    // Smallest
+                                                    borderRadius: '4rem',
+                                                    transform: 'translate(10px, -12px)',
+                                                    boxShadow: '-10px 14px 30px rgba(1, 0, 0, 0.8)',
+                                                    transitionDuration: '60ms',
+                                                    transitionTimingFunction: 'linear',
+                                                }
+                                        )
+
+
+                                )
+                                :
+                                (
+                                    (focusState === focusNeutralState) ?
+                                        {
+                                            // Neutral
+                                            borderRadius: '3rem',
+                                            transitionDuration: '60ms',
+                                            transitionTimingFunction: 'linear',
+                                        }
+                                        :
+                                        (
+                                            (focusState === focusRightCanvasState) ?
+                                                {
+                                                    // Biggest
+                                                    borderRadius: '2rem',
+                                                    transform: 'translate(10px, -12px)',
+                                                    boxShadow: '-10px 14px 30px rgba(1, 0, 0,0.8)',
+                                                    transitionDuration: '60ms',
+                                                    transitionTimingFunction: 'linear',
+                                                }
+                                                :
+                                                {
+                                                    // Smallest
+                                                    borderRadius: '4rem',
+                                                    transitionDuration: '60ms',
+                                                    transitionTimingFunction: 'linear',
+                                                }
+                                        )
+
+                                )
+                            }
+
+                            ref={rightCanvasRef}>
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div >
+    )
+}
+
+export default VideoPlayer

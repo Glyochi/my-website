@@ -10,7 +10,7 @@
 
     .videoContainer {
         /* aspect-ratio */
-        @apply w-3/4 bg-blue-600;
+        @apply w-3/4 ;
     }
 
 

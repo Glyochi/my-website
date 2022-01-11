@@ -4,9 +4,9 @@ import { io } from "socket.io-client"
 
 class VideoSocketService_NoTrick {
 
-    constructor(url, drawOnCanvasFunction , displayRef) {
+    constructor(url, canvasArtist , displayRef) {
 
-        this.drawOnCanvas = drawOnCanvasFunction
+        this.artist = canvasArtist
         this.displayRef = displayRef
 
 
@@ -68,11 +68,12 @@ class VideoSocketService_NoTrick {
             let actualDrawnTime = performance.now()
             var actualDelay = actualDrawnTime - supposedDrawnTime
 
-
-            this.drawOnCanvas(base64_responseFrame)
+            // Draw the frame on canvas
+            this.artist.draw(base64_responseFrame)
             
-            console.log("Delay No Trick: " + actualDelay.toFixed(2) + " ms")
-            this.displayRef.current.innerText = actualDelay.toFixed(2) + " ms"
+            // Update the stats on the statDisplayer
+            this.displayRef.addDelay(actualDelay);
+            this.displayRef.drawOnDisplayer();
             
             
             for (let i = 0; i < frameID - this.latestDrawnFrameID; i++){
@@ -87,7 +88,10 @@ class VideoSocketService_NoTrick {
 
     disconnect = () => {
         this.playing = false
-        this.videoSocket.disconnect(this.client_id)
+        if(this.videoSocket != null){
+            this.videoSocket.emit('cleanup', this.client_id)
+            this.videoSocket.disconnect()
+        }
     }
 
     // This function send the next frame to the server
