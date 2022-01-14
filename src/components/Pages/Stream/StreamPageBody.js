@@ -1,5 +1,6 @@
 
-import DemoTimeStep from "./Demos/TimeStep/DemoTimeStep"
+import TimeStepHead from "./Demos/TimeStep/TimeStepHead"
+import TimeStepBody from "./Demos/TimeStep/TimeStepBody"
 
 
 function StreamPageBody() {
@@ -7,27 +8,11 @@ function StreamPageBody() {
         <div className="flex justify-center " >
             <div className=" flex flex-col justify-center items-center w-3/4 ">
                 <div>Toggles + Explaination</div>
-                    <DemoTimeStep></DemoTimeStep>
-
-                <div
-                    className="w-full bg-gray-800 h-fit"
+                    <div className="w-full h-full mt-[6vh]">
+                    <TimeStepHead ></TimeStepHead>
+                    <TimeStepBody></TimeStepBody>
+                    </div>
                 
-                >Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br>
-                Stats + other stuffs<br></br></div>
 
             </div>
 

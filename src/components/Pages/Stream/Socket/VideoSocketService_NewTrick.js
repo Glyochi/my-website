@@ -9,11 +9,15 @@ class VideoSocketService_NewTrick {
         this.artist = canvasArtist
         this.displayRef = displayRef
 
-        this.socketio = io(url)
+        this.socketio = io(url, { transport : ['websocket'] })
         this.videoSocket = null
         // This is to prevent client to make a connection to the server to soon. We just want it to be there
-        let temp = this.socketio.connect()
-        temp.disconnect()
+        // let temp = this.socketio.connect()
+        // temp.on('connect', () => {
+        //     console.log("connected + disconnected")
+        //     temp.disconnect();
+        // })
+
 
         // To signal the timeout function to draw or not
         this.playing = false
@@ -35,7 +39,7 @@ class VideoSocketService_NewTrick {
         this.frameTimeInterval = null
 
         // The amount of time the client will try to reduce the delay by for each frame
-        this.DELAY_REDUCING_OFFSET =  18
+        this.DELAY_REDUCING_OFFSET = 18
 
     }
 
@@ -51,7 +55,7 @@ class VideoSocketService_NewTrick {
         this.latestDrawnFrameID = 0
         this.latestResponseFrameID = 0
 
-        
+
 
         this.videoSocket = this.socketio.connect()
         this.videoSocket.on('connect', () => {
@@ -59,6 +63,14 @@ class VideoSocketService_NewTrick {
             this.client_id = this.videoSocket.id
             this.videoSocket.emit('initialize', this.client_id, frameRate, false)
         })
+
+        
+        this.videoSocket.on('testingFromServer', (data) =>{ 
+            console.log(data);
+        })
+        console.log("clientSent")
+        this.videoSocket.emit('testingFromClient');
+
 
         this.videoSocket.on('frameToClient', (data) => {
             let base64_responseFrame = data.base64_responseFrame
@@ -75,62 +87,51 @@ class VideoSocketService_NewTrick {
             }
 
 
-            
+
 
             let supposedDrawnTime = this.frameSentTime[frameID - this.latestDrawnFrameID - 1]
-            
-            // console.log("*************************************************")
-            // console.log("FrameSentTime stack has length " + this.frameSentTime.length)
-            // console.log("FrameID " + frameID + " sent time is " + supposedDrawnTime)
             let actualDrawnTime = performance.now()
             var actualDelay = actualDrawnTime - supposedDrawnTime
-
-            // If this is doable (lastDelay - DELAY_REDUCING_OFFSET .aka desired delay > delay of the newest frame), then do it
-            // If this is not doable (desired delay < delay of the newest frame) then set the lastDelay to be the delay of the newest frame
-
             var desiredDelay = this.delay - this.DELAY_REDUCING_OFFSET
 
-           
             if (desiredDelay > actualDelay) {
-                
+
+                // If the delay can be decrease (actualDelay < desiredDelay) 
                 var drawFrame = (vss, delayThen) => {
-                    if(frameID <= vss.latestDrawnFrameID)
+                    // Edge case where a later frame than the (current frame that is about to be drawn in this function) has already been drawn
+                    if (frameID <= vss.latestDrawnFrameID)
                         return
 
                     // Draw the frame on canvas
                     vss.artist.draw(base64_responseFrame);
-                    
-                  
+
+
                     // Update the stats on the statDisplayer
                     this.displayRef.addDelay(delayThen);
                     this.displayRef.drawOnDisplayer();
 
-                    for (let i = 0; i < frameID - vss.latestDrawnFrameID; i++){
+                    // Removing the start time of already drawn frames
+                    for (let i = 0; i < frameID - vss.latestDrawnFrameID; i++) {
                         vss.frameSentTime.shift()
                     }
-                    
+
                     vss.latestDrawnFrameID = frameID
                 }
 
-
-
                 setTimeout(drawFrame, desiredDelay - actualDelay, this, desiredDelay)
                 this.delay = desiredDelay
-            } else {
 
+            } else {
                 // If the delay increases (actualDelay > lastDelay) or the amount of delay decrease (lastDelay - actualDelay) is not as large as DELAY_REDUCING_OFFSET then
                 // Draw the frame on canvas
                 this.artist.draw(base64_responseFrame);
-                
-
-
 
                 // Update the stats on the statDisplayer
                 this.displayRef.addDelay(actualDelay);
                 this.displayRef.drawOnDisplayer();
-                
-                
-                for (let i = 0; i < frameID - this.latestDrawnFrameID; i++){
+
+                // Removing the start time of already drawn frames
+                for (let i = 0; i < frameID - this.latestDrawnFrameID; i++) {
                     this.frameSentTime.shift()
                 }
 
@@ -144,7 +145,7 @@ class VideoSocketService_NewTrick {
 
     disconnect = () => {
         this.playing = false
-        if(this.videoSocket != null){
+        if (this.videoSocket != null) {
             this.videoSocket.emit('cleanup', this.client_id)
             this.videoSocket.disconnect()
         }
@@ -152,12 +153,14 @@ class VideoSocketService_NewTrick {
 
     // This function send the next frame to the server
     sendNextBase64Frame = (base64_frame) => {
-        
+
         if (base64_frame != null) {
             // Store the time when the frame was first sent to the server
             this.frameSentTime.push(performance.now())
 
+            // Sending image to the server
             this.videoSocket.emit('frameToServer', this.client_id, base64_frame, this.videoFrameID)
+
             // FrameID starts from 0
             this.videoFrameID += 1
         }

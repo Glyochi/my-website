@@ -11,7 +11,7 @@
 
 @layer components {
     .Page {
-        @apply absolute overflow-auto bg-gradient-to-b to-emerald-800 from-gray-800
+        @apply bg-gradient-to-b to-emerald-800 from-gray-800
         
         ;
     }

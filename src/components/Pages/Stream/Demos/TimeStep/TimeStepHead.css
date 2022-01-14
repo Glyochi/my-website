@@ -66,13 +66,19 @@
 
     /* Toggle Button */
     .toggleButtonWrapper {
-        @apply w-full flex flex-col justify-center items-center translate-x-[-1px];
+        @apply w-full flex flex-row justify-between items-center translate-x-[1px];
     }
 
     .toggleButton {
         @apply bg-gray-600 rounded-3xl pt-1 pb-2 px-4 text-sky-50 text-xl;
     }
 
+    .helpButtonWrapper {
+        @apply translate-x-[-3.5rem];
+    }
+    .helpButton {
+        @apply pt-0 pb-[0.12rem] pr-3 pl-[0.76rem] text-2xl font-semibold text-white bg-gray-600 rounded-full ;
+    }
 
 
 
@@ -105,11 +111,11 @@
 
 
     .leftCanvas {
-        @apply w-[100%] aspect-video bg-yellow-800;
+        @apply w-[100%] aspect-video bg-cyan-500;
     }
 
     .rightCanvas {
-        @apply w-[100%] aspect-video bg-yellow-800;
+        @apply w-[100%] aspect-video bg-cyan-500;
     }
 
     

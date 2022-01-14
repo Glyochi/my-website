@@ -6,7 +6,7 @@ import Webcam from "react-webcam";
 import { io } from "socket.io-client"
 
 // Importing CSS file
-import "./DemoTimeStep.css"
+import "./TimeStepHead.css"
 
 
 import VideoSocketService_NewTrick from "../../Socket/VideoSocketService_NewTrick";
@@ -17,7 +17,10 @@ import StatManager from "../StatDisplayer/StatManager";
 import CanvasArtist from "../CanvasArtists/CanvasArtist";
 
 function VideoPlayer() {
-    const SERVER = "http://127.0.0.1:5000/";
+    // const SERVER = "http://127.0.0.1:5000/";
+    // const SERVER = "https://flaskserver-tjndzmlzkq-uc.a.run.app/8080";
+    const SERVER = "ws://gly-flask-server.herokuapp.com";
+    
 
     const videoRef = useRef(null);
 
@@ -42,10 +45,7 @@ function VideoPlayer() {
 
 
 
-
-
-
-    const frameRate = 24;
+    const frameRate = 30;
     const frameTime = 1000 / frameRate;
 
     const videoResHeight = 720;
@@ -79,22 +79,24 @@ function VideoPlayer() {
 
 
 
-
-
-
     useEffect(() => {
 
 
         let leftCanvasHelperFunctions = { setCanvasHeight: setLeftCanvasHeight, setCanvasWidth: setLeftCanvasWidth };
         let rightCanvasHelperFunctions = { setCanvasHeight: setRightCanvasHeight, setCanvasWidth: setRightCanvasWidth };
 
+        statManager1.current = new StatManager(leftSide_leftDisplayer, rightSide_leftDisplayer);
+
         videoSocketService_LeftCanvas.current = new VideoSocketService_NoTrick(SERVER,
             new CanvasArtist(leftCanvasRef, leftCanvasContainerRef, leftCanvasHelperFunctions),
-            new StatManager(leftSide_leftDisplayer, rightSide_leftDisplayer));
+            statManager1.current);
+
+            
+        statManager2.current =  new StatManager(leftSide_rightDisplayer, rightSide_rightDisplayer)
 
         videoSocketService_RightCanvas.current = new VideoSocketService_NewTrick(SERVER,
             new CanvasArtist(rightCanvasRef, rightCanvasContainerRef, rightCanvasHelperFunctions),
-            new StatManager(leftSide_rightDisplayer, rightSide_rightDisplayer))
+            statManager2.current)
 
 
         return () => {
@@ -104,12 +106,53 @@ function VideoPlayer() {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Reference for stat managers so that we can redraw the stat information on the stat displayers when they remount //
+    // This is for the rare usecase when user stop playing video and play around with the animations of the displayers //
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    const statManager1 = useRef(null);
+    const statManager2 = useRef(null);
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // SCRIPTS FOR TOGGLING HELP DESCRIPTION MODE //
+    ////////////////////////////////////////////////
+
+    const help = useRef(null);
+    const [helpPressed, setHelpPressed] = useState(false);
+    const helpDescriptionRef = useRef(null);
+
+    const handleClickOutsideHelpButton = (event) => {
+        if ((leftCanvasRef.current && rightCanvasRef.current)
+            && !leftCanvasRef.current.contains(event.target) && !rightCanvasRef.current.contains(event.target)
+            && !toggleButton.current.contains(event.target)
+            && !help.current.contains(event.target)
+            && !helpDescriptionRef.current.contains(event.target)
+            && !(leftSide_leftDisplayerWrapper.current != null && leftSide_leftDisplayerWrapper.current.contains(event.target))
+            && !(leftSide_rightDisplayerWrapper.current != null && leftSide_rightDisplayerWrapper.current.contains(event.target))
+            && !(rightSide_leftDisplayerWrapper.current != null && rightSide_leftDisplayerWrapper.current.contains(event.target))
+            && !(rightSide_rightDisplayerWrapper.current != null && rightSide_rightDisplayerWrapper.current.contains(event.target))) {
+            setHelpPressed(false);
+            document.removeEventListener('mousedown', handleClickOutsideHelpButton);
+        }
+
+    }
+
+    const helpDescription1 = "Left video is the one using the basic setup where it displays frames as soon as they arrived.";
+    const helpDescription2 = "Right video is the more 'advanced' one where the video player spaces out the frames evenly.";
+    const helpDescription3 = "Lower frame-variation and 1% low/1% high being closer to the average delay indicates better frame-pacing/less jittery."
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SCRIPTS FOR TOGGLING RECORD AND NOT RECORDING MODE //
     ////////////////////////////////////////////////////////
 
 
     const toggleButton = useRef(null);
     const [toggleButtonPressed, setToggleButtonPressed] = useState(false);
+
+
+
 
     //Clearing the interval when going to other pages
     useEffect(() => {
@@ -192,6 +235,8 @@ function VideoPlayer() {
             && (leftCanvasRef.current && rightCanvasRef.current)
             && !leftCanvasRef.current.contains(event.target) && !rightCanvasRef.current.contains(event.target)
             && !toggleButton.current.contains(event.target)
+            && !help.current.contains(event.target)
+            && !(helpDescriptionRef.current != null && helpDescriptionRef.current.contains(event.target))
             && !(leftSide_leftDisplayerWrapper.current != null && leftSide_leftDisplayerWrapper.current.contains(event.target))
             && !(leftSide_rightDisplayerWrapper.current != null && leftSide_rightDisplayerWrapper.current.contains(event.target))
             && !(rightSide_leftDisplayerWrapper.current != null && rightSide_leftDisplayerWrapper.current.contains(event.target))
@@ -212,9 +257,15 @@ function VideoPlayer() {
         if (focusState !== focusNeutralState)
             document.addEventListener("mousedown", handleClickOutside);
 
+        // Redraw the statDisplayer if they dismount and remount
+        statManager1.current.drawOnDisplayer();
+        statManager2.current.drawOnDisplayer();
+
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         }
+
+
     }, [focusState])
 
 
@@ -239,17 +290,20 @@ function VideoPlayer() {
 
 
     return (
-        <div className="demoTimeStepBody" >
+        <div className="demoTimeStepBody " >
 
             <div className="toggleButtonWrapper">
+
+                <button className="helpButton invisible">?</button>
+
                 <button
                     ref={toggleButton}
                     className=" toggleButton "
                     style={
                         !toggleButtonPressed ?
                             {
-                                transform: 'translate(4px, -4px)',
-                                boxShadow: '-4px 6px 10px rgba(1, 0, 0,0.5)',
+                                transform: 'translate(-4px, -4px)',
+                                boxShadow: '4px 6px 10px rgba(1, 0, 0,0.5)',
                                 transitionDuration: '30ms',
                                 transitionTimingFunction: 'linear',
                             }
@@ -280,6 +334,58 @@ function VideoPlayer() {
                 >
                     Start
                 </button>
+
+                <div className="helpButtonWrapper">
+                    <button className="helpButton"
+                        ref={help}
+                        style={
+                            !helpPressed ?
+                                {
+                                    transform: 'translate(-4px, -4px)',
+                                    boxShadow: '4px 6px 10px rgba(1, 0, 0,0.5)',
+                                    transitionDuration: '30ms',
+                                    transitionTimingFunction: 'linear',
+                                }
+                                :
+                                {
+                                    transitionDuration: '30ms',
+                                    transitionTimingFunction: 'linear',
+                                }
+
+                        }
+
+                        onMouseDown={() => {
+                            setHelpPressed(true);
+                            document.addEventListener('mousedown', handleClickOutsideHelpButton)
+                        }}
+
+
+
+                    >
+                        ?
+                    </button>
+
+                    <CSSTransition
+                        in={helpPressed}
+                        unmountOnExit
+                    >
+                        <div className="absolute bg-cyan-900  text-gray-200 rounded-3xl p-2 translate-x-[-20vw] translate-y-[-21vh] w-[20vw] text-base font-semibold"
+                            ref={helpDescriptionRef}
+                            style={
+                                {
+                                    ransform: 'translate(-4px, -4px)',
+                                    boxShadow: '4px 6px 10px rgba(1, 0, 0,0.5)',
+                                    transitionDuration: '30ms',
+                                    transitionTimingFunction: 'linear',
+                                }
+                            }
+                        >
+                            <div>{helpDescription1}</div>
+                            <div className="mt-2">{helpDescription2}</div>
+                            <div className="mt-2">{helpDescription3}</div>
+                        </div>
+                    </CSSTransition>
+                </div>
             </div>
 
 
@@ -343,18 +449,18 @@ function VideoPlayer() {
                             }
                             :
                             (focusState === focusNeutralState) ?
-                            {
-                                marginTop: '10vh',
-                                transitionDuration: '500ms',
-                                transform: 'translate(7.5vw, 0)',
-                                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-                            }
-                            :
-                            {
-                                transitionDuration: '500ms',
-                                transform: 'translate(7.5vw, 0)',
-                                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-                            }
+                                {
+                                    marginTop: '10vh',
+                                    transitionDuration: '500ms',
+                                    transform: 'translate(7.5vw, 0)',
+                                    transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                                }
+                                :
+                                {
+                                    transitionDuration: '500ms',
+                                    transform: 'translate(7.5vw, 0)',
+                                    transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                                }
 
                         }>
                         <CSSTransition
@@ -405,13 +511,6 @@ function VideoPlayer() {
 
                         }
 
-                        onMouseUp={
-                            () => {
-                                setFocusState(focusLeftCanvasState)
-                                focusOnLeftCanvas()
-                            }
-                        }
-
                         onMouseEnter={
                             () => {
                                 setLeftCanvasHovered(true);
@@ -429,14 +528,23 @@ function VideoPlayer() {
 
                         <canvas width={leftCanvasWidth} height={leftCanvasHeight} className="leftCanvas" ref={leftCanvasRef}
 
+
+                            onMouseDown={
+                                () => {
+                                    setFocusState(focusLeftCanvasState)
+                                    focusOnLeftCanvas()
+                                }
+                            }
+
+
                             style={leftCanvasHovered ?
                                 (
                                     (focusState === focusNeutralState) ?
                                         {
                                             // Neutral
                                             borderRadius: '3rem',
-                                            transform: 'translate(10px, -12px)',
-                                            boxShadow: '-10px 14px 30px rgba(1, 0, 0, 0.8)',
+                                            transform: 'translate(-10px, -12px)',
+                                            boxShadow: '10px 14px 30px rgba(1, 0, 0, 0.8)',
                                             transitionDuration: '60ms',
                                             transitionTimingFunction: 'linear',
                                         }
@@ -446,8 +554,8 @@ function VideoPlayer() {
                                                 {
                                                     // Biggest
                                                     borderRadius: '2rem',
-                                                    transform: 'translate(10px, -12px)',
-                                                    boxShadow: '-10px 14px 30px rgba(1, 0, 0, 0.8)',
+                                                    transform: 'translate(-10px, -12px)',
+                                                    boxShadow: '10px 14px 30px rgba(1, 0, 0, 0.8)',
                                                     transitionDuration: '60ms',
                                                     transitionTimingFunction: 'linear',
                                                 }
@@ -455,8 +563,8 @@ function VideoPlayer() {
                                                 {
                                                     // Smallest
                                                     borderRadius: '4rem',
-                                                    transform: 'translate(10px, -12px)',
-                                                    boxShadow: '-10px 14px 30px rgba(1, 0, 0, 0.8)',
+                                                    transform: 'translate(-10px, -12px)',
+                                                    boxShadow: '10px 14px 30px rgba(1, 0, 0, 0.8)',
                                                     transitionDuration: '60ms',
                                                     transitionTimingFunction: 'linear',
                                                 }
@@ -479,8 +587,8 @@ function VideoPlayer() {
                                                 {
                                                     // Biggest
                                                     borderRadius: '2rem',
-                                                    transform: 'translate(10px, -12px)',
-                                                    boxShadow: '-10px 14px 30px rgba(1, 0, 0,0.8)',
+                                                    transform: 'translate(-10px, -12px)',
+                                                    boxShadow: '10px 14px 30px rgba(1, 0, 0,0.8)',
                                                     transitionDuration: '60ms',
                                                     transitionTimingFunction: 'linear',
                                                 }
@@ -585,7 +693,7 @@ function VideoPlayer() {
 
                     </div>
 
-                    <div className="rightCanvasWrapper "
+                    <div className="rightCanvasWrapper"
 
                         style={(focusState === focusLeftCanvasState) ?
                             {
@@ -598,13 +706,6 @@ function VideoPlayer() {
 
                         }
 
-
-                        onMouseDown={
-                            () => {
-                                setFocusState(focusRightCanvasState)
-                                focusOnRightCanvas()
-                            }
-                        }
 
                         onMouseEnter={
                             () => {
@@ -625,14 +726,24 @@ function VideoPlayer() {
 
 
                         <canvas width={rightCanvasWidth} height={rightCanvasHeight} className="rightCanvas"
+
+
+                            onMouseDown={
+                                () => {
+                                    setFocusState(focusRightCanvasState)
+                                    focusOnRightCanvas()
+                                }
+                            }
+
+
                             style={rightCanvasHovered ?
                                 (
                                     (focusState === focusNeutralState) ?
                                         {
                                             // Neutral
                                             borderRadius: '3rem',
-                                            transform: 'translate(10px, -12px)',
-                                            boxShadow: '-10px 14px 30px rgba(1, 0, 0, 0.8)',
+                                            transform: 'translate(-10px, -12px)',
+                                            boxShadow: '10px 14px 30px rgba(1, 0, 0, 0.8)',
                                             transitionDuration: '60ms',
                                             transitionTimingFunction: 'linear',
                                         }
@@ -642,8 +753,8 @@ function VideoPlayer() {
                                                 {
                                                     // Biggest
                                                     borderRadius: '2rem',
-                                                    transform: 'translate(10px, -12px)',
-                                                    boxShadow: '-10px 14px 30px rgba(1, 0, 0, 0.8)',
+                                                    transform: 'translate(-10px, -12px)',
+                                                    boxShadow: '10px 14px 30px rgba(1, 0, 0, 0.8)',
                                                     transitionDuration: '60ms',
                                                     transitionTimingFunction: 'linear',
                                                 }
@@ -651,8 +762,8 @@ function VideoPlayer() {
                                                 {
                                                     // Smallest
                                                     borderRadius: '4rem',
-                                                    transform: 'translate(10px, -12px)',
-                                                    boxShadow: '-10px 14px 30px rgba(1, 0, 0, 0.8)',
+                                                    transform: 'translate(-10px, -12px)',
+                                                    boxShadow: '10px 14px 30px rgba(1, 0, 0, 0.8)',
                                                     transitionDuration: '60ms',
                                                     transitionTimingFunction: 'linear',
                                                 }
@@ -675,8 +786,8 @@ function VideoPlayer() {
                                                 {
                                                     // Biggest
                                                     borderRadius: '2rem',
-                                                    transform: 'translate(10px, -12px)',
-                                                    boxShadow: '-10px 14px 30px rgba(1, 0, 0,0.8)',
+                                                    transform: 'translate(-10px, -12px)',
+                                                    boxShadow: '10px 14px 30px rgba(1, 0, 0,0.8)',
                                                     transitionDuration: '60ms',
                                                     transitionTimingFunction: 'linear',
                                                 }

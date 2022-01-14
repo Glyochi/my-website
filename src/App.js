@@ -16,12 +16,12 @@ function App() {
 
   return (
     // <div className=' overflow-hidden w-[1910px] h-[1070px]'>
-      <div className='Page '>
-        {/* <div className='wallpaperWrapper' >
-          <img src={Wallpaper} className="wallpaper" alt='' ></img>
-        </div> */}
+      <div className='Page '
+      style={{
+       overflow: 'hidden',
+      }}>
+        
         <Router>
-          {/* <ParticlesBackground></ParticlesBackground> */}
           <div className='mt-8 z-30'>
             <NavBar />
           </div>

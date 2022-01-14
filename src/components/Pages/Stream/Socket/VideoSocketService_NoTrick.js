@@ -10,11 +10,14 @@ class VideoSocketService_NoTrick {
         this.displayRef = displayRef
 
 
-        this.socketio = io(url)
+        this.socketio = io(url, { transport : ['websocket'] })
         this.videoSocket = null
         // This is to prevent client to make a connection to the server to soon. We just want it to be there
-        let temp = this.socketio.connect()
-        temp.disconnect()
+        // let temp = this.socketio.connect()
+        // temp.on('connect', () => {
+        //     console.log("connected + disconnected")
+        //     temp.disconnect();
+        // })
 
         // To signal the timeout function to draw or not
         this.playing = false
@@ -54,6 +57,12 @@ class VideoSocketService_NoTrick {
             this.client_id = this.videoSocket.id
             this.videoSocket.emit('initialize', this.client_id, frameRate, false)
         })
+
+        this.videoSocket.on('testingFromServer', (data) =>{ 
+            console.log(data);
+        })
+        console.log("clientSent")
+        this.videoSocket.emit('testingFromClient');
 
         this.videoSocket.on('frameToClient', (data) => {
             let base64_responseFrame = data.base64_responseFrame

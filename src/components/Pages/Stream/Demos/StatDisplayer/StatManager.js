@@ -13,6 +13,7 @@ class StatManager {
         this.delaySum = 0;
         this.delayAverage = 0;
         this.frameTimeVariationSum = 0;
+        this.frameTimeVariationAverage = 0;
 
         this.onePercentSize = 0;
         this.onePercentLowSum = 0;

@@ -44,8 +44,8 @@ function StatDisplayer(props, ref) {
         duration-[60ms]
         ease-linear
         
-        group-hover:shadow-[-10px_14px_30px_-5px_rgba(0,0,0,1)]
-        group-hover:translate-x-[10px]
+        group-hover:shadow-[10px_14px_30px_-5px_rgba(0,0,0,1)]
+        group-hover:translate-x-[-10px]
         group-hover:translate-y-[-12px]
         group-hover:duration-[60ms]
         group-hover:ease-linear
