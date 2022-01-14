@@ -405,7 +405,7 @@ function VideoPlayer() {
                     frameRate: frameRate
 
                 }}
-                className="absolute "
+                className="absolute invisible"
             >
 
             </Webcam>
