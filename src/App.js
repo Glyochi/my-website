@@ -27,7 +27,7 @@ function App() {
           </div>
           <Routes>
             <Route path="/" element={<HomePageBody />} />
-            <Route path="/my-website" element={<HomePageBody />} />
+            <Route path="/my-website/" element={<HomePageBody />} />
             <Route path="/Home" element={<HomePageBody />} />
             <Route path="/Resume" element={<ResumePageBody />} />
             <Route path="/View Online" element={<HomePageBody />} />
