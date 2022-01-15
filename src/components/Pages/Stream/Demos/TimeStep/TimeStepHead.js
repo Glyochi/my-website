@@ -17,8 +17,8 @@ import StatManager from "../StatDisplayer/StatManager";
 import CanvasArtist from "../CanvasArtists/CanvasArtist";
 
 function VideoPlayer() {
-    // const SERVER = "http://127.0.0.1:5000/";
-    const SERVER = "https://glyserver-auhlv5aena-uc.a.run.app";
+    const SERVER = "http://127.0.0.1:5000/";
+    // const SERVER = "https://glyserver-auhlv5aena-uc.a.run.app";
     
 
     const videoRef = useRef(null);

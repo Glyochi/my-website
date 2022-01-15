@@ -13,7 +13,8 @@ class VideoSocketService_NoTrick {
         this.socketio = io(url, { transport : ['websocket'] })
         this.videoSocket = null
         // This is to prevent client to make a connection to the server to soon. We just want it to be there
-        // let temp = this.socketio.connect()
+        let temp = this.socketio.connect()
+        temp.disconnect();
         // temp.on('connect', () => {
         //     console.log("connected + disconnected")
         //     temp.disconnect();
