@@ -18,8 +18,7 @@ import CanvasArtist from "../CanvasArtists/CanvasArtist";
 
 function VideoPlayer() {
     // const SERVER = "http://127.0.0.1:5000/";
-    // const SERVER = "https://flaskserver-tjndzmlzkq-uc.a.run.app/8080";
-    const SERVER = "ws://gly-flask-server.herokuapp.com";
+    const SERVER = "https://glyserver-auhlv5aena-uc.a.run.app";
     
 
     const videoRef = useRef(null);

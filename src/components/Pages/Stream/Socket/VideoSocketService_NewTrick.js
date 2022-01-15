@@ -55,12 +55,13 @@ class VideoSocketService_NewTrick {
         this.latestDrawnFrameID = 0
         this.latestResponseFrameID = 0
 
-
+    
 
         this.videoSocket = this.socketio.connect()
         this.videoSocket.on('connect', () => {
             console.log(this.videoSocket.id)
             this.client_id = this.videoSocket.id
+            this.videoSocket.emit('chatMessage', "reeee", this.client_id)
             this.videoSocket.emit('initialize', this.client_id, frameRate, false)
         })
 
