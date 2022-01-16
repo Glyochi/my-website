@@ -6,16 +6,17 @@
 
 
     .statDisplayerContainer {
-        @apply flex flex-col justify-center items-center bg-gray-600 rounded-3xl py-2 ;
+        @apply flex flex-col justify-center items-center bg-gray-600 rounded-[1vw] py-[0.3vw] translate-x-[-1px];
     }
 
 
     .statDisplayerTopRow {
-        @apply rounded-3xl p-2 font-bold w-full ;
+        @apply font-bold w-full py-[0.3vw] ;
     }
 
     .leftIdentityComponent {
-        @apply text-xl mt-[-0.2rem] font-semibold col-start-1 col-span-1 translate-x-4 text-cyan-300;
+        /* @apply text-xl mt-[-0.2rem] font-semibold col-start-1 col-span-1 translate-x-4 text-cyan-300; */
+        @apply text-[1vw] leading-[3vh] mt-[-0.2rem] font-semibold col-start-1 col-span-1 translate-x-4 text-cyan-300;
     }
 
     .variationContainer {
@@ -23,60 +24,69 @@
     }
 
     .variationHeader {
-        @apply text-base text-white;
+        /* @apply text-base text-white; */
+        @apply text-[0.8vw] leading-[2.4vh] text-white;
     }
 
     .variationValue {
-        @apply text-xl mt-[-3px] ml-[5px] text-orange-300;
+        /* @apply text-xl mt-[-3px] ml-[5px] text-orange-300; */
+        @apply text-[1vw] leading-[3vh] mt-[-3px] ml-[5px] text-orange-300;
     }
 
     .rightIdentityComponent {
-        @apply text-xl mt-[-0.2rem] font-semibold translate-x-[-0.8rem] text-cyan-300;
+        /* @apply text-xl mt-[-0.2rem] font-semibold translate-x-[-0.8rem] text-cyan-300; */
+        @apply text-[1vw] leading-[3vh] mt-[-0.2rem] font-semibold translate-x-[-0.8rem] text-cyan-300;
     }
 
 
 
     .statDisplayerBottomRow {
-        @apply flex flex-row w-[18.75vw] justify-between px-5;
+        @apply flex flex-row w-[18.75vw] justify-between px-[1.2vw];
     }
 
     .one_percent_low_container {
-        @apply flex flex-col justify-center items-center  rounded-3xl font-semibold;
+        @apply flex flex-col justify-center items-center font-semibold;
     }
 
     .one_percent_low_header {
-        @apply text-base text-white;
+        /* @apply text-base text-white; */
+        @apply text-[0.8vw] leading-[2.4vh] text-white;
     }
 
     .one_percent_low_value {
-        @apply text-xl mt-[-5px] text-orange-300;
+        /* @apply text-xl mt-[-5px] text-orange-300; */
+        @apply text-[1vw] leading-[2.4vh] mt-[-0.1vw] text-orange-300;
     }
 
 
 
     .delayContainer {
-        @apply flex flex-col justify-center items-center  rounded-3xl font-semibold;
+        @apply flex flex-col justify-center items-center  font-semibold;
     }
 
     .delayHeader {
-        @apply text-base text-white;
+        /* @apply text-base text-white; */
+        @apply text-[0.8vw] leading-[2.4vh] text-white;
     }
 
     .delayValue {
-        @apply text-xl mt-[-5px] text-orange-300;
+        /* @apply text-xl mt-[-5px] text-orange-300; */
+        @apply text-[1vw] leading-[2.4vh] mt-[-0.1vw] text-orange-300;
     }
 
 
 
     .one_percent_high_container {
-        @apply flex flex-col justify-center items-center  rounded-3xl font-semibold;
+        @apply flex flex-col justify-center items-center  font-semibold;
     }
 
     .one_percent_high_header {
-        @apply text-base text-white;
+        /* @apply text-base text-white; */
+        @apply text-[0.8vw] leading-[2.4vh] text-white;
     }
 
     .one_percent_high_value {
-        @apply text-xl mt-[-5px] text-orange-300;
+        /* @apply text-xl mt-[-5px] text-orange-300; */
+        @apply text-[1vw] leading-[2.4vh] mt-[-0.1vw] text-orange-300;
     }
 }

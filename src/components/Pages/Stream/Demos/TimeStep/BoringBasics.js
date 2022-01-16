@@ -17,12 +17,14 @@ function BoringBasics() {
     const additionalSetup = 'To reduce video latency, I also provided the option to only send the coordinates of the faces in the image to the clients rather than the entire processed images. This also meant that I had to have the frontend draw the faces’ bounding boxes on the original frames before displaying them.';
 
     return (
-        <div className="boringBasics flex flex-col items-center w-[60vw] ml-[-5px]  text-cyan-200">
+        <div className="boringBasics flex flex-col w-[60vw] ml-[-5px]  text-cyan-200
+        text-[1.3vw] leading-[1.8vw] 
+        ">
 
-            <div className=" text-2xl w-full">
+            <div className=" w-full">
                 <div>
                     <div className="flex flex-col items-center text-cyan-300">
-                        <div className=" text-4xl">Frontend</div>
+                        <div className="text-[2vw] leading-[1.8vw]">Frontend</div>
                     </div>
 
                     <br></br>
@@ -52,13 +54,10 @@ function BoringBasics() {
 
             {/* ************************************************************************************* */}
 
-            <br></br>
-            <br></br>
-
-            <div className="  text-2xl w-full">
+            <div className="w-full mt-[4vw]">
                 <div>
                     <div className="flex flex-row justify-center">
-                        <div className=" text-4xl text-cyan-300">Backend</div>
+                        <div className="text-[2vw] leading-[1.8vw] text-cyan-300">Backend</div>
                     </div>
 
                     <br></br>
@@ -72,7 +71,7 @@ function BoringBasics() {
                         {backendDescription1}
                     </div>
                     <div className="flex flex-row justify-center">
-                        <div className=" text-sky-100 bg-sky-600 rounded-3xl w-fit pt-1 pb-2 px-6 mt-3">
+                        <div className=" text-sky-100 bg-sky-600 rounded-3xl w-fit pt-[0.1vw] pb-[0.42vw] px-[1vw] mt-[0.6vw]">
                             {backendDescription2}
                         </div>
                     </div>
@@ -85,20 +84,18 @@ function BoringBasics() {
                         {backendDescription3}
                     </div>
                     <div>
-                        <img src={serverReceive} className="  w-[100%] h-auto rounded-3xl mt-3"></img>
+                        <img src={serverReceive} className="  w-[100%] h-auto rounded-3xl mt-[0.6vw]"></img>
                     </div>
                 </div>
 
 
             </div>
 
-            <br></br>
-            <br></br>
 
-            <div className=" text-2xl w-full">
+            <div className=" w-full mt-[4vw]">
                 <div>
                     <div className="flex flex-row justify-center">
-                        <div className=" text-4xl text-cyan-300">Additional stuff</div>
+                        <div className="text-[2vw] leading-[1.8vw] text-cyan-300">Additional stuff</div>
                     </div>
 
                     <br></br>

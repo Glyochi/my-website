@@ -16,15 +16,15 @@
     /*--------------------------------------- About Me css ---------------------------------------*/
     
     .aboutMe {
-        @apply flex flex-row justify-evenly items-center h-3/5 w-3/4 bg-gray-500 rounded-3xl
-            bg-opacity-80
+        @apply flex flex-row justify-evenly items-center h-[55%] w-3/4 bg-gray-500 rounded-[1vw]
+            bg-opacity-60
         ;
     }
 
 
   
     .pfpBorder {
-        @apply overflow-hidden h-72 w-72 rounded-full
+        @apply overflow-hidden h-[15vw] w-[15vw] rounded-full
         shadow-none
         transition-all duration-300 
         /* hover:shadow-[15px_30px_60px_-15px_rgba(0,0,0,1)]
@@ -35,12 +35,8 @@
     }
 
     .pfp {
-        @apply scale-[2.1] ml-[-20px] mt-[70px]
+        @apply scale-[2.1] ml-[-1.4vw] mt-[3.6vw]
         transition-all duration-300
-        /* hover:scale-[3] 
-        hover:translate-x-[-30px]
-        hover:translate-y-[90px]
-        hover:duration-200 */
         ;
     }
 
@@ -54,7 +50,7 @@
         
         px-2
         py-4
-        rounded-3xl
+        rounded-[1vw]
         shadow-none
         transition-all duration-300
         /* hover:shadow-[15px_30px_60px_-15px_rgba(0,0,0,1)]

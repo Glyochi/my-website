@@ -5,7 +5,7 @@ function HomePageBody() {
         <div className="homePageContentContainer ">
             <div className="homePageContent">
                 <AboutMeSection />
-                <div className="flex h-1/5 w-3/4 bg-gray-400 rounded-3xl"> rRre</div>
+                <div className="flex h-1/5 w-3/4 bg-gray-400 rounded-[1vw]"> rRre</div>
 
             </div>
 

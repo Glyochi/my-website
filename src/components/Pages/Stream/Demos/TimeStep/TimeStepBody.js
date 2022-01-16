@@ -18,38 +18,38 @@ function DemoTimeStepBody() {
 
     return (
         <div
-            className="w-full bg-gray-800 rounded-3xl
+            className="w-full bg-gray-800 rounded-[1vw]
             flex flex-col items-center
             "
 
         >
             {/* ******************************************************************************************************************************* */}
             <div className="flex flex-row justify-center p-5  ">
-                <div className=" text-6xl text-cyan-400 ">TechStack</div>
+                <div className=" text-[4vw] leading-[5vw] text-cyan-400 ">TechStack</div>
             </div>
 
             {/* ******************************************************************************************************************************* */}
-            <div className="grid grid-cols-7 bg-blue-700 rounded-[5rem] p-3">
-                <div className=" col-start-2 col-span-1 flex flex-row justify-center ">
-                    <div className="text-5xl">ReactJS</div>
+            <div className="grid grid-cols-7 bg-blue-700 rounded-[2vw] p-[0.6vw]">
+                <div className=" col-start-2 col-span-1 flex flex-row justify-center items-center ">
+                    <div className="text-[3vw] leading-[2.5vw]">ReactJS</div>
                 </div>
                 <div className="col-start-4 col-span-1 flex flex-row justify-center">
-                    <div className="text-5xl">SocketIO</div>
+                    <div className="text-[3vw] leading-[2.5vw]">SocketIO</div>
                 </div>
                 <div className="col-start-6 col-span-1 flex flex-row justify-center">
-                    <div className="text-5xl">Flask</div>
+                    <div className="text-[3vw] leading-[2.5vw]">Flask</div>
                 </div>
             </div>
 
             {/* ******************************************************************************************************************************* */}
             <div className="w-[100%]">
-                <div className="flex flex-row justify-evenly p-2">
-                    <div className="text-[2.75rem] text-cyan-400"
+                <div className="flex flex-row justify-evenly p-[0.6vw]">
+                    <div className="text-[3vw] leading-[5vw] text-cyan-400"
                         onClick={() => {
                             setReadBoringBasics(true);
                         }}
                     >Boring Basics</div>
-                    <div className="text-[2.75rem] text-cyan-400"
+                    <div className="text-[3vw] leading-[5vw] text-cyan-400"
                         onClick={() => {
                             setReadBoringBasics(false);
                         }}
@@ -59,48 +59,49 @@ function DemoTimeStepBody() {
 
             {/* ******************************************************************************************************************************* */}
 
-            <div className="flex flex-row   w-4/5 mt-10 ">
-                    <CSSTransition
-                        in={readBoringBasics}
-                        timeout={{
-                            enter: 1000,
-                            exit: 1000,
-                        }}
-                        unmountOnExit
-                        classNames="boringBasicsTransition"
-                    >
+            <div className="flex flex-row   w-4/5 mt-[2vw] ">
+                <CSSTransition
+                    in={readBoringBasics}
+                    timeout={{
+                        enter: 1000,
+                        exit: 1000,
+                    }}
+                    unmountOnExit
+                    classNames="boringBasicsTransition"
+                >
 
-                        <BoringBasics ref={boringBasicsRef}></BoringBasics>
-                    </CSSTransition>
-                    <CSSTransition
-                        in={!readBoringBasics}
-                        timeout={{
-                            enter: 1000,
-                            exit: 1000,
-                        }}
-                        unmountOnExit
-                        classNames="encounteredProblemsTransition"
-                    >
+                    <BoringBasics ref={boringBasicsRef}></BoringBasics>
+                </CSSTransition>
+                <CSSTransition
+                    in={!readBoringBasics}
+                    timeout={{
+                        enter: 1000,
+                        exit: 1000,
+                    }}
+                    unmountOnExit
+                    classNames="encounteredProblemsTransition"
+                >
 
-                        <EncounteredProblems ref={encounteredProblemsRef}></EncounteredProblems>
-                    </CSSTransition>
+                    <EncounteredProblems ref={encounteredProblemsRef}></EncounteredProblems>
+                </CSSTransition>
 
-                    <canvas className="resizableBackground transition-all: duration-500 ease-in-out"
-                        style={
-                            readBoringBasics ? 
+                <canvas className="resizableBackground transition-all: duration-500 ease-in-out"
+                    style={
+                        readBoringBasics ?
                             {
-                                height: '194vh',
+                                height: '128vw',
                             }
                             :
                             {
-                                height: '394vh',
+                                height: '242vw',
                             }
-                        }
-                    
-                    >
-                    </canvas>
+                    }
+
+                >
+                </canvas>
             </div>
 
+           
 
             {/* <div>
                     <div>Setting up the frontend</div>
@@ -145,7 +146,6 @@ function DemoTimeStepBody() {
                     </div>
                 </div> */}
 
-                <div className="h-[500px]"></div>
 
         </div>
 

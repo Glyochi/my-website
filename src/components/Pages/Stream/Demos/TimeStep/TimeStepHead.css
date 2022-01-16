@@ -70,14 +70,18 @@
     }
 
     .toggleButton {
-        @apply bg-gray-600 rounded-3xl pt-1 pb-2 px-4 text-sky-50 text-xl;
+        /* @apply bg-gray-600 rounded-3xl pt-1 pb-2 px-4 text-sky-50 text-xl; */
+        @apply bg-gray-600 rounded-[1vw] pt-[0.1vw] pb-[0.23vw] px-[0.8vw] text-sky-50 text-[1.2vw];
     }
 
     .helpButtonWrapper {
         @apply translate-x-[-3.5rem];
     }
     .helpButton {
-        @apply pt-0 pb-[0.12rem] pr-3 pl-[0.76rem] text-2xl font-semibold text-white bg-gray-600 rounded-full ;
+        @apply pb-[0.05vw] px-[0.7vw]
+         /* text-2xl  */
+         text-[1.2vw]
+         font-semibold text-white bg-gray-600 rounded-full ;
     }
 
 

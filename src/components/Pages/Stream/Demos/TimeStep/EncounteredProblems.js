@@ -30,173 +30,170 @@ function EncounteredProblems() {
 
 
     return (
-        <div className="encounteredProblems flex flex-col items-center w-[60vw] ml-[-5px]  ">
 
-            <div className=" text-cyan-200 text-2xl w-full">
-
-
-                <div>{opening}</div>
+        <div className="encounteredProblems flex flex-col items-center w-[60vw] ml-[-5px]  text-cyan-200 text-[1.3vw] leading-[1.8vw]">
 
 
-                <br></br>
-                <div className='flex flex-col items-center'>
+            <div>{opening}</div>
 
-                    <div className='text-6xl text-cyan-400'>
-                        SIKEEE !
-                    </div>
-                    <div className='mt-3'>
-                        {problems}
-                    </div>
 
+            <div className='flex flex-col items-center mt-[0.4vw]'>
+
+                <div className='text-[5vw] leading-[6vw] text-cyan-400'>
+                    SIKEEE !
                 </div>
-
-
-                <br></br>
-                <br></br>
-
-
-                <div className='flex flex-col items-center'>
-
-                    <div className='text-4xl text-cyan-400'>
-                        Problem 1: Out-Of-Order Frames !
-                    </div>
-
-                    <div className='mt-3'>
-                        {outOfOrderFramesSolution}
-                    </div>
-
+                <div className='mt-3'>
+                    {problems}
                 </div>
-
-                <br></br>
-
-                <div>
-                    {outOfOrderFramesElaboration1}
-                </div>
-
-                <br></br>
-
-                <div>
-                    <div>
-                        {outOfOrderFramesElaboration2}
-                    </div>
-
-                    <img src={outOfOrderFrames_foundThreads} className="w-[100%] h-auto rounded-3xl mt-4"></img>
-                </div>
-
-                <br></br>
-
-                <div>
-                    <div>
-                        {outOfOrderFramesElaboration3}
-                    </div>
-
-                    <br></br>
-
-                    <div>
-                        {outOfOrderFramesConclusion}
-                    </div>
-
-                    <img src={outOfOrderFrames_pickingThreads} className="w-[100%] h-auto rounded-3xl mt-4"></img>
-                </div>
-
-
-                {/* *************************************************************************************************************** */}
-
-                <br></br>
-                <br></br>
-
-                <div className='flex flex-col items-center'>
-
-                    <div className='text-4xl text-cyan-400'>
-                        Problem 2: Jittery Video !
-                    </div>
-
-                    <div className='mt-3'>
-                        {jitteryVideoSolution}
-                    </div>
-
-                </div>
-
-                <br></br>
-
-                <div>
-                    <div>
-                        {jitteryVideoElaboration1}
-                    </div>
-
-                    <div className='flex flex-col items-center'>
-                        <div className='text-sky-100 bg-sky-600 rounded-3xl w-fit pt-1 pb-2 px-5 mt-3'>
-                            {jitteryVideoElaboration2}
-                        </div>
-                    </div>
-                </div>
-
-                <br></br>
-
-                <div>
-                    <div>
-                        {jitteryVideoConclusion}
-                    </div>
-
-                    <br></br>
-
-                    <div>
-                        {insaneDelay}
-                    </div>
-                </div>
-
-                {/* ********************************************************************************************************************************** */}
-
-                <br></br>
-                <br></br>
-
-
-                <div className='flex flex-col items-center'>
-
-                    <div className='text-4xl text-cyan-400'>
-                        Problem 3: Insane Delay !
-                    </div>
-                        
-                    <div className='mt-2'>
-                        {insaneDelaySolution}
-                    </div>
-                </div>
-
-
-                <div>
-
-
-                    <div className='mt-6'>
-                        {insaneDelayElaboration1}
-                    </div>
-                    <div className='mt-4'>
-                        {insaneDelayElaboration2}
-                    </div>
-
-                    <div className='flex flex-col items-center'>
-                        <div>
-                            <div className='text-sky-100 bg-sky-600 rounded-3xl w-fit pt-1 pb-2 px-5 mt-4'>
-                                {insaneDelayElaboration3}
-                            </div>
-                            <div className='text-sky-100 bg-sky-600 rounded-3xl w-fit pt-1 pb-2 px-5 mt-4'>
-                                {insaneDelayElaboration4}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <br></br>
-
-                <div>
-                    {insaneDelayConclusion}
-                </div>
-
-                <img src={jitteryVideo_insaneDelay} className="w-[100%] h-auto rounded-3xl mt-4"></img>
 
             </div>
 
 
+            <br></br>
+            <br></br>
+
+
+            <div className='flex flex-col items-center'>
+
+                <div className='text-[2vw] leading-[2vw] text-cyan-400'>
+                    Problem 1: Out-Of-Order Frames !
+                </div>
+
+                <div className='mt-3'>
+                    {outOfOrderFramesSolution}
+                </div>
+
+            </div>
+
+            <br></br>
+
+            <div>
+                {outOfOrderFramesElaboration1}
+            </div>
+
+            <br></br>
+
+            <div>
+                <div>
+                    {outOfOrderFramesElaboration2}
+                </div>
+
+                <img src={outOfOrderFrames_foundThreads} className="w-[100%] h-auto rounded-3xl mt-4"></img>
+            </div>
+
+            <br></br>
+
+            <div>
+                <div>
+                    {outOfOrderFramesElaboration3}
+                </div>
+
+                <br></br>
+
+                <div>
+                    {outOfOrderFramesConclusion}
+                </div>
+
+                <img src={outOfOrderFrames_pickingThreads} className="w-[100%] h-auto rounded-3xl mt-4"></img>
+            </div>
+
+
+            {/* *************************************************************************************************************** */}
+
+            <br></br>
+            <br></br>
+
+            <div className='flex flex-col items-center'>
+
+                <div className='text-[2vw] leading-[2vw] text-cyan-400'>
+                    Problem 2: Jittery Video !
+                </div>
+
+                <div className='mt-3'>
+                    {jitteryVideoSolution}
+                </div>
+
+            </div>
+
+            <br></br>
+
+            <div>
+                <div>
+                    {jitteryVideoElaboration1}
+                </div>
+
+                <div className='flex flex-col items-center'>
+                    <div className='text-sky-100 bg-sky-600 rounded-3xl w-fit pt-1 pb-2 px-5 mt-3'>
+                        {jitteryVideoElaboration2}
+                    </div>
+                </div>
+            </div>
+
+            <br></br>
+
+            <div>
+                <div>
+                    {jitteryVideoConclusion}
+                </div>
+
+                <br></br>
+
+                <div>
+                    {insaneDelay}
+                </div>
+            </div>
+
+            {/* ********************************************************************************************************************************** */}
+
+            <br></br>
+            <br></br>
+
+
+            <div className='flex flex-col items-center'>
+
+                <div className='text-[2vw] leading-[2vw] text-cyan-400'>
+                    Problem 3: Insane Delay !
+                </div>
+
+                <div className='mt-2'>
+                    {insaneDelaySolution}
+                </div>
+            </div>
+
+
+            <div>
+
+
+                <div className='mt-6'>
+                    {insaneDelayElaboration1}
+                </div>
+                <div className='mt-4'>
+                    {insaneDelayElaboration2}
+                </div>
+
+                <div className='flex flex-col items-center'>
+                    <div>
+                        <div className='text-sky-100 bg-sky-600 rounded-3xl w-fit pt-1 pb-2 px-5 mt-4'>
+                            {insaneDelayElaboration3}
+                        </div>
+                        <div className='text-sky-100 bg-sky-600 rounded-3xl w-fit pt-1 pb-2 px-5 mt-4'>
+                            {insaneDelayElaboration4}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br></br>
+
+            <div>
+                {insaneDelayConclusion}
+            </div>
+
+            <img src={jitteryVideo_insaneDelay} className="w-[100%] h-auto rounded-3xl mt-4"></img>
+
         </div>
+
+
     )
 }
 export default EncounteredProblems

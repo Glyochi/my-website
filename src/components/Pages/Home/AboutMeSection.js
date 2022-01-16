@@ -10,13 +10,14 @@ function AboutMeSection() {
             <div className="pfpCollisionDetection group ">
                 <div className="pfpBorder 
                 group-hover:shadow-[15px_30px_60px_-15px_rgba(0,0,0,1)]
-                group-hover:mb-8 group-hover:mr-8
+                group-hover:translate-x-[-0.6vw]
+                group-hover:translate-y-[-1vw]
                 group-hover:duration-200
                 ">
                     <img src={Pfp} className="pfp
                     group-hover:scale-[3] 
-                    group-hover:translate-x-[-30px]
-                    group-hover:translate-y-[90px]
+                    group-hover:translate-x-[-1.8vw]
+                    group-hover:translate-y-[4.2vw]
                     group-hover:duration-200
                     " alt='' ></img>
                 </div>
@@ -24,13 +25,13 @@ function AboutMeSection() {
             <div className="descriptionBorder group">
                 <div className="description
                 group-hover:shadow-[15px_30px_60px_-15px_rgba(0,0,0,1)]
-                group-hover:translate-x-[-4px]
-                group-hover:translate-y-[-4px]
+                group-hover:translate-x-[-0.6vw]
+                group-hover:translate-y-[-1vw]
                 group-hover:duration-100
                 ">
-                    <h1 className="flex text-[40px] font-bold text-white" >{name}</h1>
+                    <h1 className="flex text-[2vw] font-bold text-white" >{name}</h1>
 
-                    <div className=" flex text-white font-medium text-xl ml-5 mr-5">
+                    <div className=" flex text-white font-medium text-[1vw] ml-[1vw] mr-[1vw]">
                         {descriptionOpening}
                         <br />
                         <br />

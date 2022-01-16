@@ -11,6 +11,7 @@ import "./TimeStepHead.css"
 
 import VideoSocketService_NewTrick from "../../Socket/VideoSocketService_NewTrick";
 import VideoSocketService_NoTrick from "../../Socket/VideoSocketService_NoTrick";
+import VideoSocketService_drawFacesOnClient from "../../Socket/VideoSocketService_drawFacesOnClient";
 
 import StatDisplayer from "../StatDisplayer/StatDisplayer";
 import StatManager from "../StatDisplayer/StatManager";
@@ -80,6 +81,15 @@ function VideoPlayer() {
 
     useEffect(() => {
 
+        let originalRes = {
+            width: videoResWidth,
+            height: videoResHeight,
+        }
+
+        let coordinatesRes = {
+            width: facialDetectionVideoResWidth,
+            height: facialDetectionVideoResHeight,
+        }
 
         let leftCanvasHelperFunctions = { setCanvasHeight: setLeftCanvasHeight, setCanvasWidth: setLeftCanvasWidth };
         let rightCanvasHelperFunctions = { setCanvasHeight: setRightCanvasHeight, setCanvasWidth: setRightCanvasWidth };
@@ -87,14 +97,16 @@ function VideoPlayer() {
         statManager1.current = new StatManager(leftSide_leftDisplayer, rightSide_leftDisplayer);
 
         videoSocketService_LeftCanvas.current = new VideoSocketService_NoTrick(SERVER,
-            new CanvasArtist(leftCanvasRef, leftCanvasContainerRef, leftCanvasHelperFunctions),
+            new CanvasArtist(leftCanvasRef, leftCanvasContainerRef, leftCanvasHelperFunctions, originalRes, coordinatesRes),
             statManager1.current);
-
+            // videoSocketService_LeftCanvas.current = new VideoSocketService_NewTrick(SERVER,
+            //     new CanvasArtist(leftCanvasRef, leftCanvasContainerRef, leftCanvasHelperFunctions, originalRes, coordinatesRes),
+            //     statManager1.current);
             
         statManager2.current =  new StatManager(leftSide_rightDisplayer, rightSide_rightDisplayer)
 
-        videoSocketService_RightCanvas.current = new VideoSocketService_NewTrick(SERVER,
-            new CanvasArtist(rightCanvasRef, rightCanvasContainerRef, rightCanvasHelperFunctions),
+        videoSocketService_RightCanvas.current = new VideoSocketService_drawFacesOnClient(SERVER,
+            new CanvasArtist(rightCanvasRef, rightCanvasContainerRef, rightCanvasHelperFunctions, originalRes, coordinatesRes),
             statManager2.current)
 
 
@@ -368,7 +380,7 @@ function VideoPlayer() {
                         in={helpPressed}
                         unmountOnExit
                     >
-                        <div className="absolute bg-cyan-900  text-gray-200 rounded-3xl p-2 translate-x-[-20vw] translate-y-[-21vh] w-[20vw] text-base font-semibold"
+                        <div className="absolute bg-cyan-900  text-gray-200 rounded-[1vw] p-2 translate-x-[-20vw] translate-y-[-10vw] w-[20vw] text-[0.8vw] leading-[1vw] font-semibold"
                             ref={helpDescriptionRef}
                             style={
                                 {
@@ -380,8 +392,8 @@ function VideoPlayer() {
                             }
                         >
                             <div>{helpDescription1}</div>
-                            <div className="mt-2">{helpDescription2}</div>
-                            <div className="mt-2">{helpDescription3}</div>
+                            <div className="mt-[0.2vw]">{helpDescription2}</div>
+                            <div className="mt-[0.2vw]">{helpDescription3}</div>
                         </div>
                     </CSSTransition>
                 </div>
@@ -541,7 +553,7 @@ function VideoPlayer() {
                                     (focusState === focusNeutralState) ?
                                         {
                                             // Neutral
-                                            borderRadius: '3rem',
+                                            borderRadius: '1.2vw',
                                             transform: 'translate(-10px, -12px)',
                                             boxShadow: '10px 14px 30px rgba(1, 0, 0, 0.8)',
                                             transitionDuration: '60ms',
@@ -552,7 +564,7 @@ function VideoPlayer() {
                                             (focusState === focusLeftCanvasState) ?
                                                 {
                                                     // Biggest
-                                                    borderRadius: '2rem',
+                                                    borderRadius: '0.8vw',
                                                     transform: 'translate(-10px, -12px)',
                                                     boxShadow: '10px 14px 30px rgba(1, 0, 0, 0.8)',
                                                     transitionDuration: '60ms',
@@ -561,7 +573,7 @@ function VideoPlayer() {
                                                 :
                                                 {
                                                     // Smallest
-                                                    borderRadius: '4rem',
+                                                    borderRadius: '1.6vw',
                                                     transform: 'translate(-10px, -12px)',
                                                     boxShadow: '10px 14px 30px rgba(1, 0, 0, 0.8)',
                                                     transitionDuration: '60ms',
@@ -576,7 +588,7 @@ function VideoPlayer() {
                                     (focusState === focusNeutralState) ?
                                         {
                                             // Neutral
-                                            borderRadius: '3rem',
+                                            borderRadius: '1.2vw',
                                             transitionDuration: '60ms',
                                             transitionTimingFunction: 'linear',
                                         }
@@ -585,7 +597,7 @@ function VideoPlayer() {
                                             (focusState === focusLeftCanvasState) ?
                                                 {
                                                     // Biggest
-                                                    borderRadius: '2rem',
+                                                    borderRadius: '0.8vw',
                                                     transform: 'translate(-10px, -12px)',
                                                     boxShadow: '10px 14px 30px rgba(1, 0, 0,0.8)',
                                                     transitionDuration: '60ms',
@@ -594,7 +606,7 @@ function VideoPlayer() {
                                                 :
                                                 {
                                                     // Smallest
-                                                    borderRadius: '4rem',
+                                                    borderRadius: '1.6vw',
                                                     transitionDuration: '60ms',
                                                     transitionTimingFunction: 'linear',
                                                 }
@@ -740,7 +752,7 @@ function VideoPlayer() {
                                     (focusState === focusNeutralState) ?
                                         {
                                             // Neutral
-                                            borderRadius: '3rem',
+                                            borderRadius: '1.2vw',
                                             transform: 'translate(-10px, -12px)',
                                             boxShadow: '10px 14px 30px rgba(1, 0, 0, 0.8)',
                                             transitionDuration: '60ms',
@@ -751,7 +763,7 @@ function VideoPlayer() {
                                             (focusState === focusRightCanvasState) ?
                                                 {
                                                     // Biggest
-                                                    borderRadius: '2rem',
+                                                    borderRadius: '0.8vw',
                                                     transform: 'translate(-10px, -12px)',
                                                     boxShadow: '10px 14px 30px rgba(1, 0, 0, 0.8)',
                                                     transitionDuration: '60ms',
@@ -760,7 +772,7 @@ function VideoPlayer() {
                                                 :
                                                 {
                                                     // Smallest
-                                                    borderRadius: '4rem',
+                                                    borderRadius: '1.6vw',
                                                     transform: 'translate(-10px, -12px)',
                                                     boxShadow: '10px 14px 30px rgba(1, 0, 0, 0.8)',
                                                     transitionDuration: '60ms',
@@ -775,7 +787,7 @@ function VideoPlayer() {
                                     (focusState === focusNeutralState) ?
                                         {
                                             // Neutral
-                                            borderRadius: '3rem',
+                                            borderRadius: '1.2vw',
                                             transitionDuration: '60ms',
                                             transitionTimingFunction: 'linear',
                                         }
@@ -784,7 +796,7 @@ function VideoPlayer() {
                                             (focusState === focusRightCanvasState) ?
                                                 {
                                                     // Biggest
-                                                    borderRadius: '2rem',
+                                                    borderRadius: '0.8vw',
                                                     transform: 'translate(-10px, -12px)',
                                                     boxShadow: '10px 14px 30px rgba(1, 0, 0,0.8)',
                                                     transitionDuration: '60ms',
@@ -793,7 +805,7 @@ function VideoPlayer() {
                                                 :
                                                 {
                                                     // Smallest
-                                                    borderRadius: '4rem',
+                                                    borderRadius: '1.6vw',
                                                     transitionDuration: '60ms',
                                                     transitionTimingFunction: 'linear',
                                                 }

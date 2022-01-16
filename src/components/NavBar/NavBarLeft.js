@@ -101,11 +101,9 @@ function NavBarLeftBtn(props) {
                                 {
                                     transitionDuration: '50ms',
                                     boxShadow: '3px 4px 1px ',
-                                    borderRadius: '1.5rem',
-                                    padding: '0.25rem 0.8rem',
+                                    borderRadius: '2vw',
+                                    padding: '0.6vw 0.8vw',
                                     // fontSize: '1.5rem'/* 30px */,
-                                    lineHeight: '2rem'/* 36px */,
-                                    fontWeight: '600',
                                     color: 'rgb(52 211 153)',
                                     backgroundColor: 'rgb(75 85 99)',
                                     transform: 'translate(-3px, -4px)',
@@ -183,7 +181,8 @@ function NavBarLeftBtn(props) {
                 <Link to={props.btnConfig.link}>
                     <button className="NavBarLeftBtn"
                         onClick={() => {
-                            setClicked(true); setTimeout(() => {
+                            setClicked(true); 
+                            setTimeout(() => {
                                 setClicked(false)
                             }, 800)
                         }}
@@ -193,11 +192,8 @@ function NavBarLeftBtn(props) {
                                 {
                                     transitionDuration: '50ms',
                                     boxShadow: '3px 4px 1px ',
-                                    borderRadius: '1.5rem',
-                                    padding: '0.25rem 0.8rem',
-                                    // fontSize: '1.5rem'/* 30px */,
-                                    lineHeight: '2rem'/* 36px */,
-                                    fontWeight: '600',
+                                    borderRadius: '2vw',
+                                    padding: '0.6vw 0.8vw',
                                     color: 'rgb(52 211 153)',
                                     backgroundColor: 'rgb(75 85 99)',
                                     transform: 'translate(-3px, -4px)',
