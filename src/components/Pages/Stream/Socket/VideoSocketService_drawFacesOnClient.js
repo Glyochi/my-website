@@ -9,7 +9,7 @@ class VideoSocketService_drawFacesOnClient {
         this.artist = canvasArtist
         this.displayRef = displayRef
 
-        this.socketio = io(url, { transport : ['websocket'] })
+        this.socketio = io(url,  {transport: ['websocket']})
         this.videoSocket = null
         // This is to prevent client to make a connection to the server to soon. We just want it to be there
         let temp = this.socketio.connect()

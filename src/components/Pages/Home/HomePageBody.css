@@ -16,7 +16,7 @@
     /*--------------------------------------- About Me css ---------------------------------------*/
     
     .aboutMe {
-        @apply flex flex-row justify-evenly items-center h-[55%] w-3/4 bg-gray-500 rounded-[1vw]
+        @apply flex flex-row justify-evenly items-center h-[25vw] w-3/4 bg-gray-500 rounded-[1vw]
             bg-opacity-60
         ;
     }

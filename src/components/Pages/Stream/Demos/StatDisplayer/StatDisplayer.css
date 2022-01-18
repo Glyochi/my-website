@@ -16,7 +16,7 @@
 
     .leftIdentityComponent {
         /* @apply text-xl mt-[-0.2rem] font-semibold col-start-1 col-span-1 translate-x-4 text-cyan-300; */
-        @apply text-[1vw] leading-[3vh] mt-[-0.2rem] font-semibold col-start-1 col-span-1 translate-x-4 text-cyan-300;
+        @apply text-[1vw] leading-[1.4vw] mt-[-0.2vw] font-semibold col-start-1 col-span-1 translate-x-4 text-cyan-300;
     }
 
     .variationContainer {
@@ -25,17 +25,17 @@
 
     .variationHeader {
         /* @apply text-base text-white; */
-        @apply text-[0.8vw] leading-[2.4vh] text-white;
+        @apply text-[0.8vw] leading-[1vw] text-white;
     }
 
     .variationValue {
         /* @apply text-xl mt-[-3px] ml-[5px] text-orange-300; */
-        @apply text-[1vw] leading-[3vh] mt-[-3px] ml-[5px] text-orange-300;
+        @apply text-[1vw] leading-[1.4vw] mt-[-0.2vw] ml-[5px] text-orange-300;
     }
 
     .rightIdentityComponent {
         /* @apply text-xl mt-[-0.2rem] font-semibold translate-x-[-0.8rem] text-cyan-300; */
-        @apply text-[1vw] leading-[3vh] mt-[-0.2rem] font-semibold translate-x-[-0.8rem] text-cyan-300;
+        @apply text-[1vw] leading-[1.4vw] mt-[-0.2vw] font-semibold translate-x-[-0.8vw] text-cyan-300;
     }
 
 
@@ -50,12 +50,12 @@
 
     .one_percent_low_header {
         /* @apply text-base text-white; */
-        @apply text-[0.8vw] leading-[2.4vh] text-white;
+        @apply text-[0.8vw] leading-[1.2vw] text-white;
     }
 
     .one_percent_low_value {
         /* @apply text-xl mt-[-5px] text-orange-300; */
-        @apply text-[1vw] leading-[2.4vh] mt-[-0.1vw] text-orange-300;
+        @apply text-[1vw] leading-[1.2vw] mt-[-0.1vw] text-orange-300;
     }
 
 
@@ -66,12 +66,12 @@
 
     .delayHeader {
         /* @apply text-base text-white; */
-        @apply text-[0.8vw] leading-[2.4vh] text-white;
+        @apply text-[0.8vw] leading-[1.2vw] text-white;
     }
 
     .delayValue {
         /* @apply text-xl mt-[-5px] text-orange-300; */
-        @apply text-[1vw] leading-[2.4vh] mt-[-0.1vw] text-orange-300;
+        @apply text-[1vw] leading-[1.2vw] mt-[-0.1vw] text-orange-300;
     }
 
 
@@ -82,11 +82,11 @@
 
     .one_percent_high_header {
         /* @apply text-base text-white; */
-        @apply text-[0.8vw] leading-[2.4vh] text-white;
+        @apply text-[0.8vw] leading-[1.2vw] text-white;
     }
 
     .one_percent_high_value {
         /* @apply text-xl mt-[-5px] text-orange-300; */
-        @apply text-[1vw] leading-[2.4vh] mt-[-0.1vw] text-orange-300;
+        @apply text-[1vw] leading-[1.2vw] mt-[-0.1vw] text-orange-300;
     }
 }

@@ -18,8 +18,10 @@ import StatManager from "../StatDisplayer/StatManager";
 import CanvasArtist from "../CanvasArtists/CanvasArtist";
 
 function VideoPlayer() {
-    const SERVER = "http://127.0.0.1:5000/";
+    // const SERVER = "http://127.0.0.1:5000/";
     // const SERVER = "https://glyserver-auhlv5aena-uc.a.run.app";
+    // const SERVER = "https://ree2---glyserver-auhlv5aena-uc.a.run.app/";
+    const SERVER = "https://glyserver2-auhlv5aena-uc.a.run.app";
     
 
     const videoRef = useRef(null);
@@ -105,7 +107,7 @@ function VideoPlayer() {
             
         statManager2.current =  new StatManager(leftSide_rightDisplayer, rightSide_rightDisplayer)
 
-        videoSocketService_RightCanvas.current = new VideoSocketService_drawFacesOnClient(SERVER,
+        videoSocketService_RightCanvas.current = new VideoSocketService_NewTrick(SERVER,
             new CanvasArtist(rightCanvasRef, rightCanvasContainerRef, rightCanvasHelperFunctions, originalRes, coordinatesRes),
             statManager2.current)
 
@@ -424,7 +426,7 @@ function VideoPlayer() {
 
 
 
-            <div className="canvasContainer h-[64vh] items-center">
+            <div className="canvasContainer items-center">
 
                 <div className="leftCanvasContainer transition-all: duration-500 ease-in-out
                 "
@@ -450,18 +452,18 @@ function VideoPlayer() {
                     By doing this, the animations of the statDisplayers stay untouched while the statDisplayerPositioner can move the statDisplayers around freely 
                     And because everything in statDisplayerPositioner use absolute positioning, statDisplayerPositioner has no width nor height => invisible
                     */}
-                    <div className="statDisplayerPositioner bg-black w-fit mb-2 "
+                    <div className="statDisplayerPositioner  w-fit mb-2 "
 
                         style={(focusState === focusRightCanvasState) ?
                             {
                                 transitionDuration: '500ms',
-                                transform: 'translate(0, 13vh)',
+                                transform: 'translate(0, 7vw)',
                                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
                             }
                             :
                             (focusState === focusNeutralState) ?
                                 {
-                                    marginTop: '10vh',
+                                    marginTop: '6vw',
                                     transitionDuration: '500ms',
                                     transform: 'translate(7.5vw, 0)',
                                     transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -512,7 +514,7 @@ function VideoPlayer() {
                         style={(focusState === focusRightCanvasState) ?
                             {
                                 transitionDuration: '500ms',
-                                transform: 'translate(0, 13vh)',
+                                transform: 'translate(0, 7.6vw)',
                                 // transform: 'translate(0, 17.75vh)',
                                 // transform: 'translate(0, 80%)',
                                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -620,7 +622,7 @@ function VideoPlayer() {
                     </div>
                 </div>
 
-                <div className="rightCanvasContainer"
+                <div className="rightCanvasContainer justify-center"
                     ref={rightCanvasContainerRef}
 
 
@@ -643,17 +645,17 @@ function VideoPlayer() {
 
 
 
-                    <div className=" bg-black w-fit mb-2"
+                    <div className="  w-fit mb-2"
                         style={(focusState === focusLeftCanvasState) ?
                             {
                                 transitionDuration: '500ms',
-                                transform: 'translate(0, 13vh)',
+                                transform: 'translate(0, 7vw)',
                                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
                             }
                             :
                             (focusState === focusNeutralState) ?
                                 {
-                                    marginTop: '10vh',
+                                    marginTop: '6vw',
                                     transitionDuration: '500ms',
                                     transform: 'translate(7.5vw, 0)',
                                     transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -709,7 +711,7 @@ function VideoPlayer() {
                         style={(focusState === focusLeftCanvasState) ?
                             {
                                 transitionDuration: '500ms',
-                                transform: 'translate(0, 13vh)',
+                                transform: 'translate(0, 7.6vw)',
                                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
                             }
                             :

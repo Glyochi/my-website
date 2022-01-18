@@ -8,7 +8,7 @@ function StreamPageBody() {
         <div className="flex justify-center " >
             <div className=" flex flex-col justify-center items-center w-3/4 ">
                 <div>Toggles + Explaination</div>
-                    <div className="w-full h-full mt-[6vh]">
+                    <div className="w-full h-full mt-[3vw]">
                     <TimeStepHead ></TimeStepHead>
                     <TimeStepBody></TimeStepBody>
                     </div>

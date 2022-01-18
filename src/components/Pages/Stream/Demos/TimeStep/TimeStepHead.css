@@ -60,7 +60,7 @@
 @layer components {
 
     .demoTimeStepBody {
-        @apply w-[100%] h-[70vh] flex flex-col justify-center ;
+        @apply w-[100%] flex flex-col justify-around  h-[36vw] ;
     }
 
 
@@ -125,18 +125,18 @@
     
     
     .rightDisplayer-leftSide {
-        @apply absolute translate-y-[-26vh] ;
+        @apply absolute translate-y-[-15vw] ;
     }
 
     .leftDisplayer-leftSide {
-        @apply absolute translate-y-[-12vh] ;
+        @apply absolute translate-y-[-7vw] ;
     }
     
     .leftDisplayer-rightSide {
-        @apply absolute translate-y-[-26vh] ;
+        @apply absolute translate-y-[-15vw] ;
     }
 
     .rightDisplayer-rightSide {
-        @apply absolute translate-y-[-12vh] ;
+        @apply absolute translate-y-[-7vw] ;
     }
 }
