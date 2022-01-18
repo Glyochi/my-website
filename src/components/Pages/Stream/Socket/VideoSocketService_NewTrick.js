@@ -1,4 +1,3 @@
-import { Socket } from "socket.io-client";
 import { io } from "socket.io-client"
 
 
@@ -9,7 +8,7 @@ class VideoSocketService_NewTrick {
         this.artist = canvasArtist
         this.displayRef = displayRef
 
-        this.socketio = io(url ,  {transport: ['websocket']})
+        this.socketio = io(url, { transport: ['websocket'] })
         this.videoSocket = null
         // This is to prevent client to make a connection to the server to soon. We just want it to be there
         let temp = this.socketio.connect()
@@ -24,6 +23,7 @@ class VideoSocketService_NewTrick {
         this.playing = false
 
         this.client_id = this.socketio.id
+        this.initialIDSet = false
 
         // This is to track at what frame the videoSocketServe is on (frameID starts from 1)
         this.videoFrameID = 0
@@ -56,18 +56,20 @@ class VideoSocketService_NewTrick {
         this.latestDrawnFrameID = 0
         this.latestResponseFrameID = 0
 
-    
+
 
         this.videoSocket = this.socketio.connect()
         this.videoSocket.on('connect', () => {
             console.log(this.videoSocket.id)
-            this.client_id = this.videoSocket.id
-            this.videoSocket.emit('chatMessage', "reeee", this.client_id)
-            this.videoSocket.emit('initialize', this.client_id, frameRate, false)
+            if (!this.initialIDSet) {
+                this.initialIDSet = true
+                this.client_id = this.videoSocket.id
+                this.videoSocket.emit('initialize', this.client_id, frameRate, false)
+            }
         })
 
-        
-        this.videoSocket.on('testingFromServer', (data) =>{ 
+
+        this.videoSocket.on('testingFromServer', (data) => {
             console.log(data);
         })
         console.log("clientSent")
@@ -147,6 +149,7 @@ class VideoSocketService_NewTrick {
 
     disconnect = () => {
         this.playing = false
+        this.initialIDSet = false
         if (this.videoSocket != null) {
             this.videoSocket.emit('cleanup', this.client_id)
             this.videoSocket.disconnect()

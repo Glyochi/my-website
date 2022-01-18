@@ -93,7 +93,7 @@ function DemoTimeStepBody() {
                             }
                             :
                             {
-                                height: '242vw',
+                                height: '260vw',
                             }
                     }
 

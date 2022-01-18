@@ -19,10 +19,7 @@ import CanvasArtist from "../CanvasArtists/CanvasArtist";
 
 function VideoPlayer() {
     // const SERVER = "http://127.0.0.1:5000/";
-    // const SERVER = "https://glyserver-auhlv5aena-uc.a.run.app";
-    // const SERVER = "https://ree2---glyserver-auhlv5aena-uc.a.run.app/";
-    const SERVER = "https://glyserver2-auhlv5aena-uc.a.run.app";
-    
+    const SERVER = "https://glyserver-auhlv5aena-uc.a.run.app";
 
     const videoRef = useRef(null);
 
@@ -47,7 +44,7 @@ function VideoPlayer() {
 
 
 
-    const frameRate = 30;
+    const frameRate = 24;
     const frameTime = 1000 / frameRate;
 
     const videoResHeight = 720;
@@ -107,7 +104,7 @@ function VideoPlayer() {
             
         statManager2.current =  new StatManager(leftSide_rightDisplayer, rightSide_rightDisplayer)
 
-        videoSocketService_RightCanvas.current = new VideoSocketService_NewTrick(SERVER,
+        videoSocketService_RightCanvas.current = new VideoSocketService_drawFacesOnClient(SERVER,
             new CanvasArtist(rightCanvasRef, rightCanvasContainerRef, rightCanvasHelperFunctions, originalRes, coordinatesRes),
             statManager2.current)
 

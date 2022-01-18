@@ -27,7 +27,7 @@ class CanvasArtist {
         img.src = base64_image;
     }
 
-    draw(base64_frame, frameID, faceCoordinates) {
+    draw_coordinates(base64_frame, frameID, faceCoordinates) {
         let img = new Image();
 
         //Update the image on canvas

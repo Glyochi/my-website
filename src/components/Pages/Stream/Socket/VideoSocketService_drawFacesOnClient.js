@@ -1,4 +1,3 @@
-import { Socket } from "socket.io-client";
 import { io } from "socket.io-client"
 
 
@@ -9,7 +8,7 @@ class VideoSocketService_drawFacesOnClient {
         this.artist = canvasArtist
         this.displayRef = displayRef
 
-        this.socketio = io(url,  {transport: ['websocket']})
+        this.socketio = io(url, { transport: ['websocket'] })
         this.videoSocket = null
         // This is to prevent client to make a connection to the server to soon. We just want it to be there
         let temp = this.socketio.connect()
@@ -24,6 +23,7 @@ class VideoSocketService_drawFacesOnClient {
         this.playing = false
 
         this.client_id = this.socketio.id
+        this.initialIDSet = false
 
         // This is to track at what frame the videoSocketServe is on (frameID starts from 1)
         this.videoFrameID = 0
@@ -58,16 +58,19 @@ class VideoSocketService_drawFacesOnClient {
         this.latestDrawnFrameID = 0
         this.latestResponseFrameID = 0
 
-    
+
 
         this.videoSocket = this.socketio.connect()
         this.videoSocket.on('connect', () => {
             console.log(this.videoSocket.id)
-            this.client_id = this.videoSocket.id
-            this.videoSocket.emit('initialize', this.client_id, frameRate, true)
+            if (!this.initialIDSet) {
+                this.initialIDSet = true
+                this.client_id = this.videoSocket.id
+                this.videoSocket.emit('initialize', this.client_id, frameRate, true)
+            }
         })
 
-        
+
         console.log("clientSent")
         this.videoSocket.emit('testingFromClient');
 
@@ -104,7 +107,7 @@ class VideoSocketService_drawFacesOnClient {
                         return
 
                     // Draw the frame on canvas with the face bounding boxes
-                    vss.artist.draw(drawingFrame, frameID, faceCoordinates);
+                    vss.artist.draw_coordinates(drawingFrame, frameID, faceCoordinates);
 
 
                     // Update the stats on the statDisplayer
@@ -125,9 +128,9 @@ class VideoSocketService_drawFacesOnClient {
 
             } else {
                 // If the delay increases (actualDelay > lastDelay) or the amount of delay decrease (lastDelay - actualDelay) is not as large as DELAY_REDUCING_OFFSET then
-                
+
                 // Draw the frame on canvas with the face bounding boxes
-                this.artist.draw(drawingFrame, frameID, faceCoordinates);
+                this.artist.draw_coordinates(drawingFrame, frameID, faceCoordinates);
 
                 // Update the stats on the statDisplayer
                 this.displayRef.addDelay(actualDelay);
@@ -149,6 +152,7 @@ class VideoSocketService_drawFacesOnClient {
 
     disconnect = () => {
         this.playing = false
+        this.initialIDSet = false
         if (this.videoSocket != null) {
             this.videoSocket.emit('cleanup', this.client_id)
             this.videoSocket.disconnect()
