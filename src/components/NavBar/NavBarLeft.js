@@ -93,20 +93,20 @@ function NavBarLeftBtn(props) {
             {props.btnConfig.hasDropDown ?
 
                 <>
-                    <button className="NavBarLeftBtn"
+                    <button className="NavBarLeftBtn "
                         onClick={() => { setClicked(!clicked) }}
                         ref={btnRef}
                         style={
                             clicked ?
                                 {
                                     transitionDuration: '50ms',
-                                    boxShadow: '3px 4px 1px ',
+                                    boxShadow: '0.2vw 0.3vw 0px ',
                                     borderRadius: '2vw',
                                     padding: '0.6vw 0.8vw',
                                     // fontSize: '1.5rem'/* 30px */,
                                     color: 'rgb(52 211 153)',
                                     backgroundColor: 'rgb(75 85 99)',
-                                    transform: 'translate(-3px, -4px)',
+                                    transform: 'translate(-0.3vw, -0.3vw)',
                                 }
                                 :
                                 {}
@@ -191,12 +191,12 @@ function NavBarLeftBtn(props) {
                             clicked ?
                                 {
                                     transitionDuration: '50ms',
-                                    boxShadow: '3px 4px 1px ',
+                                    boxShadow: '0.2vw 0.3vw 1px ',
                                     borderRadius: '2vw',
                                     padding: '0.6vw 0.8vw',
                                     color: 'rgb(52 211 153)',
                                     backgroundColor: 'rgb(75 85 99)',
-                                    transform: 'translate(-3px, -4px)',
+                                    transform: 'translate(-0.3vw, -0.3vw)',
                                 }
                                 :
                                 {}

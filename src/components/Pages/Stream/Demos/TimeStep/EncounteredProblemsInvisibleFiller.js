@@ -31,7 +31,7 @@ function EncounteredProblems() {
 
     return (
 
-        <div className="encounteredProblems absolute flex flex-col items-center w-[60vw] ml-[-5px]  text-cyan-200 text-[1.3vw] leading-[1.8vw]">
+        <div className="encounteredProblems invisible flex flex-col items-center w-[60vw] ml-[-5px]  text-cyan-200 text-[1.3vw] leading-[1.8vw]">
 
 
             <div>{opening}</div>

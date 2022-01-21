@@ -17,7 +17,7 @@ function BoringBasics() {
     const additionalSetup = 'To reduce video latency, I also provided the option to only send the coordinates of the faces in the image to the clients rather than the entire processed images. This also meant that I had to have the frontend draw the faces’ bounding boxes on the original frames before displaying them.';
 
     return (
-        <div className="boringBasics absolute flex flex-col w-[60vw] ml-[-5px]  text-cyan-200
+        <div className="boringBasics invisible flex flex-col w-[60vw] ml-[-5px]  text-cyan-200
         text-[1.3vw] leading-[1.8vw] 
         ">
 

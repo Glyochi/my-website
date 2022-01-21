@@ -9,7 +9,7 @@
     }
 
     .homePageContent {
-        @apply flex flex-col justify-evenly items-center h-3/4 w-screen;
+        @apply flex flex-col justify-evenly items-center w-screen mt-[5vw];
     }
 
 

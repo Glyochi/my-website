@@ -12,14 +12,15 @@ import "./TimeStepHead.css"
 import VideoSocketService_NewTrick from "../../Socket/VideoSocketService_NewTrick";
 import VideoSocketService_NoTrick from "../../Socket/VideoSocketService_NoTrick";
 import VideoSocketService_drawFacesOnClient from "../../Socket/VideoSocketService_drawFacesOnClient";
+import EnhancedVideoSocketService from "../../Socket/EnhancedVideoSocketService"
 
 import StatDisplayer from "../StatDisplayer/StatDisplayer";
 import StatManager from "../StatDisplayer/StatManager";
 import CanvasArtist from "../CanvasArtists/CanvasArtist";
 
 function VideoPlayer() {
-    // const SERVER = "http://127.0.0.1:5000/";
-    const SERVER = "https://glyserver-auhlv5aena-uc.a.run.app";
+    const SERVER = "http://127.0.0.1:5000/";
+    // const SERVER = "https://glyserver-auhlv5aena-uc.a.run.app";
 
     const videoRef = useRef(null);
 
@@ -95,7 +96,7 @@ function VideoPlayer() {
 
         statManager1.current = new StatManager(leftSide_leftDisplayer, rightSide_leftDisplayer);
 
-        videoSocketService_LeftCanvas.current = new VideoSocketService_NoTrick(SERVER,
+        videoSocketService_LeftCanvas.current = new VideoSocketService_drawFacesOnClient(SERVER,
             new CanvasArtist(leftCanvasRef, leftCanvasContainerRef, leftCanvasHelperFunctions, originalRes, coordinatesRes),
             statManager1.current);
             // videoSocketService_LeftCanvas.current = new VideoSocketService_NewTrick(SERVER,
@@ -104,7 +105,7 @@ function VideoPlayer() {
             
         statManager2.current =  new StatManager(leftSide_rightDisplayer, rightSide_rightDisplayer)
 
-        videoSocketService_RightCanvas.current = new VideoSocketService_drawFacesOnClient(SERVER,
+        videoSocketService_RightCanvas.current = new EnhancedVideoSocketService(SERVER,
             new CanvasArtist(rightCanvasRef, rightCanvasContainerRef, rightCanvasHelperFunctions, originalRes, coordinatesRes),
             statManager2.current)
 

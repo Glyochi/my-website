@@ -1,7 +1,7 @@
 import { io } from "socket.io-client"
 
 
-class VideoSocketService_drawFacesOnClient {
+class EnhancedVideoSocketService {
 
     constructor(url, canvasArtist, displayRef) {
 
@@ -66,7 +66,7 @@ class VideoSocketService_drawFacesOnClient {
             if (!this.initialIDSet) {
                 this.initialIDSet = true
                 this.client_id = this.videoSocket.id
-                this.videoSocket.emit('initialize', this.client_id, frameRate, true)
+                this.videoSocket.emit('enhanced_initialize', this.client_id, frameRate, true)
             }
         })
 
@@ -74,8 +74,8 @@ class VideoSocketService_drawFacesOnClient {
         console.log("clientSent")
 
 
-        this.videoSocket.on('frameToClient_coordinates', (data) => {
-            let faceCoordinates = data.faceCoordinates
+        this.videoSocket.on('enhanced_frameToClient_coordinates', (data) => {
+            let facesInfo = data.facesInfo
             let frameID = data.frameID
 
             // If the received frame is before the most recent displayed frame then we just ignore it
@@ -106,7 +106,7 @@ class VideoSocketService_drawFacesOnClient {
                         return
 
                     // Draw the frame on canvas with the face bounding boxes
-                    vss.artist.draw_coordinates(drawingFrame, frameID, faceCoordinates);
+                    vss.artist.enhanced_draw_coordinates(drawingFrame, frameID, facesInfo);
 
 
                     // Update the stats on the statDisplayer
@@ -129,7 +129,7 @@ class VideoSocketService_drawFacesOnClient {
                 // If the delay increases (actualDelay > lastDelay) or the amount of delay decrease (lastDelay - actualDelay) is not as large as DELAY_REDUCING_OFFSET then
 
                 // Draw the frame on canvas with the face bounding boxes
-                this.artist.draw_coordinates(drawingFrame, frameID, faceCoordinates);
+                this.artist.enhanced_draw_coordinates(drawingFrame, frameID, facesInfo);
 
                 // Update the stats on the statDisplayer
                 this.displayRef.addDelay(actualDelay);
@@ -167,7 +167,7 @@ class VideoSocketService_drawFacesOnClient {
             this.frameQueue.push(base64_frame)
 
             // Sending image to the server
-            this.videoSocket.emit('frameToServer_coordinates', this.client_id, base64_frame, this.videoFrameID)
+            this.videoSocket.emit('enhanced_frameToServer_coordinates', this.client_id, base64_frame, this.videoFrameID)
 
             // FrameID starts from 0
             this.videoFrameID += 1
@@ -183,7 +183,7 @@ class VideoSocketService_drawFacesOnClient {
 }
 
 
-export default VideoSocketService_drawFacesOnClient;
+export default EnhancedVideoSocketService;
 
 
 
