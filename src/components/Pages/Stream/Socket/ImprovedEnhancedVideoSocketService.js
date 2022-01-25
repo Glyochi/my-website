@@ -1,7 +1,7 @@
 import { io } from "socket.io-client"
 
 
-class EnhancedVideoSocketService {
+class ImprovedEnhancedVideoSocketService {
 
     constructor(url, canvasArtist, displayRef) {
 
@@ -66,17 +66,18 @@ class EnhancedVideoSocketService {
             if (!this.initialIDSet) {
                 this.initialIDSet = true
                 this.client_id = this.videoSocket.id
-                this.videoSocket.emit('enhanced_initialize', this.client_id, frameRate, true)
+                this.videoSocket.emit('improvedEnhanced_initialize', this.client_id, frameRate, true)
             }
         })
 
 
 
 
-        this.videoSocket.on('enhanced_frameToClient_coordinates', (data) => {
+        this.videoSocket.on('improvedEnhanced_frameToClient_coordinates', (data) => {
             let facesInfo = data.facesInfo
             let frameID = data.frameID
-
+            
+            console.log(facesInfo)
             // If the received frame is before the most recent displayed frame then we just ignore it
             if (frameID <= this.latestDrawnFrameID) {
                 return
@@ -166,7 +167,7 @@ class EnhancedVideoSocketService {
             this.frameQueue.push(base64_frame)
 
             // Sending image to the server
-            this.videoSocket.emit('enhanced_frameToServer_coordinates', this.client_id, base64_frame, this.videoFrameID)
+            this.videoSocket.emit('improvedEnhanced_frameToServer_coordinates', this.client_id, base64_frame, this.videoFrameID)
 
             // FrameID starts from 0
             this.videoFrameID += 1
@@ -182,7 +183,7 @@ class EnhancedVideoSocketService {
 }
 
 
-export default EnhancedVideoSocketService;
+export default ImprovedEnhancedVideoSocketService;
 
 
 

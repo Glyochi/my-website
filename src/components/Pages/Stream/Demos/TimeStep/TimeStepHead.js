@@ -1,9 +1,7 @@
-import { bgcolor, height } from "@mui/system";
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { CSSTransition } from "react-transition-group";
 import Webcam from "react-webcam";
 
-import { io } from "socket.io-client"
 
 // Importing CSS file
 import "./TimeStepHead.css"
@@ -13,14 +11,15 @@ import VideoSocketService_NewTrick from "../../Socket/VideoSocketService_NewTric
 import VideoSocketService_NoTrick from "../../Socket/VideoSocketService_NoTrick";
 import VideoSocketService_drawFacesOnClient from "../../Socket/VideoSocketService_drawFacesOnClient";
 import EnhancedVideoSocketService from "../../Socket/EnhancedVideoSocketService"
+import ImprovedEnhancedVideoSocketService from "../../Socket/ImprovedEnhancedVideoSocketService"
 
 import StatDisplayer from "../StatDisplayer/StatDisplayer";
 import StatManager from "../StatDisplayer/StatManager";
 import CanvasArtist from "../CanvasArtists/CanvasArtist";
 
 function VideoPlayer() {
-    const SERVER = "http://127.0.0.1:5000/";
-    // const SERVER = "https://glyserver-auhlv5aena-uc.a.run.app";
+    // const SERVER = "http://127.0.0.1:5000/";
+    const SERVER = "https://glyserver-auhlv5aena-uc.a.run.app";
 
     const videoRef = useRef(null);
 
@@ -96,7 +95,7 @@ function VideoPlayer() {
 
         statManager1.current = new StatManager(leftSide_leftDisplayer, rightSide_leftDisplayer);
 
-        videoSocketService_LeftCanvas.current = new VideoSocketService_drawFacesOnClient(SERVER,
+        videoSocketService_LeftCanvas.current = new EnhancedVideoSocketService(SERVER,
             new CanvasArtist(leftCanvasRef, leftCanvasContainerRef, leftCanvasHelperFunctions, originalRes, coordinatesRes),
             statManager1.current);
             // videoSocketService_LeftCanvas.current = new VideoSocketService_NewTrick(SERVER,
@@ -105,7 +104,7 @@ function VideoPlayer() {
             
         statManager2.current =  new StatManager(leftSide_rightDisplayer, rightSide_rightDisplayer)
 
-        videoSocketService_RightCanvas.current = new EnhancedVideoSocketService(SERVER,
+        videoSocketService_RightCanvas.current = new ImprovedEnhancedVideoSocketService(SERVER,
             new CanvasArtist(rightCanvasRef, rightCanvasContainerRef, rightCanvasHelperFunctions, originalRes, coordinatesRes),
             statManager2.current)
 
@@ -313,7 +312,7 @@ function VideoPlayer() {
                     style={
                         !toggleButtonPressed ?
                             {
-                                transform: 'translate(-4px, -4px)',
+                                transform: 'translate(-0.3vw, -0.3vw)',
                                 boxShadow: '4px 6px 10px rgba(1, 0, 0,0.5)',
                                 transitionDuration: '30ms',
                                 transitionTimingFunction: 'linear',

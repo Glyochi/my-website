@@ -71,9 +71,6 @@ class VideoSocketService_drawFacesOnClient {
         })
 
 
-        console.log("clientSent")
-
-
         this.videoSocket.on('frameToClient_coordinates', (data) => {
             let faceCoordinates = data.faceCoordinates
             let frameID = data.frameID

@@ -58,10 +58,7 @@ class VideoSocketService_NoTrick {
             }
         })
 
-        this.videoSocket.on('testingFromServer', (data) =>{ 
-            console.log(data);
-        })
-        console.log("clientSent")
+       
 
         this.videoSocket.on('frameToClient', (data) => {
             let base64_responseFrame = data.base64_responseFrame

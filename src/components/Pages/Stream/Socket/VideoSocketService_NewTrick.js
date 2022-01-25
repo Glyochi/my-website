@@ -69,10 +69,6 @@ class VideoSocketService_NewTrick {
         })
 
 
-        this.videoSocket.on('testingFromServer', (data) => {
-            console.log(data);
-        })
-        console.log("clientSent")
 
 
         this.videoSocket.on('frameToClient', (data) => {
