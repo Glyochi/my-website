@@ -4,7 +4,7 @@ import Webcam from "react-webcam";
 
 
 // Importing CSS file
-import "./TimeStepHead.css"
+import "./FacialDetectionEnhancedHead.css"
 
 
 import VideoSocketService_NewTrick from "../../Socket/VideoSocketService_NewTrick";
@@ -17,7 +17,7 @@ import StatDisplayer from "../StatDisplayer/StatDisplayer";
 import StatManager from "../StatDisplayer/StatManager";
 import CanvasArtist from "../CanvasArtists/CanvasArtist";
 
-function VideoPlayer() {
+function VideoStreamingHead() {
     // const SERVER = "http://127.0.0.1:5000/";
     const SERVER = "https://glyserver-auhlv5aena-uc.a.run.app";
 
@@ -95,16 +95,15 @@ function VideoPlayer() {
 
         statManager1.current = new StatManager(leftSide_leftDisplayer, rightSide_leftDisplayer);
 
-        videoSocketService_LeftCanvas.current = new EnhancedVideoSocketService(SERVER,
+        videoSocketService_LeftCanvas.current = new VideoSocketService_drawFacesOnClient(SERVER,
             new CanvasArtist(leftCanvasRef, leftCanvasContainerRef, leftCanvasHelperFunctions, originalRes, coordinatesRes),
             statManager1.current);
-            // videoSocketService_LeftCanvas.current = new VideoSocketService_NewTrick(SERVER,
-            //     new CanvasArtist(leftCanvasRef, leftCanvasContainerRef, leftCanvasHelperFunctions, originalRes, coordinatesRes),
-            //     statManager1.current);
+
+            
             
         statManager2.current =  new StatManager(leftSide_rightDisplayer, rightSide_rightDisplayer)
 
-        videoSocketService_RightCanvas.current = new ImprovedEnhancedVideoSocketService(SERVER,
+        videoSocketService_RightCanvas.current = new EnhancedVideoSocketService(SERVER,
             new CanvasArtist(rightCanvasRef, rightCanvasContainerRef, rightCanvasHelperFunctions, originalRes, coordinatesRes),
             statManager2.current)
 
@@ -149,9 +148,9 @@ function VideoPlayer() {
 
     }
 
-    const helpDescription1 = "Left video is the one using the basic setup where it displays frames as soon as they arrived.";
-    const helpDescription2 = "Right video is the more 'advanced' one where the video player spaces out the frames evenly.";
-    const helpDescription3 = "Lower frame-variation and 1% low/1% high being closer to the average delay indicates better frame-pacing/less jittery."
+    const helpDescription1 = "Left video is the one using the basic facial detection that comes with OpenCV.";
+    const helpDescription2 = "Right video is the my implementation of tilted facial detection. This version is expected to have a greater hit-rate for skewed faces.";
+    const helpDescription3 = "As you can see, the right video has a very low fps and is not suitable for realtime facial detection."
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SCRIPTS FOR TOGGLING RECORD AND NOT RECORDING MODE //
@@ -300,7 +299,7 @@ function VideoPlayer() {
 
 
     return (
-        <div className="demoTimeStepBody " >
+        <div className="demoTimeStepHead" >
 
             <div className="toggleButtonWrapper">
 
@@ -379,7 +378,7 @@ function VideoPlayer() {
                         in={helpPressed}
                         unmountOnExit
                     >
-                        <div className="absolute bg-cyan-900  text-gray-200 rounded-[1vw] p-2 translate-x-[-20vw] translate-y-[-10vw] w-[20vw] text-[0.8vw] leading-[1vw] font-semibold"
+                        <div className="absolute bg-cyan-900  text-gray-200 rounded-[1vw] p-2 translate-x-[-24vw] translate-y-[-12vw] w-[24vw] text-[1vw] leading-[1vw] font-semibold"
                             ref={helpDescriptionRef}
                             style={
                                 {
@@ -391,8 +390,8 @@ function VideoPlayer() {
                             }
                         >
                             <div>{helpDescription1}</div>
-                            <div className="mt-[0.2vw]">{helpDescription2}</div>
-                            <div className="mt-[0.2vw]">{helpDescription3}</div>
+                            <div className="mt-[0.6vw]">{helpDescription2}</div>
+                            <div className="mt-[0.6vw]">{helpDescription3}</div>
                         </div>
                     </CSSTransition>
                 </div>
@@ -415,7 +414,7 @@ function VideoPlayer() {
                     frameRate: frameRate
 
                 }}
-                className="absolute invisible"
+                className="absolute invisible w-0"
             >
 
             </Webcam>
@@ -822,4 +821,4 @@ function VideoPlayer() {
     )
 }
 
-export default VideoPlayer
+export default VideoStreamingHead

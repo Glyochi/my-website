@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.leftDisplayerTransition-enter {
+    opacity: 0;
+    /* transform: translate(48vw, 0); */
+}
+
+.leftDisplayerTransition-enter-active {
+    opacity:1;
+    transition: opacity 300ms 100ms ease-out;
+
+    
+    /* transform: translate(-48vw, 0);
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out; */
+}
+
+.leftDisplayerTransition-exit {
+    opacity: 1;
+    /* transform: translate(12vw, 0);
+    transition-duration: 300ms; */
+}
+
+.leftDisplayerTransition-exit-active {
+    opacity: 0;
+    transform: translate(10vw, -6vh);
+    transition: all 150ms 0ms ease-in;
+}
+
+
+
+
+
+
+
+.rightDisplayerTransition-enter {
+    opacity: 0;
+}
+
+.rightDisplayerTransition-enter-active {
+    opacity:1;
+    transition: opacity 300ms 100ms ease-out;
+}
+
+.rightDisplayerTransition-exit {
+    opacity: 1;
+}
+
+.rightDisplayerTransition-exit-active {
+    opacity: 0;
+    transform: translate(-10vw, -6vh);
+    transition: all 150ms 0ms ease-in;
+}
+
+
+
+
+@layer components {
+
+    .demoTimeStepHead {
+        @apply  flex flex-col justify-around w-[75vw] h-[36vw];
+    }
+
+
+    /* Toggle Button */
+    .toggleButtonWrapper {
+        @apply w-full flex flex-row justify-between items-center translate-x-[1px];
+    }
+
+    .toggleButton {
+        /* @apply bg-gray-600 rounded-3xl pt-1 pb-2 px-4 text-sky-50 text-xl; */
+        @apply bg-gray-600 rounded-[1vw] pt-[0.1vw] pb-[0.23vw] px-[0.8vw] text-sky-50 text-[1.2vw];
+    }
+
+    .helpButtonWrapper {
+        @apply translate-x-[-3.5rem];
+    }
+    .helpButton {
+        @apply pb-[0.05vw] px-[0.7vw]
+         /* text-2xl  */
+         text-[1.2vw]
+         font-semibold text-white bg-gray-600 rounded-full ;
+    }
+
+
+
+    .canvasContainer {
+        @apply flex flex-row justify-between items-center h-4/5;
+    }
+
+    
+    .leftCanvasContainer {
+        @apply h-full flex flex-col justify-center;
+    }
+
+
+    .rightCanvasContainer {
+        @apply h-full flex flex-col justify-center duration-500 ease-in-out;
+    }
+
+
+
+
+    .leftCanvasWrapper {
+        @apply w-[100%] aspect-video duration-500 ease-in-out;
+    }
+
+    .rightCanvasWrapper {
+        @apply w-[100%] aspect-video duration-500 ease-in-out;
+    }
+
+
+
+
+    .leftCanvas {
+        @apply w-[100%] aspect-video bg-cyan-500;
+    }
+
+    .rightCanvas {
+        @apply w-[100%] aspect-video bg-cyan-500;
+    }
+
+    
+    
+    .rightDisplayer-leftSide {
+        @apply absolute translate-y-[-15vw] ;
+    }
+
+    .leftDisplayer-leftSide {
+        @apply absolute translate-y-[-7vw] ;
+    }
+    
+    .leftDisplayer-rightSide {
+        @apply absolute translate-y-[-15vw] ;
+    }
+
+    .rightDisplayer-rightSide {
+        @apply absolute translate-y-[-7vw] ;
+    }
+}

@@ -59,8 +59,8 @@
 
 @layer components {
 
-    .demoTimeStepBody {
-        @apply w-[100%] flex flex-col justify-around  h-[36vw] ;
+    .demoTimeStepHead {
+        @apply  flex flex-col justify-around w-[75vw] h-[36vw];
     }
 
 

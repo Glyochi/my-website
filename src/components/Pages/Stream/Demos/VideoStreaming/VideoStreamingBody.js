@@ -3,13 +3,11 @@ import { useState, useRef } from "react";
 
 import { CSSTransition } from "react-transition-group";
 import BoringBasics from "./BoringBasics";
-import BoringBasicsInvisibleFiller from './BoringBasicsInvisibleFiller'
 // Import css file
-import "./TimeStepBody.css"
+import "./VideoStreamingBody.css"
 import EncounteredProblems from "./EncounteredProblems";
-import EncounteredProblemsInvisibleFiller from "./EncounteredProblemsInvisibleFiller";
 
-function DemoTimeStepBody() {
+function VideoStreamingBody() {
 
 
     const [readBoringBasics, setReadBoringBasics] = useState(true);
@@ -81,7 +79,7 @@ function DemoTimeStepBody() {
 
             {/* ******************************************************************************************************************************* */}
 
-            <div className="flex flex-row   w-4/5 mt-[2vw] ">
+            <div className="w-4/5 mt-[2vw] grid grid-cols-1 pb-[10vw]">
                 <CSSTransition
                     in={readBoringBasics}
                     timeout={{
@@ -90,9 +88,11 @@ function DemoTimeStepBody() {
                     }}
                     unmountOnExit
                     classNames="boringBasicsTransition"
+                    className=" col-start-1 col-span-1 row-start-1 row-span-1"
                 >
-
-                    <BoringBasics></BoringBasics>
+                    <div>
+                        <BoringBasics></BoringBasics>
+                    </div>
                 </CSSTransition>
                 <CSSTransition
                     in={!readBoringBasics}
@@ -102,31 +102,23 @@ function DemoTimeStepBody() {
                     }}
                     unmountOnExit
                     classNames="encounteredProblemsTransition"
+                    className=" col-start-1 col-span-1 row-start-1 row-span-1"
                 >
-
-                    <EncounteredProblems></EncounteredProblems>
+                    <div>
+                        <EncounteredProblems></EncounteredProblems>
+                    </div>
                 </CSSTransition>
 
-
-
-                <div className=" pb-[8vw]">
-                {
-                    readBoringBasics ?
-                        <BoringBasicsInvisibleFiller></BoringBasicsInvisibleFiller>
-                        :
-                        <EncounteredProblemsInvisibleFiller></EncounteredProblemsInvisibleFiller>
-                }
-                </div>
-            </div>
+            </div >
 
 
 
 
 
 
-        </div>
+        </div >
 
     )
 }
 
-export default DemoTimeStepBody
+export default VideoStreamingBody

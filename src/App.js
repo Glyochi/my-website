@@ -22,7 +22,8 @@ function App() {
       }}>
 
         <Router>
-          <div className='mt-8 z-30'>
+          <div className='flex flex-col items-center'>
+          <div className='mt-8 z-30 '>
             <NavBar />
           </div>
           <Routes>
@@ -36,6 +37,7 @@ function App() {
             {/* <Route path="/Graph"  onEnter={reloadGraph}/> */}
             
           </Routes>
+          </div>
         </Router>
       </div>
     // </div>
