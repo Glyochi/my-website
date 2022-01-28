@@ -2,15 +2,15 @@ import { React } from "react";
 import { useState, useRef } from "react";
 
 import { CSSTransition } from "react-transition-group";
-import BoringBasics from "./BoringBasics";
+import BasicEnhancementExplain from "./BasicEnhancementExplain";
 // Import css file
 import "./FacialDetectionBody.css"
-import EncounteredProblems from "./EncounteredProblems";
+import ImprovedVersionExplain from "./ImprovedVersionExplain";
 
 function VideoStreamingBody() {
 
 
-    const [readBoringBasics, setReadBoringBasics] = useState(true);
+    const [readBasicEnhancement, setReadBasicEnhancement] = useState(true);
 
 
     return (
@@ -43,17 +43,17 @@ function VideoStreamingBody() {
                 <div className="flex flex-row justify-evenly p-[0.6vw]">
                     <div className=" absolute w-[100px] h-10 bg-gray-700 z-20 rounded-full duration-[360ms]"
                         style={
-                            readBoringBasics ?
+                            readBasicEnhancement ?
                                 {
-                                    transform: 'translate(-18.85vw, 0.7vw)',
-                                    width: '21vw',
+                                    transform: 'translate(-15.7vw, 0.7vw)',
+                                    width: '30vw',
                                     height: '4vw',
                                     transitionTimingFunction: 'cubic-bezier(1, 0.19, 0.53, 1.3)',
                                 }
                                 :
                                 {
-                                    transform: 'translate(13.25vw, 0.7vw)',
-                                    width: '32vw',
+                                    transform: 'translate(16.75vw, 0.7vw)',
+                                    width: '27vw',
                                     height: '4vw',
                                     transitionTimingFunction: 'cubic-bezier(1, 0.19, 0.53, 1.3)',
                                 }
@@ -64,15 +64,15 @@ function VideoStreamingBody() {
                     </div>
                     <div className="text-[3vw] leading-[5vw] text-cyan-400 z-30"
                         onClick={() => {
-                            setReadBoringBasics(true);
+                            setReadBasicEnhancement(true);
                         }}
-                    >Boring Basics
+                    >Basic Enhancement
                     </div>
                     <div className="text-[3vw] leading-[5vw] text-cyan-400 z-30"
                         onClick={() => {
-                            setReadBoringBasics(false);
+                            setReadBasicEnhancement(false);
                         }}
-                    >Encoutered Problems
+                    >Improved Version
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@ function VideoStreamingBody() {
 
             <div className="w-4/5 mt-[2vw] grid grid-cols-1 pb-[10vw]">
                 <CSSTransition
-                    in={readBoringBasics}
+                    in={readBasicEnhancement}
                     timeout={{
                         enter: 1000,
                         exit: 1000,
@@ -91,11 +91,11 @@ function VideoStreamingBody() {
                     className=" col-start-1 col-span-1 row-start-1 row-span-1"
                 >
                     <div>
-                        <BoringBasics></BoringBasics>
+                        <BasicEnhancementExplain></BasicEnhancementExplain>
                     </div>
                 </CSSTransition>
                 <CSSTransition
-                    in={!readBoringBasics}
+                    in={!readBasicEnhancement}
                     timeout={{
                         enter: 1000,
                         exit: 1000,
@@ -105,7 +105,7 @@ function VideoStreamingBody() {
                     className=" col-start-1 col-span-1 row-start-1 row-span-1"
                 >
                     <div>
-                        <EncounteredProblems></EncounteredProblems>
+                        <ImprovedVersionExplain></ImprovedVersionExplain>
                     </div>
                 </CSSTransition>
 

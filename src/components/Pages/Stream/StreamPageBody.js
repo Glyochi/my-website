@@ -23,7 +23,7 @@ function StreamPageBody() {
             <div className="w-full grid grid-cols-12 my-[1.5vw] h-[5vw]">
                 <div className="h-fit col-start-2 col-span-4">
                     <button
-                        className="w-full transition-all duration-[300ms] rounded-xl"
+                        className="w-full transition-all duration-[300ms] rounded-3xl"
 
                         ref={partOneButton}
 
@@ -70,7 +70,7 @@ function StreamPageBody() {
                 </div>
                 <div className="col-start-8 col-span-4 grid grid-cols-1">
                     <button
-                        className="w-full h-fit transition-all duration-[300ms] rounded-xl col-start-1 col-span-1  row-start-1 row-span-1 z-20"
+                        className="w-full h-fit transition-all duration-[300ms] rounded-3xl col-start-1 col-span-1  row-start-1 row-span-1 z-20"
 
                         ref={partTwoButton}
 
@@ -123,7 +123,7 @@ function StreamPageBody() {
                         unmountOnExit
                     >
                         <div className="">
-                            <button className="duration-[300ms] rounded-xl h-fit text-[1.1vw] px-4"
+                            <button className="duration-[300ms] rounded-3xl h-fit text-[1.1vw] px-[1vw]"
 
                                 ref={partTwoEnhancedButton}
 
@@ -134,7 +134,7 @@ function StreamPageBody() {
                                             borderColor: 'rgb(6 182 212)',
                                             borderWidth: '0.1vw',
                                             paddingTop: '0.35vw',
-                                            paddingBottom: '0.475vw',
+                                            paddingBottom: '0.45vw',
                                             transitionTimingFunction: 'cubic-bezier(0.8, 0.15, 0.5, 1)',
 
 
@@ -147,7 +147,7 @@ function StreamPageBody() {
                                             borderColor: 'transparent',
                                             borderWidth: '0.1vw',
                                             paddingTop: '0.35vw',
-                                            paddingBottom: '0.475vw',
+                                            paddingBottom: '0.45vw',
                                             transitionTimingFunction: 'cubic-bezier(0.8, 0.15, 0.5, 1)',
                                         }
                                 }
@@ -166,7 +166,7 @@ function StreamPageBody() {
                             >
                                 Enhanced
                             </button>
-                            <button className="duration-[300ms] rounded-xl h-fit text-[1.1vw] px-4"
+                            <button className="duration-[300ms] rounded-3xl h-fit text-[1.1vw] px-4"
 
                                 ref={partTwoImprovedEnhancedButton}
 
@@ -177,7 +177,7 @@ function StreamPageBody() {
                                             borderColor: 'rgb(6 182 212)',
                                             borderWidth: '0.1vw',
                                             paddingTop: '0.35vw',
-                                            paddingBottom: '0.475vw',
+                                            paddingBottom: '0.45vw',
                                             transitionTimingFunction: 'cubic-bezier(0.8, 0.15, 0.5, 1)',
 
 
@@ -190,7 +190,7 @@ function StreamPageBody() {
                                             borderColor: 'transparent',
                                             borderWidth: '0.1vw',
                                             paddingTop: '0.35vw',
-                                            paddingBottom: '0.475vw',
+                                            paddingBottom: '0.45vw',
                                             transitionTimingFunction: 'cubic-bezier(0.8, 0.15, 0.5, 1)',
                                         }
                                 }
