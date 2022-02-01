@@ -1,5 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
+import { useNavigate } from 'react-router';
 
 import NavBar from "./components/NavBar/NavBar"
 import HomePageBody from './components/Pages/Home/HomePageBody';
@@ -13,6 +14,9 @@ import StreamPageBody from './components/Pages/Stream/StreamPageBody';
 
 
 function App() {
+  const navigate = useNavigate()
+
+  navigate('/Home')
 
   return (
     // <div className=' overflow-hidden w-[1910px] h-[1070px]'>
