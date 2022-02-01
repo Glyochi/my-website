@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
 import Webcam from "react-webcam";
 
@@ -7,11 +7,8 @@ import Webcam from "react-webcam";
 import "./VideoStreamingHead.css"
 
 
-import VideoSocketService_NewTrick from "../../Socket/VideoSocketService_NewTrick";
 import VideoSocketService_NoTrick from "../../Socket/VideoSocketService_NoTrick";
 import VideoSocketService_drawFacesOnClient from "../../Socket/VideoSocketService_drawFacesOnClient";
-import EnhancedVideoSocketService from "../../Socket/EnhancedVideoSocketService"
-import ImprovedEnhancedVideoSocketService from "../../Socket/ImprovedEnhancedVideoSocketService"
 
 import StatDisplayer from "../StatDisplayer/StatDisplayer";
 import StatManager from "../StatDisplayer/StatManager";

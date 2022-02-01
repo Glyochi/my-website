@@ -7,10 +7,7 @@ import Webcam from "react-webcam";
 import "./FacialDetectionImprovedEnhancedHead.css"
 
 
-import VideoSocketService_NewTrick from "../../Socket/VideoSocketService_NewTrick";
-import VideoSocketService_NoTrick from "../../Socket/VideoSocketService_NoTrick";
 import VideoSocketService_drawFacesOnClient from "../../Socket/VideoSocketService_drawFacesOnClient";
-import EnhancedVideoSocketService from "../../Socket/EnhancedVideoSocketService"
 import ImprovedEnhancedVideoSocketService from "../../Socket/ImprovedEnhancedVideoSocketService"
 
 import StatDisplayer from "../StatDisplayer/StatDisplayer";

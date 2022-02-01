@@ -18,7 +18,7 @@ function StreamPageBody() {
     const partTwoImprovedEnhancedButton = useRef(null);
 
 
-    const notes = "Please keep in mind that I oversimplified a lot of what I actually did to keep these sections short. There were multiple edges cases that I had to account for, many more weren’t mentioned things that I had to make to help speed up the development process, and a lot of experimenting with different technologies/frameworks I had to do to be able to finish this project (or these two projects)."
+    const notes = "I oversimplified a lot of what I actually did to keep these sections short. There were multiple edge cases that I had to account for, many more weren’t mentioned things that I had to make to help speed up the development process, and a lot of experimenting with different technologies/frameworks I had to do to be able to finish this project (or these two projects)."
     const [readingNotes, setReadingNotes] = useState(false);
 
     const notesRef = useRef(null);
