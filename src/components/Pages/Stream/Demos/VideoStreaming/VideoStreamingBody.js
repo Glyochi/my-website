@@ -12,6 +12,10 @@ function VideoStreamingBody() {
 
     const [readBoringBasics, setReadBoringBasics] = useState(true);
 
+    // Shake animations when choosing sections
+    const boringBasicsRef = useRef(null);
+    const encounteredProblemsRef = useRef(null);
+    const sectionSelectorShadowRef = useRef(null);
 
     return (
         <div
@@ -20,13 +24,14 @@ function VideoStreamingBody() {
             "
 
         >
+
             {/* ******************************************************************************************************************************* */}
             <div className="flex flex-row justify-center p-5  ">
                 <div className=" text-[4vw] leading-[5vw] text-cyan-400 ">TechStack</div>
             </div>
 
             {/* ******************************************************************************************************************************* */}
-            <div className="grid grid-cols-7 bg-blue-700 rounded-[2vw] p-[0.6vw]">
+            <div className="grid grid-cols-7 bg-blue-700 rounded-[2vw] w-[94%] p-[0.6vw] pb-[1vw]">
                 <div className=" col-start-2 col-span-1 flex flex-row justify-center items-center ">
                     <div className="text-[3vw] leading-[2.5vw]">ReactJS</div>
                 </div>
@@ -42,6 +47,8 @@ function VideoStreamingBody() {
             <div className="w-[100%] mt-[3vw]">
                 <div className="flex flex-row justify-evenly p-[0.6vw]">
                     <div className=" absolute w-[100px] h-10 bg-gray-700 z-20 rounded-full duration-[360ms]"
+                        ref={sectionSelectorShadowRef}
+
                         style={
                             readBoringBasics ?
                                 {
@@ -62,15 +69,58 @@ function VideoStreamingBody() {
                     >
 
                     </div>
-                    <div className="text-[3vw] leading-[5vw] text-cyan-400 z-30"
+                    <div className="text-[3vw] leading-[5vw] text-cyan-400 z-30 duration-100 ease-linear"
+                        ref = {boringBasicsRef}
+
                         onClick={() => {
-                            setReadBoringBasics(true);
+
+                            if (readBoringBasics) {
+                                sectionSelectorShadowRef.current.classList.add("apply-boringBasics-shake");
+                                sectionSelectorShadowRef.current.addEventListener("animationend", (e) => {
+                                    sectionSelectorShadowRef.current.classList.remove("apply-boringBasics-shake");
+                                })
+                            } else {
+                                setReadBoringBasics(true);
+                                boringBasicsRef.current.style.color = "rgb(34 211 238)"
+                            }
+    
                         }}
+
+                        onMouseEnter={ () => {
+                            if (!readBoringBasics) {
+                                boringBasicsRef.current.style.color = "rgb(165 243 252)"
+                            }
+                        }}
+
+                        onMouseLeave={ () => {
+                            boringBasicsRef.current.style.color = "rgb(34 211 238)"
+                        }}
+                        
                     >Boring Basics
                     </div>
-                    <div className="text-[3vw] leading-[5vw] text-cyan-400 z-30"
+                    <div className="text-[3vw] leading-[5vw] text-cyan-400 z-30 duration-100 ease-linear"
+                        ref={encounteredProblemsRef}
+
                         onClick={() => {
-                            setReadBoringBasics(false);
+                            if (!readBoringBasics) {
+                                sectionSelectorShadowRef.current.classList.add("apply-encounteredProblems-shake");
+                                sectionSelectorShadowRef.current.addEventListener("animationend", (e) => {
+                                    sectionSelectorShadowRef.current.classList.remove("apply-encounteredProblems-shake");
+                                })
+                            } else {
+                                setReadBoringBasics(false);
+                                encounteredProblemsRef.current.style.color = "rgb(34 211 238)"
+                            }
+                        }}
+
+                        onMouseEnter={ () => {
+                            if (readBoringBasics) {
+                                encounteredProblemsRef.current.style.color =  "rgb(165 243 252)"
+                            }
+                        }}
+
+                        onMouseLeave={ () => {
+                            encounteredProblemsRef.current.style.color = "rgb(34 211 238)"
                         }}
                     >Encoutered Problems
                     </div>

@@ -133,6 +133,87 @@
 }
 /******************************************************************************************************************************/
 
+.notesButtonTransition-enter {
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: 1vw 1vw;
+    /* transform: translate(48vw, 0); */
+}
+
+.notesButtonTransition-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: 1vw 1vw;
+    transition: all 300ms 0ms cubic-bezier(0.8, 0.15, 0.5, 1);
+}
+
+.notesButtonTransition-enter-done {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: 1vw 1vw;
+    transition: all 300ms 0ms cubic-bezier(0.8, 0.15, 0.5, 1);
+}
+
+.notesButtonTransition-exit {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: 1vw 1vw;
+}
+
+.notesButtonTransition-exit-active {
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: 1vw 1vw;
+    transition: all 300ms 0ms cubic-bezier(0.8, 0.15, 0.5, 1);
+}
+
+
+.notesTransition-enter {
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: 1vw 1vw;
+}
+
+.notesTransition-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: 1vw 1vw;
+    transition: all 300ms 0ms cubic-bezier(0.8, 0.15, 0.5, 1);
+
+
+    /* transform: translate(-48vw, 0);
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out; */
+}
+
+.notesTransition-enter-done {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: 1vw 1vw;
+    transition: all 300ms 0ms cubic-bezier(0.8, 0.15, 0.5, 1);
+
+
+    /* transform: translate(-48vw, 0);
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out; */
+}
+
+.notesTransition-exit {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: 1vw 1vw;
+}
+
+.notesTransition-exit-active {
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: 1vw 1vw;
+    transition: all 300ms 0ms cubic-bezier(0.8, 0.15, 0.5, 1);
+}
+
+
+
+
 
 @layer utilities, components {
 

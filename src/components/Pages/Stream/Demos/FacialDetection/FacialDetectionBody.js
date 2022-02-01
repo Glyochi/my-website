@@ -5,13 +5,21 @@ import { CSSTransition } from "react-transition-group";
 import BasicEnhancementExplain from "./BasicEnhancementExplain";
 // Import css file
 import "./FacialDetectionBody.css"
-import ImprovedVersionExplain from "./ImprovedVersionExplain";
+import OptimizedVersionExplain from "./OptimizedVersionExplain";
 
 function VideoStreamingBody() {
 
 
     const [readBasicEnhancement, setReadBasicEnhancement] = useState(true);
+   
+    const basicEnhancementRef = useRef(null);
+    const improvedVersionRef = useRef(null);
 
+    
+    // Shake animations when choosing sections
+    const sectionSelectorShadowRef = useRef(null);
+
+    
 
     return (
         <div
@@ -19,22 +27,23 @@ function VideoStreamingBody() {
             flex flex-col items-center
             "
 
-        >
+        >   
+            <div></div>
             {/* ******************************************************************************************************************************* */}
-            <div className="flex flex-row justify-center p-5  ">
+            {/* <div className="flex flex-row justify-center p-5  ">
                 <div className=" text-[4vw] leading-[5vw] text-cyan-400 ">TechStack</div>
-            </div>
+            </div> */}
 
             {/* ******************************************************************************************************************************* */}
-            <div className="grid grid-cols-7 bg-blue-700 rounded-[2vw] p-[0.6vw]">
+            <div className="grid grid-cols-7 bg-blue-700 rounded-[2vw] mt-[2vw] w-[94%] p-[0.6vw] pb-[1vw]">
                 <div className=" col-start-2 col-span-1 flex flex-row justify-center items-center ">
-                    <div className="text-[3vw] leading-[2.5vw]">ReactJS</div>
+                    <div className="text-[3vw] leading-[2.5vw]">OpenCV</div>
                 </div>
                 <div className="col-start-4 col-span-1 flex flex-row justify-center">
-                    <div className="text-[3vw] leading-[2.5vw]">SocketIO</div>
+                    <div className="text-[3vw] leading-[2.5vw]">BRAIN!!!</div>
                 </div>
                 <div className="col-start-6 col-span-1 flex flex-row justify-center">
-                    <div className="text-[3vw] leading-[2.5vw]">Flask</div>
+                    <div className="text-[3vw] leading-[2.5vw]">Python</div>
                 </div>
             </div>
 
@@ -42,6 +51,8 @@ function VideoStreamingBody() {
             <div className="w-[100%] mt-[3vw]">
                 <div className="flex flex-row justify-evenly p-[0.6vw]">
                     <div className=" absolute w-[100px] h-10 bg-gray-700 z-20 rounded-full duration-[360ms]"
+                        ref={sectionSelectorShadowRef}
+
                         style={
                             readBasicEnhancement ?
                                 {
@@ -62,17 +73,57 @@ function VideoStreamingBody() {
                     >
 
                     </div>
-                    <div className="text-[3vw] leading-[5vw] text-cyan-400 z-30"
+                    <div className="text-[3vw] leading-[5vw] text-cyan-400 z-30 duration-100 ease-linear"
+                        ref={basicEnhancementRef}
+
                         onClick={() => {
-                            setReadBasicEnhancement(true);
+                            if (readBasicEnhancement) {
+                                sectionSelectorShadowRef.current.classList.add("apply-basicEnhancement-shake");
+                                sectionSelectorShadowRef.current.addEventListener("animationend", (e) => {
+                                    sectionSelectorShadowRef.current.classList.remove("apply-basicEnhancement-shake");
+                                })
+                            } else {
+                                setReadBasicEnhancement(true);
+                                basicEnhancementRef.current.style.color = "rgb(34 211 238)"
+                            }
+                        }}
+
+                        onMouseEnter={ () => {
+                            if (!readBasicEnhancement) {
+                                basicEnhancementRef.current.style.color =  "rgb(165 243 252)"
+                            }
+                        }}
+
+                        onMouseLeave={ () => {
+                            basicEnhancementRef.current.style.color = "rgb(34 211 238)"
                         }}
                     >Basic Enhancement
                     </div>
-                    <div className="text-[3vw] leading-[5vw] text-cyan-400 z-30"
+                    <div className="text-[3vw] leading-[5vw] text-cyan-400 z-30 duration-100 ease-linear"
+                        ref={improvedVersionRef}
+
                         onClick={() => {
-                            setReadBasicEnhancement(false);
+                            if (!readBasicEnhancement) {
+                                sectionSelectorShadowRef.current.classList.add("apply-optimizedVersion-shake");
+                                sectionSelectorShadowRef.current.addEventListener("animationend", (e) => {
+                                    sectionSelectorShadowRef.current.classList.remove("apply-optimizedVersion-shake");
+                                })
+                            } else {
+                                setReadBasicEnhancement(false);
+                                improvedVersionRef.current.style.color = "rgb(34 211 238)"
+                            }
                         }}
-                    >Improved Version
+
+                        onMouseEnter={ () => {
+                            if (readBasicEnhancement) {
+                                improvedVersionRef.current.style.color =  "rgb(165 243 252)"
+                            }
+                        }}
+
+                        onMouseLeave={ () => {
+                            improvedVersionRef.current.style.color = "rgb(34 211 238)"
+                        }}
+                    >Optimized Version
                     </div>
                 </div>
             </div>
@@ -87,7 +138,7 @@ function VideoStreamingBody() {
                         exit: 1000,
                     }}
                     unmountOnExit
-                    classNames="boringBasicsTransition"
+                    classNames="basicEnhancementTransition"
                     className=" col-start-1 col-span-1 row-start-1 row-span-1"
                 >
                     <div>
@@ -101,11 +152,11 @@ function VideoStreamingBody() {
                         exit: 1000,
                     }}
                     unmountOnExit
-                    classNames="encounteredProblemsTransition"
+                    classNames="improvedVersionTransition"
                     className=" col-start-1 col-span-1 row-start-1 row-span-1"
                 >
                     <div>
-                        <ImprovedVersionExplain></ImprovedVersionExplain>
+                        <OptimizedVersionExplain></OptimizedVersionExplain>
                     </div>
                 </CSSTransition>
 

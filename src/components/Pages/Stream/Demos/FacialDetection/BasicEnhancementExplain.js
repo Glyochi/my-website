@@ -22,14 +22,14 @@ function BoringBasics() {
     const haarCascadeSummerization = "To summarize, OpenCV obtains a set of Haar features that best describe a face (provided by the user) and use that as a reference when checking for faces. OpenCV go through the image and crop out rectangles (potential faces) in all possible sizes and all possible locations, comparing those cropped out areas with the reference face to check if those satisfy all the facial feature requirements. If any of them do, then that will be considered a detected face."
 
     const limitationIntro = "Because all the haar features are placed relative to the potential face bounding box. If the box is not aligned with the angle of the face in the image, all the haar features will become misaligned. Therefore, OpenCV would not be able to detect tilted faces."
-    const limitationExample1 = "An example of the forehead features but now it is being used on a horizontal face"
+    const limitationExample1 = "An example of the forehead feature but now it is being used on a horizontal face"
 
     const solution1 = "To combat this, my solution is to just simply do the scan in multiple orientations, not just on the vertical image. Once those scans finish, I can just convert the rotated coordinates of the faces found back to the original image’s coordinates axis, check if there is any overlapping face, and remove the duplicates."
     const solution2 = "One small optimization that I made was to instead of scanning for faces directly, the program scanned for eyes (which takes half the time compared to scanning for faces). Then it checks if the eyes have a similar size and the distance between the two is appropriate (not too close/too far). For every pair of eyes it finds, it will crop out the potential face area around that pair of eyes, then do facial detection on that small area only. If a face is found, I can use the relative locations of the eyes to further investigate which one is the left eye, which one is the right eye."
 
 
     return (
-        <div className="boringBasics flex flex-col w-[60vw] ml-[-5px]  text-cyan-200
+        <div className="basicEnhancement flex flex-col w-[60vw] ml-[-5px]  text-cyan-200
         text-[1.3vw] leading-[1.8vw] 
         ">
 
@@ -39,10 +39,10 @@ function BoringBasics() {
                 <br></br>
                 <div>{basicEnhancementIntro}</div>
 
-            
+
                 <br></br>
-            <br></br>
-            <br></br>
+                <br></br>
+                <br></br>
 
 
                 <div className="flex flex-col items-center ">
@@ -142,9 +142,15 @@ function BoringBasics() {
             </div>
 
 
-            
+
             <br></br>
             <br></br>
+            <br></br>
+
+            <div className="flex flex-col items-center">
+                <div className="text-[2vw] leading-[1.8vw] text-cyan-300">Solution</div>
+            </div>
+
             <br></br>
 
             <div>{solution1}</div>

@@ -379,7 +379,7 @@ function VideoStreamingHead() {
                         in={helpPressed}
                         unmountOnExit
                     >
-                        <div className="absolute bg-cyan-900  text-gray-200 rounded-[1vw] p-2 translate-x-[-24vw] translate-y-[-11vw] w-[24vw] text-[1vw] leading-[1vw] font-semibold "
+                        <div className="absolute bg-cyan-900  text-gray-200 rounded-[1vw] translate-x-[-24vw] translate-y-[-12vw] p-[1vw] w-[24vw] text-[1vw] leading-[1vw] font-semibold "
                             ref={helpDescriptionRef}
                             style={
                                 {

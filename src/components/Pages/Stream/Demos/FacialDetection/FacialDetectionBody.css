@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 
-.boringBasicsTransition-enter {
+.basicEnhancementTransition-enter {
     opacity: 0;
     transform: translate(-32vw, 0);
 }
 
-.boringBasicsTransition-enter-active {
+.basicEnhancementTransition-enter-active {
     opacity:1;
     transform: translate(0vw, 0);
     transition: all 300ms 100ms cubic-bezier(0.8, 0.15, 0.5, 1);
@@ -16,16 +16,16 @@
     
 }
 
-.boringBasicsTransition-enter-done {
+.basicEnhancementTransition-enter-done {
     
     /* transform: translate(0vw, 0); */
 }
 
-.boringBasicsTransition-exit {
+.basicEnhancementTransition-exit {
     opacity: 1;
 }
 
-.boringBasicsTransition-exit-active {
+.basicEnhancementTransition-exit-active {
     opacity: 0;
     transform: translate(-32vw, 0);
     transition: all 300ms 0ms cubic-bezier(0.8, 0.15, 0.5, 1);
@@ -35,13 +35,13 @@
 
 
 
-.encounteredProblemsTransition-enter {
+.improvedVersionTransition-enter {
     opacity: 0;
     transform: translate(32vw, 0);
     /* transform: translate(48vw, 0); */
 }
 
-.encounteredProblemsTransition-enter-active {
+.improvedVersionTransition-enter-active {
     opacity:1;
     transform: translate(0vw, 0);
     transition: all 300ms 0ms cubic-bezier(0.8, 0.15, 0.5, 1);
@@ -52,18 +52,57 @@
     transition-timing-function: ease-in-out; */
 }
 
-.encounteredProblemsTransition-exit {
+.improvedVersionTransition-exit {
     opacity: 1;
     /* transform: translate(12vw, 0);
     transition-duration: 300ms; */
 }
 
-.encounteredProblemsTransition-exit-active {
+.improvedVersionTransition-exit-active {
     opacity: 0;
     transform: translate(32vw, 0);
     transition: all 300ms 0ms cubic-bezier(0.8, 0.15, 0.5, 1);
 }
 
+/******************************************************************************************************************************/
+/* Shaking animations */
+@keyframes basicEnhancementShake {
+    /* original translation (-15.7vw, 0.7vw) */
+
+    15%, 65% {
+        /* -0.35 */
+        transform: translate3d(-16.05vw, 0.7vw, 0);
+    }
+
+    40%, 90% {
+        /* +0.35 */
+        transform: translate3d(-15.35vw, 0.7vw, 0);
+    }
+}
+
+.apply-basicEnhancement-shake {
+    animation: basicEnhancementShake 0.15s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes optimizedVersionShake {
+    /* original translation (16.75vw, 0.7vw) */
+
+    15%, 65% {
+        /* -0.35 */
+        transform: translate3d(16.4vw, 0.7vw, 0);
+    }
+
+    40%, 90% {
+        /* +0.35 */
+        transform: translate3d(17.1vw, 0.7vw, 0);
+    }
+}
+
+.apply-optimizedVersion-shake {
+    animation: optimizedVersionShake 0.15s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+/******************************************************************************************************************************/
 
 
 
