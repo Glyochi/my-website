@@ -151,6 +151,7 @@ function VideoStreamingHead() {
     const helpDescription1 = "Left video is the one using the basic facial detection that comes with OpenCV.";
     const helpDescription2 = "Right video is the optimized version of my implementation of tilted facial detection.";
     const helpDescription3 = "The right video provide a higher hit-rate for tilted faces while yet retaining a low frametime (high fps)."
+    const helpDescription4 = "There's a performance issue when the face is too close to the camera. If the video to the right freezes please refresh the page and put the camera further away from the detecting face."
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // SCRIPTS FOR TOGGLING RECORD AND NOT RECORDING MODE //
@@ -301,7 +302,7 @@ function VideoStreamingHead() {
     return (
         <div className="demoTimeStepHead" >
 
-            <div className="toggleButtonWrapper">
+            <div className="toggleButtonWrapper ">
 
                 <button className="helpButton invisible">?</button>
 
@@ -378,7 +379,7 @@ function VideoStreamingHead() {
                         in={helpPressed}
                         unmountOnExit
                     >
-                        <div className="absolute bg-cyan-900  text-gray-200 rounded-[1vw] p-[1vw] translate-x-[-26vw] translate-y-[-11.2vw] w-[26vw] text-[1vw] leading-[1vw] font-semibold"
+                        <div className="absolute bg-cyan-900  text-gray-200 rounded-[1vw] p-[1vw] translate-x-[-30.8vw] translate-y-[-14.8vw] w-[31vw] text-[1vw] leading-[1vw] font-semibold"
                             ref={helpDescriptionRef}
                             style={
                                 {
@@ -392,6 +393,7 @@ function VideoStreamingHead() {
                             <div>{helpDescription1}</div>
                             <div className="mt-[0.6vw]">{helpDescription2}</div>
                             <div className="mt-[0.6vw]">{helpDescription3}</div>
+                            <div className="mt-[0.6vw]">{helpDescription4}</div>
                         </div>
                     </CSSTransition>
                 </div>

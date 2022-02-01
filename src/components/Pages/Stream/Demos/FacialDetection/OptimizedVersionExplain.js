@@ -111,7 +111,7 @@ function EncounteredProblems() {
 
             <br></br>
             <div className='flex flex-col items-center'>
-                <div>Improved Enhanced Version</div>
+                <div>Optimized Enhanced Version</div>
                 <img src={even_more_optimized} className="w-[20vw] rounded-3xl mt-[0.6vw]"></img>
             </div>
 

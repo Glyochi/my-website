@@ -77,7 +77,6 @@ class ImprovedEnhancedVideoSocketService {
             let facesInfo = data.facesInfo
             let frameID = data.frameID
             
-            console.log(facesInfo)
             // If the received frame is before the most recent displayed frame then we just ignore it
             if (frameID <= this.latestDrawnFrameID) {
                 return

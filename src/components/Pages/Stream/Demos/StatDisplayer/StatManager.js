@@ -27,11 +27,11 @@ class StatManager {
             b: 0,
         }
 
-        this.goodDelay = 180;
+        this.goodDelay = 300;
         this.delayRange = 200;
         this.onePercentRange = 100;
-        this.goodVariation = 20;
-        this.variationRange = 60;
+        this.goodVariation = 40;
+        this.variationRange = 100;
 
         this.badColor = {
             r: 255,
