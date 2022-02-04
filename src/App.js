@@ -14,9 +14,9 @@ import StreamPageBody from './components/Pages/Stream/StreamPageBody';
 
 
 function App() {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
-  navigate('/Home')
+  // navigate('/Home')
 
   return (
     // <div className=' overflow-hidden w-[1910px] h-[1070px]'>
@@ -39,7 +39,7 @@ function App() {
             {/* Static web pages dont need endpoint */}
             {/* <Route path="/Tetris"  onEnter={reloadTetris}/> */}
             {/* <Route path="/Graph"  onEnter={reloadGraph}/> */}
-            
+            <Route path="*" element={<HomePageBody />} />
           </Routes>
           </div>
         </Router>
