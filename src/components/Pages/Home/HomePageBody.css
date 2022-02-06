@@ -35,7 +35,7 @@
     }
 
     .pfp {
-        @apply scale-[2.1] ml-[-1.4vw] mt-[3.6vw]
+        @apply scale-[1.1] ml-[0.8vw] mt-[1vw]
         transition-all duration-300
         ;
     }

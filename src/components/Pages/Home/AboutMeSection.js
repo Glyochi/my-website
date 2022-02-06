@@ -15,9 +15,9 @@ function AboutMeSection() {
                 group-hover:duration-200
                 ">
                     <img src={Pfp} className="pfp
-                    group-hover:scale-[3] 
-                    group-hover:translate-x-[-1.8vw]
-                    group-hover:translate-y-[4.2vw]
+                    group-hover:scale-[1.3] 
+                    group-hover:translate-x-[0.3vw]
+                    group-hover:translate-y-[2vw]
                     group-hover:duration-200
                     " alt='' ></img>
                 </div>
