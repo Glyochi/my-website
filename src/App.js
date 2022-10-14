@@ -31,7 +31,7 @@ function App() {
             <NavBar />
           </div>
           <Routes>
-            <Route path="/" element={<HomePageBody />} />
+            <Route path="/" element={<StreamPageBody />} />
             <Route path="/Home" element={<HomePageBody />} />
             <Route path="/Resume" element={<ResumePageBody />} />
             <Route path="/View Online" element={<HomePageBody />} />

@@ -8,6 +8,11 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import { CSSTransition } from "react-transition-group";
 
 
+import vanilla from './Demos/FacialDetection/screenshots/video_standard.gif'
+import unoptimized from './Demos/FacialDetection/screenshots/video_unoptimized.gif'
+import even_more_optimized from './Demos/FacialDetection/screenshots/video_EVEN_MORE_optimized.gif'
+
+
 function StreamPageBody() {
 
     const [partOne, setPartOne] = useState(true);
@@ -31,7 +36,53 @@ function StreamPageBody() {
 
     return (
         <div className=" flex flex-col justify-center items-center w-3/4 text-[1.7vw]">
+
+            <div className="w-full">
+                <div>
+                    <div className='flex flex-col items-center mt-[3vw] bg-gray-600 text-[1.1vw] text-cyan-300 rounded-3xl px-[1.6vw] py-[1vw] justify-center'>
+                        <div className="text-[2vw] ">Facial Detection Method Comparison</div>
+                        <div className="text-[1.4vw] leading-[1.8vw] ">(Live Demo and Technical Explaination below)</div>
+                        <br></br>
+                        <div className='flex flex-row justify-evenly w-full'>
+                            <div className='flex flex-col items-center'>
+                                <div>Traditional Method</div>
+                                <img src={vanilla} className=" rounded-3xl w-[18vw] mt-[0.6vw]"></img>
+                            </div>
+                            <div className='flex flex-col items-center'>
+                                <div>My Enhanced Method</div>
+                                <img src={unoptimized} className="rounded-3xl w-[18vw] mt-[0.6vw]"></img>
+                            </div>
+                            <div className='flex flex-col items-center'>
+                                <div>My Optimized Enhanced Method</div>
+                                <img src={even_more_optimized} className=" rounded-3xl w-[18vw] mt-[0.6vw]"></img>
+                            </div>
+
+
+                        </div>
+                        <br></br>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div className="flex flex-col items-center mt-[3vw] bg-gray-600 text-cyan-300 rounded-3xl px-[1.6vw] py-[1vw] justify-center">
+                <div>
+                    The live demo is not working right now because I can no longer afford the server hosting the facial detection application 😔. 
+                    But you can still see it in action in&nbsp;
+                    <a href="https://www.youtube.com/watch?v=f4L_tlGdppI" target="_blank" className="text-orange-300 underline">
+                        here
+                    </a> and <a href="https://www.youtube.com/watch?v=KoNEMDarG0I" target="_blank" className="text-orange-300 underline">
+                        here!
+                    </a>
+                    &nbsp; ٩(◕‿◕｡)۶
+                </div>
+            </div>
+
             <div className="w-full grid grid-cols-12 my-[1.5vw] h-[5vw]">
+
+                
                 <div className="h-fit col-start-2 col-span-4">
                     <button
                         className="w-full transition-all duration-[300ms] rounded-3xl"

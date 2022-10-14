@@ -28,14 +28,16 @@ function VideoStreamingBody() {
             "
 
         >   
+            <div className="text-[2vw] text-cyan-400 mt-[1.2vw] ml-[6vw] w-full">Part 2</div>
+
             <div></div>
             {/* ******************************************************************************************************************************* */}
-            {/* <div className="flex flex-row justify-center p-5  ">
-                <div className=" text-[4vw] leading-[5vw] text-cyan-400 ">TechStack</div>
-            </div> */}
+            <div className="flex flex-row justify-center  ">
+                <div className="text-[4vw] text-cyan-400">Facial Detection</div>
+            </div>
 
             {/* ******************************************************************************************************************************* */}
-            <div className="grid grid-cols-7 bg-blue-700 rounded-[2vw] mt-[2vw] w-[94%] p-[0.6vw] pb-[1vw]">
+            <div className="grid grid-cols-7 bg-blue-700 rounded-[2vw] w-[94%] p-[0.6vw] pb-[1vw]">
                 <div className=" col-start-2 col-span-1 flex flex-row justify-center items-center ">
                     <div className="text-[3vw] leading-[2.5vw]">OpenCV</div>
                 </div>

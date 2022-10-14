@@ -122,7 +122,7 @@ function EncounteredProblems() {
             <br></br>
             
             <div className='flex flex-col items-center'>
-                <div className="text-[2vw] leading-[1.8vw] text-cyan-300">Comparison</div>
+                <div className="text-[2vw] leading-[1.8vw] text-cyan-300">Comparisons</div>
                 <br></br>
                 <div className='flex flex-row justify-evenly w-full'>
                     <div className='flex flex-col items-center'>

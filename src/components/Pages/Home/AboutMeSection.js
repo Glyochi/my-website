@@ -2,9 +2,9 @@
 import Pfp from "../../../Assets/profile pic.jpg"
 
 function AboutMeSection() {
-    var name = "Vũ Hoàng Dương";
-    var descriptionOpening = "I am a junior computer science major at Iowa State University. I'm also a skilled programmer that can handle difficult assignments with ease.";
-    var descriptionEnding = "I spend the most of my free time working on personal projects that need a diverse set of skills. I've worked with computer graphics (openGL, ray-tracing), computer vision (openCV), and, most recently, full stack application development (webapp and android app). You can see demos of some of my work under the Project tab above."
+    var name = "Duong Hoang Vu";
+    var descriptionOpening = "I am a senior majoring in computer science at Iowa State University. I'm also a skilled programmer that can handle difficult assignments with ease.";
+    var descriptionEnding = "I spend most of my free time working on personal projects that need a diverse set of skills. I've worked with computer graphics (OpenGL, ray-tracing), computer vision (OpenCV), and, most recently, full-stack application development (webapp and android app). You can see demos of some of my work under the Project tab above."
     return (
         <div className="aboutMe">
             <div className="pfpCollisionDetection group ">
