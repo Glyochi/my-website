@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.1fcb31cb.css",
-    "main.js": "/static/js/main.a168972b.js",
+    "main.css": "/static/css/main.8cee489b.css",
+    "main.js": "/static/js/main.d02c86a2.js",
     "static/js/787.9b9c0edf.chunk.js": "/static/js/787.9b9c0edf.chunk.js",
     "static/media/video_unoptimized.gif": "/static/media/video_unoptimized.623a47b122ef051c281b.gif",
     "static/media/video_optimized.gif": "/static/media/video_optimized.7d133f8479426b6b4a45.gif",
@@ -9,7 +9,7 @@
     "static/media/video_standard.gif": "/static/media/video_standard.b12360fa8ee0828e2f6c.gif",
     "static/media/bruteforce_demo.png": "/static/media/bruteforce_demo.2ab3154cc3e50b0d67d0.png",
     "static/media/rotation_demo.png": "/static/media/rotation_demo.35c2827f15dc09054279.png",
-    "static/media/Resume.jpg": "/static/media/Resume.945f54f748386c22efd2.jpg",
+    "static/media/Resume.jpg": "/static/media/Resume.0388e91580fab3a21afb.jpg",
     "static/media/Haar_Cascade_Visualization.gif": "/static/media/Haar_Cascade_Visualization.e3c1e68a91d4b01ae17d.gif",
     "static/media/profile pic.jpg": "/static/media/profile pic.47dc56999371160eaa57.jpg",
     "static/media/serverReceive.png": "/static/media/serverReceive.20d845cafafc888be0d1.png",
@@ -21,12 +21,12 @@
     "static/media/clientReceive.png": "/static/media/clientReceive.8e6fd22a40fc14fe455f.png",
     "static/media/outOfOrderFrames_foundThreads.png": "/static/media/outOfOrderFrames_foundThreads.f1986954c07ddf0e3ca9.png",
     "index.html": "/index.html",
-    "main.1fcb31cb.css.map": "/static/css/main.1fcb31cb.css.map",
-    "main.a168972b.js.map": "/static/js/main.a168972b.js.map",
+    "main.8cee489b.css.map": "/static/css/main.8cee489b.css.map",
+    "main.d02c86a2.js.map": "/static/js/main.d02c86a2.js.map",
     "787.9b9c0edf.chunk.js.map": "/static/js/787.9b9c0edf.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1fcb31cb.css",
-    "static/js/main.a168972b.js"
+    "static/css/main.8cee489b.css",
+    "static/js/main.d02c86a2.js"
   ]
 }
