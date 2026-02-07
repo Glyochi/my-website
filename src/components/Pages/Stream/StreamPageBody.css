@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 .partOneTransition-enter {
     opacity: 0;
     transform: translate(-32vw, 0);
@@ -215,15 +211,75 @@
 
 
 
-@layer utilities, components {
+.videoContainer {
+    /* aspect-ratio */
+    @apply w-3/4;
+}
 
+.btn-toggle-main {
+    @apply w-full rounded-3xl transition-all;
+    transition-duration: 300ms;
+}
 
+.btn-toggle-main-fit {
+    @apply w-full h-fit rounded-3xl transition-all;
+    transition-duration: 300ms;
+}
 
+.btn-toggle-sub {
+    @apply h-fit rounded-3xl;
+    font-size: 1.1vw;
+    transition-duration: 300ms;
+}
 
-    .videoContainer {
-        /* aspect-ratio */
-        @apply w-3/4;
-    }
+.btn-notes {
+    @apply bg-callout-note-button rounded-3xl;
+    width: 8vw;
+    height: 2.7vw;
+    padding: 0 1.6vw;
+}
 
+.stream-panel {
+    @apply w-full bg-surface-base rounded-[1vw] flex flex-col items-center;
+}
 
+.stream-part-label {
+    @apply text-[2vw] text-brand-emphasis mt-[1.2vw] ml-[6vw] w-full;
+}
+
+.stream-main-title {
+    @apply text-[4vw] text-brand-emphasis;
+}
+
+.stream-tech-strip {
+    @apply grid grid-cols-7 bg-surface-tech rounded-[2vw] w-[94%] p-[0.6vw] pb-[1vw];
+}
+
+.stream-selector-shadow {
+    @apply absolute w-[100px] h-10 bg-surface-raised z-20 rounded-full;
+    transition-duration: 360ms;
+}
+
+.stream-selector-tab {
+    @apply text-[3vw] leading-[5vw] text-brand-emphasis z-30 duration-100 ease-linear;
+}
+
+.stream-article {
+    @apply w-[60vw] ml-[-5px] text-brand-body text-[1.3vw] leading-[1.8vw];
+}
+
+.stream-section-heading {
+    @apply text-[2vw] leading-[1.8vw] text-brand-heading;
+}
+
+.stream-code-pill {
+    @apply text-callout-code-text bg-callout-code-bg rounded-3xl w-fit;
+}
+
+.stream-comparison-panel {
+    @apply flex flex-col items-center mt-[3vw] bg-surface-panel text-brand-heading rounded-3xl px-[1.6vw] py-[1vw] justify-center;
+}
+
+.stream-notes-card {
+    @apply text-[1vw] leading-[1.1vw] font-semibold bg-callout-note-bg w-[50vw] h-[6.4vw] rounded-3xl px-[1.6vw] py-[1vw] flex flex-col justify-center;
 }

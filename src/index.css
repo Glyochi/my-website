@@ -2,20 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "./components/NavBar/NavBar.css";
-@import "./components/Pages/Home/HomePageBody.css";
-@import "./components/Pages/Resume/ResumePageBody.css";
-@import "./components/Pages/Stream/StreamPageBody.css";
-
-
-
 @layer components {
     .Page {
         @apply bg-gradient-to-b to-emerald-800 from-gray-800
         
         ;
     }
-    
+
     /* .wallpaper {
         @apply absolute z-[-1] mx-0 my-0 scale-100 
         ;
