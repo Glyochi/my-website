@@ -29,6 +29,14 @@ const NavBarLeft: React.FC = () => {
     link: '',
     dropDownMenu: [
       {
+        optionText: 'LLLM Serving',
+        download: false, staticHTML: true, reactPage: false, link: 'https://github.com/Glyochi/LLLM-serving'
+      },
+      {
+        optionText: 'Dice',
+        download: false, staticHTML: true, reactPage: false, link: 'https://github.com/Glyochi/dice'
+      },
+      {
         optionText: 'Improved Facial Detection',
         download: false, staticHTML: false, reactPage: true, link: '/ImprovedFacialDetection'
       },
@@ -40,7 +48,6 @@ const NavBarLeft: React.FC = () => {
         optionText: 'Graph',
         download: false, staticHTML: true, reactPage: false, link: './otherHTMLs/Graph/Graph.html'
       },
-
     ]
   };
   const homeBtn: ButtonConfig = {
@@ -170,7 +177,12 @@ const NavBarLeftBtn: React.FC<NavBarLeftBtnProps> = (props) => {
                     dropDownOption.staticHTML ?
                       <li className='DropDownOption'
                       >
-                        <a href={dropDownOption.link} className='DropDownContent' >
+                        <a
+                          href={dropDownOption.link}
+                          className='DropDownContent'
+                          target='_blank'
+                          rel='noreferrer noopener'
+                        >
                           {dropDownOption.optionText}
                         </a>
                       </li>

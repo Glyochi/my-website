@@ -54,6 +54,35 @@
     transition:opacity var(--transitionDuration) calc(var(--baseDelay) + var(--transitionGap) * 2) ease-in;
 }
 
+.drop-down-animation-3-enter{
+    opacity: 0;
+}
+.drop-down-animation-3-enter-active{
+    opacity: 1;
+    transition:opacity var(--transitionDuration) calc(var(--baseDelay) + var(--transitionGap) * 3) ease-in;
+}
+.drop-down-animation-3-exit{
+    opacity: 1;
+}
+.drop-down-animation-3-exit-active{
+    opacity: 0;
+    transition:opacity var(--transitionDuration) calc(var(--baseDelay) + var(--transitionGap) * 3) ease-in;
+}
+
+.drop-down-animation-4-enter{
+    opacity: 0;
+}
+.drop-down-animation-4-enter-active{
+    opacity: 1;
+    transition:opacity var(--transitionDuration) calc(var(--baseDelay) + var(--transitionGap) * 4) ease-in;
+}
+.drop-down-animation-4-exit{
+    opacity: 1;
+}
+.drop-down-animation-4-exit-active{
+    opacity: 0;
+    transition:opacity var(--transitionDuration) calc(var(--baseDelay) + var(--transitionGap) * 4) ease-in;
+}
 
 @layer components{
     
