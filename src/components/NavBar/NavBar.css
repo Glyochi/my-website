@@ -95,11 +95,11 @@
     .NavBarLeftBtn {
         @apply  relative flex 
         h-fit w-fit my-auto mx-auto text-white
-        text-[1.2vw] leading-[1vw]
+        text-[1rem] leading-[1.2rem]
 
-        py-[0.6vw]
-        px-[0.8vw]
-        rounded-[1vw]
+        py-[0.4rem]
+        px-[0.7rem]
+        rounded-[0.75rem]
 
         transition-all duration-200 ease-linear
        hover:text-emerald-400
@@ -114,14 +114,14 @@
         w-[200%]
         pt-2
         z-50
-        translate-y-[1.8vw]
+        translate-y-[1.6rem]
         translate-x-[24%]
         ;
     }
 
     .DropDownOption {
-        @apply relative flex justify-center items-center bg-emerald-400 rounded-[1vw] w-fit mt-[0.4vw]
-        text-[0.9vw] leading-[1vw]
+        @apply relative flex justify-center items-center bg-emerald-400 rounded-[0.75rem] w-fit mt-[0.35rem]
+        text-[0.9rem] leading-[1.15rem]
         
         transition-all duration-[600ms] ease-linear
         hover:bg-emerald-600
@@ -136,23 +136,23 @@
     }
 
     .DropDownContent{
-        @apply  px-[1vw]
-        py-[0.2vw]
+        @apply px-[0.8rem]
+        py-[0.25rem]
         ;
     }
 
     .NavBarRightBtn {
         @apply relative flex items-center justify-center 
-        h-[2vw] w-[5vw] my-auto mx-auto bg-white rounded-[1vw]
-        text-[1vw] leading-[1.2vw]  font-semibold text-green-800
+        my-auto mx-auto bg-white rounded-[0.5rem]
+        text-[0.9rem] leading-[1.1rem] font-semibold
+        px-[0.5rem] py-[0.2rem]
 
         transition-all duration-200 ease-linear
-        hover:font-bold hover:text-[1.3vw]
-        hover:w-[6.6vw] hover:h-[2.6vw]
-        hover:text-teal-50 hover:bg-green-700
+        hover:font-bold hover:text-[1rem]
+        hover:px-[0.7rem] hover:py-[0.4rem]
+        hover:text-teal-50 hover:bg-emerald-600
 
         ;
     }
   
 }
-

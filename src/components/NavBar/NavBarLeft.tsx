@@ -74,10 +74,10 @@ const NavBarLeft: React.FC = () => {
   };
 
   return (
-    <div className="top-0 left-0 h-auto w-3/5 flex flex-row
+    <div className="top-0 left-0 h-auto w-full flex flex-row
          justify-center
                         " >
-      <div className="flex w-2/3 h-auto ">
+      <div className="flex w-full h-auto">
         <NavBarLeftBtn btnConfig={homeBtn} />
         <NavBarLeftBtn btnConfig={resumeBtn} />
         <NavBarLeftBtn btnConfig={projectsBtn} />
@@ -127,13 +127,13 @@ const NavBarLeftBtn: React.FC<NavBarLeftBtnProps> = (props) => {
               clicked ?
                 {
                   transitionDuration: '50ms',
-                  boxShadow: '0.2vw 0.3vw 0px ',
-                  borderRadius: '2vw',
-                  padding: '0.6vw 0.8vw',
+                  boxShadow: '3px 5px 0px',
+                  borderRadius: '0.9rem',
+                  padding: '0.4rem 0.7rem',
                   // fontSize: '1.5rem'/* 30px */,
                   color: 'rgb(52 211 153)',
                   backgroundColor: 'rgb(75 85 99)',
-                  transform: 'translate(-0.3vw, -0.3vw)',
+                  transform: 'translate(-4px, -4px)',
                 }
                 :
                 {}
@@ -222,12 +222,12 @@ const NavBarLeftBtn: React.FC<NavBarLeftBtnProps> = (props) => {
               clicked ?
                 {
                   transitionDuration: '50ms',
-                  boxShadow: '0.2vw 0.3vw 1px ',
-                  borderRadius: '2vw',
-                  padding: '0.6vw 0.8vw',
+                  boxShadow: '3px 5px 1px',
+                  borderRadius: '0.9rem',
+                  padding: '0.4rem 0.7rem',
                   color: 'rgb(52 211 153)',
                   backgroundColor: 'rgb(75 85 99)',
-                  transform: 'translate(-0.3vw, -0.3vw)',
+                  transform: 'translate(-4px, -4px)',
                 }
                 :
                 {}

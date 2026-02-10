@@ -2,9 +2,9 @@ import React from 'react';
 
 const NavBarRight: React.FC = () => {
   return (
-    <div className="top-0 left-0 h-auto w-2/5 flex flex-row
+    <div className="top-0 left-0 h-auto w-full flex flex-row mr-2
         justify-center">
-      <div className="flex justify-between h-auto w-4/5">
+      <div className="flex justify-between h-auto w-full">
         <NavBarRightBtn BtnText={"Github"} BtnLink={"https://github.com/Glyochi"}></NavBarRightBtn>
         <NavBarRightBtn BtnText={"Linkedin"} BtnLink={"https://www.linkedin.com/in/glyochi/"}></NavBarRightBtn>
         <NavBarRightBtn BtnText={"Email"} BtnLink={"mailto: duongvh1806@gmail.com"}></NavBarRightBtn>
